@@ -22,8 +22,5 @@ namespace E_Commerce_Project.DAL.ORM.Tools
                 return _db;
             }
         }
-
-
-
     }
 }

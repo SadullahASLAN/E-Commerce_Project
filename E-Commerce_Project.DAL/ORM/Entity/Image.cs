@@ -17,6 +17,9 @@ namespace E_Commerce_Project.DAL.ORM.Entity
         [Key]
         [Column(Order = 2)]
         public string CategoryId { get; set; }
+
+        [MaxLength(200)]
+        [Required]
         public string Paht { get; set; }
 
         //Mapping

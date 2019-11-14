@@ -17,9 +17,16 @@ namespace E_Commerce_Project.DAL.ORM.Entity
         [Key]
         [Column(Order = 2)]
         public string ProductId { get; set; }
+
+        [Column(TypeName = "money")]
+        [Required]
         public decimal UnitPrice { get; set; }
-        public ushort Quantity { get; set; }
-        public decimal Discount { get; set; }
+
+        [Required(ErrorMessage ="Urun adeti boş geçilemez.")]
+        public short Quantity { get; set; }
+
+        [Column(TypeName = "money")]
+        public decimal? Discount { get; set; }
 
         //Mapping
         public virtual Order Order { get; set; }

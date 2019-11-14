@@ -16,6 +16,9 @@ namespace E_Commerce_Project.DAL.ORM.Entity
             this.TrackingNumber = "Kargoya verilmedi.";
         }
 
+        [Required(ErrorMessage = "Musteri alanı boş olamaz.")]
+        public string UsurId { get; set; }
+
         public DateTime OrderDate { get; set; }
 
         [MaxLength(100)]
@@ -31,7 +34,10 @@ namespace E_Commerce_Project.DAL.ORM.Entity
 
         //Mapping
         public virtual ICollection<OrderStatus> OrderStatuses { get; set; }
+
         public virtual Shipping Shipping { get; set; }
+
+        public virtual User User { get; set; }
 
     }
 }

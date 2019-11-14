@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace E_Commerce_Project.DAL.ORM.Entity
 {
-    public class OrderDetail
+    public class OrderDetail : BaseEntity
     {
         [Key]
         [Column(Order = 1)]
@@ -22,7 +22,7 @@ namespace E_Commerce_Project.DAL.ORM.Entity
         [Required]
         public decimal UnitPrice { get; set; }
 
-        [Required(ErrorMessage ="Urun adeti boş geçilemez.")]
+        [Required(ErrorMessage = "Urun adeti boş geçilemez.")]
         public short Quantity { get; set; }
 
         [Column(TypeName = "money")]

@@ -59,6 +59,18 @@
   <ItemGroup>
     <Compile Include="DbTools\DbInstance.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\BaseClass.cs" />
+    <Compile Include="Repositories\Interface\IBaseRepository.cs" />
+    <Compile Include="Repositories\Repository\CommentRepository.cs" />
+    <Compile Include="Repositories\Repository\ImageRepository.cs" />
+    <Compile Include="Repositories\Repository\MainCategoryRepository.cs" />
+    <Compile Include="Repositories\Repository\OrderDetailRepository.cs" />
+    <Compile Include="Repositories\Repository\OrderRepository.cs" />
+    <Compile Include="Repositories\Repository\OrderStatusRepository.cs" />
+    <Compile Include="Repositories\Repository\ProductRepository.cs" />
+    <Compile Include="Repositories\Repository\ShippingRepository.cs" />
+    <Compile Include="Repositories\Repository\SubCategoryRepository.cs" />
+    <Compile Include="Repositories\Repository\UserAddressRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\E-Commerce_Project.DAL\E-Commerce_Project.DAL.csproj">
@@ -70,6 +82,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

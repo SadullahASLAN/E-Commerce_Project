@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace E_Commerce_Project.DAL.ORM.Entity
 {
-    public class Category : BaseEntity
+    public class MainCategory : BaseEntity
     {
-        public Category()
+        public MainCategory()
         {
-            this.Products = new HashSet<Product>();
+            this.SubCategories = new HashSet<SubCategory>();
             this.Images = new HashSet<Image>();
         }
 
@@ -22,8 +22,8 @@ namespace E_Commerce_Project.DAL.ORM.Entity
         [MaxLength(500, ErrorMessage ="Açıklama 500 karakteri geçemez.")]
         public string Description { get; set; }
 
-        //Mapping
-        public virtual ICollection<Product> Products { get; set; }
+        //Mapping       
         public virtual ICollection<Image> Images { get; set; }
+        public virtual ICollection<SubCategory> SubCategories { get; set; }
     }
 }

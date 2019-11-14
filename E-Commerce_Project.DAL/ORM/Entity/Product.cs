@@ -43,7 +43,7 @@ namespace E_Commerce_Project.DAL.ORM.Entity
         [MaxLength(100, ErrorMessage = "Model 100 karakteri geçemez.")]
         public string Model { get; set; }
 
-        public string CategoryId { get; set; }
+        public string SubCategoryId { get; set; }
         public bool InSales { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdateDate { get; set; }
@@ -52,7 +52,7 @@ namespace E_Commerce_Project.DAL.ORM.Entity
         public string DiscountDescription { get; set; }
 
         //Mapping
-        public virtual Category Category { get; set; }
+        public virtual SubCategory SubCategory { get; set; }
         public virtual ICollection<Image> Images { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
     }

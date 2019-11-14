@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace E_Commerce_Project.DAL.ORM.Entity
 {
-    public class Image
+    public class Image : BaseEntity
     {
         [Key]
         [Column(Order = 1)]
@@ -18,12 +18,17 @@ namespace E_Commerce_Project.DAL.ORM.Entity
         [Column(Order = 2)]
         public string CategoryId { get; set; }
 
+        [Key]
+        [Column(Order = 3)]
+        public string SubCategoryId { get; set; }
+
         [MaxLength(200)]
         [Required]
         public string Paht { get; set; }
 
         //Mapping
-        public virtual Category Category { get; set; }
+        public virtual MainCategory MainCategory { get; set; }
+        public virtual SubCategory SubCategory { get; set; }
         public virtual Product Product { get; set; }
     }
 }

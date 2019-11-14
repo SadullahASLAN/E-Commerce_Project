@@ -59,7 +59,7 @@
   <ItemGroup>
     <Compile Include="ORM\Context\DataContext.cs" />
     <Compile Include="ORM\Entity\BaseEntity.cs" />
-    <Compile Include="ORM\Entity\Category.cs" />
+    <Compile Include="ORM\Entity\MainCategory.cs" />
     <Compile Include="ORM\Entity\Comment.cs" />
     <Compile Include="ORM\Entity\Image.cs" />
     <Compile Include="ORM\Entity\Order.cs" />
@@ -67,6 +67,7 @@
     <Compile Include="ORM\Entity\OrderStatus.cs" />
     <Compile Include="ORM\Entity\Product.cs" />
     <Compile Include="ORM\Entity\Shipping.cs" />
+    <Compile Include="ORM\Entity\SubCategory.cs" />
     <Compile Include="ORM\Entity\User.cs" />
     <Compile Include="ORM\Entity\UserAddress.cs" />
     <Compile Include="ORM\Tools\DataInitializer.cs" />

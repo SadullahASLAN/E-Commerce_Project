@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace E_Commerce_Project.DAL.ORM.Tools
+namespace E_Commerce_Project.BLL.DbTools
 {
     public class DbInstance
     {

@@ -12,9 +12,11 @@ namespace E_Commerce_Project.DAL.ORM.Entity
         public User()
         {
             this.UserAddresses = new HashSet<UserAddress>();
+            this.Orders = new HashSet<Order>();
         }
 
         //Mapping
         public virtual ICollection<UserAddress> UserAddresses { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

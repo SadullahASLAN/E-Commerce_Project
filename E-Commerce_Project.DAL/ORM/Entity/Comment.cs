@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace E_Commerce_Project.DAL.ORM.Entity
 {
-    public class Comment
+    public class Comment : BaseEntity
     {
         public Comment()
         {

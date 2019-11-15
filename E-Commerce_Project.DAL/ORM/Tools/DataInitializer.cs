@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace E_Commerce_Project.DAL.ORM.Tools
 {
-    public class DataInitializer : DropCreateDatabaseAlways<DataContext>
+    public class DataInitializer : DropCreateDatabaseIfModelChanges<DataContext>
     {
         protected override void Seed(DataContext context)
         {

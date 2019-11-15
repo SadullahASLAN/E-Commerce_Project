@@ -1,0 +1,294 @@
+body{
+    background-color: gainsboro;
+}
+
+.field-validation-error {
+    font-size: 12px;
+    margin-left: 10px;
+    color: red;
+}
+
+.dropdown-menu {
+    right: 4px;
+}
+
+@media screen and (max-width: 575.98px) {
+
+    .navbar-brandcustom{
+        width: 100%;
+        text-align: center;
+    }
+
+    .navbar {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .nav{
+        width: 100%;
+        justify-content: center;
+        margin: 0 0.5rem;
+    }
+
+    .search{
+        margin: 0 .5rem!important;
+        width: 100%;
+    }
+
+    .btn-categories{
+        display: block;
+        width: 100%;
+        margin:5px 0;
+    }
+
+    .d-xs-block{
+        display: none;
+    }
+
+    .fc{
+        margin: auto;
+    }
+
+    .fh{
+        text-align: center;        
+    }
+
+    .dropdown-menu {
+        right: 0;
+    }
+
+    .search-sm{
+        width: 100%;
+    }
+
+    .fc{
+        margin: auto;
+    }
+
+    .fh{
+        text-align: center;        
+    }
+
+    .nav-item-xsm{
+        width: 32.2%;
+    }
+
+    .nav-btn-xsm{
+        width: 100%;
+    }
+
+    .nav-btn-xsm-mx{
+        margin:0 1.5%;
+    }
+
+    .btn-text{
+        font-size: 12px;
+    }
+
+    .ddm-giris{
+        top: 105%;
+        left: -2px;
+        width: 313%;
+    }
+
+    .ddm-kaydol{
+        top: 105%;
+        width: 313%;
+        left: -106%;
+    }
+
+    .ddm-sepet{
+        top: 105%;
+        left: -211%;
+        width: 313%;
+    }
+
+    .li-user {
+        margin-right: 1%;
+        width: 66.8%;
+    }
+}
+
+ .percent{
+    width: 60px;
+    height: 60px;
+}
+
+.carousel-indicators{
+    margin-bottom: 0px;
+}
+
+ @media screen and (min-width: 575.98px) {
+    .btn-categories{
+        display: none;
+    }
+
+    .fh{
+        text-align: right;    
+    }
+
+    .search-sm{
+        width: 270px;
+    }
+
+    .ddm-giris{
+        width: 272px; top: 110%;
+    }
+
+    .ddm-kaydol{
+        width: 272px;
+        top: 110%;
+        left: -94px;
+    }
+
+    .ddm-sepet{
+        width: 272px;
+        top: 110%;
+        left: -179px;
+    }
+
+    .btn-user{
+        width:175px;
+    }
+ }
+
+.tooltips {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltips .tooltiptexts {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 140%;
+    left: 42%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+  .tooltips .tooltiptexts::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+  }
+
+  .tooltips:hover .tooltiptexts {
+    visibility: visible;
+    opacity: 1;
+  }
+
+@media screen and (min-width:768px) and (max-width:992px) {
+    .carousel-md{
+        padding: 3px 1.25rem;
+    }
+
+    .carousel-explanation{
+       font-size: 1.05rem;
+    }
+
+    .md-fontsize{
+        font-size: 14px;
+    }
+
+    .allcategories{
+        content: "Tüm Kategoriler";
+    }
+}
+
+@media screen and (min-width: 576px) and (max-width: 767.98px){
+    .lbladdress{
+        font-size: 15px;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .col-lg-5th{
+        max-width: 20%;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .btn-continue{
+        width: 150px;
+    }
+}
+
+.nav-link-bottom::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #000;
+    transition: width .3s;
+}
+
+.nav-link-bottom:hover::after {
+    width: 100%;
+    transition: width .2s;
+}
+
+
+.MultiCarousel {
+    float: left;
+    overflow: hidden;
+    padding: 15px;
+    width: 100%;
+    position: relative;
+}
+
+.MultiCarousel .MultiCarousel-inner {
+    transition: 1s ease all;
+    float: left;
+}
+
+.MultiCarousel .MultiCarousel-inner .item {
+    float: left;
+}
+
+.MultiCarousel .MultiCarousel-inner .item>div {
+    padding: 10px;
+    margin: 10px;
+    background: #f1f1f1;
+    color: #666;
+}
+
+.MultiCarousel .leftLst,
+.MultiCarousel .rightLst {
+    position: absolute;
+    top: calc(50% - 20px);
+}
+
+.MultiCarousel .leftLst {
+    left: 5px;
+}
+
+.MultiCarousel .rightLst {
+    right: 5px;
+}
+
+.MultiCarousel .leftLst.over,
+.MultiCarousel .rightLst.over {
+    pointer-events: none;
+    background: #ccc;
+}
+
+.list-group-item.customactive {
+    z-index: 2;
+    color: #fff;
+    background-color: #3797ff;
+    border-color: #007bff;
+}

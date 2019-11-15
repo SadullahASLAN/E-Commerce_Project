@@ -1,0 +1,272 @@
+﻿@model E_Commerce_Project.AspNetMVC.Models.DTO.RegisterDTO
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @using System.Web.Optimization
+    @Styles.Render("~/Contents/CSS")
+    <title>@ViewBag.Title</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- navbar -->
+        <div class="row mt-3">
+            <div class="col">
+                <div class="shadow border bg-white">
+                    <div class="row">
+                        <div class="col">
+                            <nav class="navbar navbar-light pb-0 ">
+                                <a class="navbar-brand navbar-brandcustom mr-0" href="/">
+                                    <i class="fas fa-store-alt mr-1"></i>
+                                    E-Ticaret
+                                </a>
+                                <ul class="nav">
+                                    @if(User.Identity.IsAuthenticated)
+                                    {
+                                        <li class="nav-item nav-item-xsm li-user">
+
+                                            <div class="dropdown">
+                                                <button class="btn btn-outline-dark btn-sm mr-1 nav-btn-xsm btn-text btn-user dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fas fa-user mr-1"></i>@User.Identity.Name
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <a class="dropdown-item text-center" href="#">Hesabım</a>
+                                                    <a class="dropdown-item text-center" href="/Account/LogOut">Çıkış</a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li class="nav-item nav-item-xsm">
+                                            <a href="/Account/Login" class="btn btn-sm btn-outline-dark mr-1 nav-btn-xsm btn-text"><i class="fas fa-sign-in-alt mr-1"></i>Giriş Yap</a>
+                                        </li>
+                                        <li class="nav-item nav-item-xsm nav-btn-xsm-mx">
+                                            <a href="/Account/Register" class="btn btn-sm btn-outline-dark mr-1 nav-btn-xsm btn-text"><i class="fas fa-user-plus mr-1"></i>Üye Ol</a>
+
+                                        </li>
+
+                                    }
+                                    <li class="nav-item nav-item-xsm">
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm btn-outline-dark nav-btn-xsm btn-text" type="button"
+                                                    id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true"
+                                                    aria-expanded="false" data-offset="0,0">
+                                                <i class="fas fa-shopping-cart mr-1"></i>Sepet <span class="badge badge-danger">8</span>
+                                            </button>
+                                            <div class="dropdown-menu shadow-lg p-1 ddm-sepet"
+                                                 aria-labelledby="dropdownMenuOffset">
+                                                <form action="">
+                                                    <table class="table table-bordered table-sm text-center m-0"
+                                                           style="font-size: 11px;">
+                                                        <thead class="table-dark">
+                                                            <tr>
+                                                                <th class="text-left">Ürün</th>
+                                                                <th>Adet</th>
+                                                                <th>Fiyat</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="text-left">
+                                                                    WWL104403 Bayan Kol Saati
+                                                                </td>
+                                                                <td class="text-center">2</td>
+                                                                <td>650,00₺</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="text-left">WWL104403 Bayan Kol Saati</td>
+                                                                <td class="text-center">2</td>
+                                                                <td>650,00₺</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="text-left">WWL104403 Bayan Kol Saati</td>
+                                                                <td class="text-center">2</td>
+                                                                <td>1.650,00₺</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="text-left">WWL104403 Bayan Kol Saati</td>
+                                                                <td class="text-center">2</td>
+                                                                <td>650,00₺</td>
+                                                            </tr>
+                                                        </tbody>
+                                                        <tfoot class="table-dark">
+                                                            <tr>
+                                                                <td class="text-left">Toplam</td>
+                                                                <td class="text-center">7</td>
+                                                                <td>3.684,00₺</td>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </form>
+                                                <a href="#"
+                                                   class="btn btn-success btn-sm btn-block rounded-0 mt-1">
+                                                    Sepete
+                                                    Git
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <nav class="navbar navbar-light pt-0">
+                                <ul class="nav md-fontsize">
+                                    <li class="nav-item w-100">
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm btn-outline-dark btn-categories dropdown-toggle" type="button"
+                                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                                    aria-expanded="false">
+                                                Tüm Kategoriler
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <a class="nav-link nav-link-bottom text-dark"
+                                                   href="#">Bilgisayar</a>
+                                                <a class="nav-link nav-link-bottom text-dark"
+                                                   href="#">Cep Telefonu</a>
+                                                <a class="nav-link nav-link-bottom text-dark"
+                                                   href="#">Tablet</a>
+                                                <a class="nav-link nav-link-bottom text-dark"
+                                                   href="#">Televizyon</a>
+                                                <a class="nav-link nav-link-bottom text-dark" href="#">
+                                                    Beyaz
+                                                    Eşya
+                                                </a>
+                                                <a class="nav-link nav-link-bottom text-dark" href="#">
+                                                    Küçük Ev
+                                                    Aletleri
+                                                </a>
+                                                <a class="nav-link nav-link-bottom text-dark" href="#">Mobilya</a>
+                                            </div>
+                                        </div>
+
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link nav-link-bottom text-dark d-none d-md-block px-0 mr-3" href="#">Bilgisayar</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link nav-link-bottom text-dark d-none d-md-block px-0 mr-3"
+                                           href="#">
+                                            Cep
+                                            Telefonu
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link nav-link-bottom text-dark d-none d-md-block px-0 mr-3"
+                                           href="#">Tablet</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link nav-link-bottom text-dark d-none d-lg-block px-0 mr-3"
+                                           href="#">Televizyon</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link nav-link-bottom text-dark d-none d-lg-block px-0 mr-3"
+                                           href="#">
+                                            Beyaz
+                                            Eşya
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link nav-link-bottom text-dark d-none d-xl-block px-0 mr-3"
+                                           href="#">
+                                            Küçük Ev
+                                            Aletleri
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link nav-link-bottom text-dark d-none d-xl-block px-0 mr-3"
+                                           href="#">Mobilya</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <div class="dropdown">
+                                            <a id="allcategories" class="nav-link nav-link-bottom text-dark d-none d-sm-block d-xl-none px-0 mr-3" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Diğer Kategoriler <i class="fas fa-sort-down"></i>
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                <a class="nav-link nav-link-bottom text-dark d-lg-none d-md-none"
+                                                   href="#">Bilgisayar</a>
+                                                <a class="nav-link nav-link-bottom text-dark d-lg-none d-md-none"
+                                                   href="#">Cep Telefonu</a>
+                                                <a class="nav-link nav-link-bottom text-dark d-lg-none d-md-none"
+                                                   href="#">Tablet</a>
+                                                <a class="nav-link nav-link-bottom text-dark d-lg-none"
+                                                   href="#">Televizyon</a>
+                                                <a class="nav-link nav-link-bottom text-dark d-lg-none" href="#">
+                                                    Beyaz
+                                                    Eşya
+                                                </a>
+                                                <a class="nav-link nav-link-bottom text-dark" href="#">
+                                                    Küçük Ev
+                                                    Aletleri
+                                                </a>
+                                                <a class="nav-link nav-link-bottom text-dark" href="#">Mobilya</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <form class="search">
+                                    <div class="input-group input-group-sm search-sm">
+                                        <input type="text" class="form-control" style="border-color: #343a40;"
+                                               placeholder="Ara...">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-dark" type="button">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @RenderBody()
+
+        <!-- footer -->
+        <footer class="bg-dark text-secondary">
+            <div class="container">
+                <div class="row p-5">
+                    <div class="col-sm">
+                        <table class="fc">
+                            <tr>
+                                <td class="py-2 pr-2"><i class="fas fa-phone-alt"></i></td>
+                                <td>+90 0850 1234567</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2"><i class="fas fa-envelope"></i></td>
+                                <td>info@info.com.tr</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2"><i class="fas fa-map-marker-alt"></i></td>
+                                <td>İstanbul/Türkiye</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-sm fh">
+                        <h3>Lorem, ipsum dolor.</h3>
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia est culpa consequatur iste
+                            tempore
+                            maiores provident esse, veritatis voluptate nulla?
+                        </p>
+                    </div>
+
+                </div>
+                <hr class="m-0">
+                <p class="m-0 pb-2">© 2019 Brand Sadullah ASLAN</p>
+            </div>
+        </footer>
+
+        @Scripts.Render("~/Scripts")
+    </div>
+</body>
+
+</html>

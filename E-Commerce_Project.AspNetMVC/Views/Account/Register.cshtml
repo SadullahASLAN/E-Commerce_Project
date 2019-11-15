@@ -1,0 +1,69 @@
+﻿@model E_Commerce_Project.AspNetMVC.Models.DTO.RegisterDTO
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Üye Ol</title>
+    @using System.Web.Optimization
+    @Styles.Render("~/Contents/CSS")
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-4 col-lg-5 col-md-6 col-sm-8 m-auto">
+                <div class="card card-body m-3 shadow-lg">
+                    <a class="btn btn-outline-primary btn-block mb-4" href="/" style="font-size:25px">
+                        <i class="fas fa-store-alt mr-1"></i>
+                        <br />
+                        E-Ticaret
+                    </a>
+                    @using(Html.BeginForm("Register", "Account", FormMethod.Post))
+                    {
+                        <span id="registeralerd" class="alert alert-danger text-center" style="font-size:12px;display:none" role="alert">@ViewBag.ErrorResister</span>
+                        @Html.AntiForgeryToken()
+                        <div class="form-group">
+                            @Html.TextBoxFor(i => i.UserName, new { @class = "form-control form-control-sm", @placeholder = "Kullanıcı Adınız" })
+                            @Html.ValidationMessageFor(i => i.UserName)
+                        </div>
+                        <div class="form-group">
+                            @Html.TextBoxFor(i => i.Name, new { @class = "form-control form-control-sm", @placeholder = "Adınız" })
+                            @Html.ValidationMessageFor(i => i.Name)
+                        </div>
+                        <div class="form-group">
+                            @Html.TextBoxFor(i => i.Surname, new { @class = "form-control form-control-sm", @placeholder = "Soyadınız" })
+                            @Html.ValidationMessageFor(i => i.Surname)
+                        </div>
+                        <div class="form-group">
+                            @Html.TextBoxFor(i => i.Email, new { @class = "form-control form-control-sm", @placeholder = "Mail Adresiniz" })
+                            @Html.ValidationMessageFor(i => i.Email)
+                        </div>
+                        <div class="form-group">
+                            @Html.PasswordFor(i => i.Password, new { @class = "form-control form-control-sm", @placeholder = "Parolanız" })
+                            @Html.ValidationMessageFor(i => i.Password)
+                        </div>
+                        <div class="form-group">
+                            @Html.PasswordFor(i => i.ConfirmPassword, new { @class = "form-control form-control-sm", @placeholder = "Parola Tekrar" })
+                            @Html.ValidationMessageFor(i => i.ConfirmPassword)
+                        </div>
+                        <button type="submit" class="btn btn-sm btn-block btn-primary">Kaydol</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/Scripts")
+    <script>
+        $(document).ready(function () {
+            var error = $("#registeralerd").text();
+            if (error != "") {
+                $("#registeralerd").css("display", "block");
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+﻿@model E_Commerce_Project.AspNetMVC.Models.DTO.LoginDTO
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Giriş Yap</title>
+    @using System.Web.Optimization
+    @Styles.Render("~/Contents/CSS")
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-4 col-lg-5 col-md-6 col-sm-8 m-auto">
+                <div class="card card-body m-3 shadow-lg">
+                    <a class="btn btn-outline-primary btn-block mb-4" href="/" style="font-size:25px">
+                        <i class="fas fa-store-alt mr-1"></i>
+                        <br />
+                        E-Ticaret
+                    </a>
+                    @using(Html.BeginForm("Login", "Account", FormMethod.Post))
+                    {
+                        <span id="loginalerd" class="alert alert-danger text-center" style="font-size:12px;display:none" role="alert">@ViewBag.LoginError</span>
+                        @Html.AntiForgeryToken()
+                        <div class="form-group">
+                            @Html.TextBoxFor(i => i.Email, new { @class = "form-control form-control-sm", @placeholder = "Mail Adresiniz" })
+                            @Html.ValidationMessageFor(i => i.Email)
+
+                        </div>
+                        <div class="form-group">
+                            @Html.PasswordFor(i => i.Password, new { @class = "form-control form-control-sm", @placeholder = "Parolanız" })
+                            @Html.ValidationMessageFor(i => i.Password)
+                        </div>
+                        <button type="submit" class="btn btn-sm btn-block btn-primary">Giriş Yap</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/Scripts")
+    <script>
+        $(document).ready(function () {
+            var error = $("#loginalerd").text();
+            if (error != "") {
+                $("#loginalerd").css("display", "block");
+            }
+        });
+    </script>
+</body>
+</html>

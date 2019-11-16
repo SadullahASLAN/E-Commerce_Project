@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Email Onaylandı";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row my-3">
+    <div class="col">
+        <div class="card rounded-0">
+            <div class="card-body">
+                <div class="jumbotron m-0">
+                    <h2 class="display-6">Email Adresiniz Onayladı.</h2>
+                    <p class="lead">
+                        <strong>@ViewBag.Name @ViewBag.Surname</strong> aramıza hoşgeldiniz, <strong>@ViewBag.UserName</strong> kullanıcı adınız ile üyelik işlemleriniz tamamlanmıştır. Sisteme istediğiniz vakit giriş yapabilir dilediğinizce alışverişin tadını çıkartabilirsiniz.
+                    </p>
+                    <a class="btn btn-primary btn-lg mt-5" href="/Account/Login">Giriş yap</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

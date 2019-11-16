@@ -16,7 +16,7 @@ namespace E_Commerce_Project.AspNetMVC
                 "~/Content/css/site.css"
                 ));
             bundles.Add(new ScriptBundle("~/Scripts").Include(
-                "~/Scripts/js/jquery-3.3.1.slim.min.js",
+                "~/Scripts/js/jquery-3.4.1.js",
                 "~/Scripts/js/popper.min.js",
                 "~/Scripts/js/bootstrap.min.js",
                 "~/Scripts/js/site.js"

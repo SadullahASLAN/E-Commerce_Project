@@ -141,7 +141,7 @@
     <Content Include="Content\css\site.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\js\bootstrap.min.js" />
-    <Content Include="Scripts\js\jquery-3.3.1.slim.min.js" />
+    <Content Include="Scripts\js\jquery-3.4.1.js" />
     <Content Include="Scripts\js\popper.min.js" />
     <Content Include="Scripts\js\site.js" />
     <Content Include="Web.config" />
@@ -160,6 +160,7 @@
     </Compile>
     <Compile Include="Models\DTO\LoginDTO.cs" />
     <Compile Include="Models\DTO\RegisterDTO.cs" />
+    <Compile Include="Models\DTO\ResetPasswordDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +171,10 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\ConfirmMailOk.cshtml" />
+    <Content Include="Views\Account\Error.cshtml" />
+    <Content Include="Views\Account\ConfirmMail.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

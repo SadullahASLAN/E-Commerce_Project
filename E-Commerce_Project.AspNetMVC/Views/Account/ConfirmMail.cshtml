@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Mail Onay";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row my-3">
+    <div class="col">
+        <div class="card rounded-0">
+            <div class="card-body">
+                <div class="jumbotron m-0">
+                    <h2 class="display-6">Onay linki gönderilmiştir.</h2>
+                    <p class="lead">
+                        Üyeliğiniz tamamlanabilmesi için <strong>@TempData["email"]</strong> adresine gönderilen onay linkini tıklamanız gerekmektedir.
+                    </p>
+                    <a class="btn btn-primary btn-lg mt-5" href="/Account/Login?ReturnUrl=@TempData["returnUrl"]">Giriş yap</a>
+                    <a class="btn btn-primary btn-lg mt-5" href="/Account/ConfirmMail?email=@TempData["email"]&returnUrl=@TempData["returnUrl"]">Onay linkini tekrar gönder</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

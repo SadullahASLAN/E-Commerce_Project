@@ -1,0 +1,93 @@
+﻿@model IEnumerable<E_Commerce_Project.DAL.ORM.Entity.MainCategory>
+
+<ul class="nav md-fontsize">
+    <li class="nav-item w-100">
+        <div class="dropdown">
+            <button class="btn btn-sm btn-outline-dark btn-categories dropdown-toggle" type="button"
+                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                Tüm Kategoriler
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                @foreach(var category in Model)
+                {
+                    @Html.ActionLink(category.Name, "Category", "Home", new { category = category.Name }, new { @class = "nav-link nav-link-bottom text-dark" })
+                }
+            </div>
+        </div>
+
+    </li>
+
+
+    @{ int number = 1;}
+    @foreach(var category in Model)
+    {
+        if(number >= 1 && number <= 3)
+        {
+            <li class="nav-item">
+                @Html.ActionLink(category.Name, "Category", "Home", new { category = category.Name }, new { @class = "nav-link nav-link-bottom text-dark d-none d-md-block px-0 mr-3" })
+            </li>
+        }
+        else if(number >= 4 && number <= 5)
+        {
+            <li class="nav-item">
+                @Html.ActionLink(category.Name, "Category", "Home", new { category = category.Name }, new { @class = "nav-link nav-link-bottom text-dark d-none d-lg-block px-0 mr-3" })
+            </li>
+        }
+        else if(number >= 6 && number <= 7)
+        {
+            <li class="nav-item">
+                @Html.ActionLink(category.Name, "Category", "Home", new { category = category.Name }, new { @class = "nav-link nav-link-bottom text-dark d-none d-xl-block px-0 mr-3" })
+            </li>
+        }
+        else if(number > 7)
+        {
+            break;
+        }
+        number++;
+    }
+
+    <li class="nav-item">
+        <div class="dropdown">
+            @if(Model.Count() <= 7)
+            {
+
+                <a id="allcategories" class="nav-link nav-link-bottom text-dark d-none d-sm-block d-xl-none px-0 mr-3" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Diğer Kategoriler <i class="fas fa-sort-down"></i>
+                </a>
+            }
+            @if(Model.Count() >= 8)
+            {
+                <a id="allcategories" class="nav-link nav-link-bottom text-dark d-none d-sm-block px-0 mr-3" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Diğer Kategoriler <i class="fas fa-sort-down"></i>
+                </a>
+            }
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                @{int defaultnumber = 1;}
+                @foreach(var category in Model)
+                {
+                    if(defaultnumber >= 0 && defaultnumber <= 3)
+                    {
+                        @Html.ActionLink(category.Name, "Category", "Home", new { category = category.Name }, new { @class = "nav-link nav-link-bottom text-dark d-lg-none d-md-none" })
+                    }
+                    if(defaultnumber >= 4 && defaultnumber <= 5)
+                    {
+
+                        @Html.ActionLink(category.Name, "Category", "Home", new { category = category.Name }, new { @class = "nav-link nav-link-bottom text-dark d-lg-none" })
+                    }
+                    if(defaultnumber >= 6 && defaultnumber <= 7)
+                    {
+
+                        @Html.ActionLink(category.Name, "Category", "Home", new { category = category.Name }, new { @class = "nav-link nav-link-bottom text-dark d-xl-none" })
+                    }
+                    if(defaultnumber > 7)
+                    {
+
+                        @Html.ActionLink(category.Name, "Category", "Home", new { category = category.Name }, new { @class = "nav-link nav-link-bottom text-dark" })
+                    }
+                    defaultnumber++;
+                }
+            </div>
+        </div>
+    </li>
+</ul>

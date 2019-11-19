@@ -1,0 +1,305 @@
+﻿@model E_Commerce_Project.DAL.ORM.Entity.MainCategory
+@{
+    ViewBag.Title = "Kategoriler";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- breadcrumb -->
+<div class="row mt-3">
+    <div class="col">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb m-0 p-2 rounded-0 bg-white text-muted shadow" style="font-size:12px;">
+                <li class="breadcrumb-item"><a href="/">Anasayfa</a></li>
+                @if(ViewBag.SubCategory != null)
+                {
+                    <li class="breadcrumb-item"><a href="/Home/Category?category=@Model.Name">@Model.Name</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@ViewBag.SubCategory</li>
+                }
+                else
+                {
+                    <li class="breadcrumb-item active" aria-current="page">@Model.Name</li>
+                }
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<!-- Ürünler -->
+<div class="row my-3">
+    <div class="col-md-4 col-lg-3 col-xl-3">
+        <div class="row">
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <nav class="navbar navbar-expand-md bg-white navbar-light p-0 border shadow">
+                            <span class="navbar-brand navbar-toggler border-0 text-dark pl-2 mr-0" href="#">
+                                Alt
+                                Kategoriler
+                            </span>
+                            <button class="navbar-toggler m-2" style="font-size: 10px;" type="button"
+                                    data-toggle="collapse" data-target="#navbarTogglerDemo02"
+                                    aria-controls="navbarTogglerDemo02" aria-expanded="false"
+                                    aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                                <div class="card rounded-0 w-100 border-0">
+                                    <div class="card-body p-0">
+                                        <div class="list-group list-group-flush">
+                                            @foreach(var subcategory in Model.SubCategories)
+                                            {
+                                                if(subcategory.Products.Where(i => i.IsDeleted == false && i.InSales == true).Count() > 0)
+                                                {
+                                                    if(subcategory.Name == ViewBag.SubCategory)
+                                                    {
+                                                        <a href="/Home/Category?category=@Model.Name&subCategory=@subcategory.Name" class="list-group-item list-group-item-action d-flex justify-content-between customactive align-items-center p-2">
+                                                            @subcategory.Name
+                                                            <span class="badge badge-primary badge-pill">@subcategory.Products.Where(i => i.IsDeleted == false && i.InSales == true).Count()</span>
+                                                        </a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="/Home/Category?category=@Model.Name&subCategory=@subcategory.Name" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center p-2">
+                                                            @subcategory.Name
+                                                            <span class="badge badge-primary badge-pill">@subcategory.Products.Where(i => i.IsDeleted == false && i.InSales == true).Count()</span>
+                                                        </a>
+                                                    }
+
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+                <div class="row my-3">
+                    <div class="col">
+                        <nav class="navbar navbar-expand-md bg-white navbar-light p-0 border shadow">
+                            <span class="navbar-brand navbar-toggler border-0 text-dark pl-2 mr-0"
+                                  href="#">Filtrele</span>
+                            <button class="navbar-toggler m-2" style="font-size: 10px;" type="button"
+                                    data-toggle="collapse" data-target="#navbarTogglerDemo021"
+                                    aria-controls="navbarTogglerDemo02" aria-expanded="false"
+                                    aria-label="Toggle navigation">
+                                <i class="fas fa-filter" style="font-size: 15px;"></i>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarTogglerDemo021">
+                                <div class="card rounded-0 w-100 border-0">
+                                    <div class="card-body px-2 pt-1">
+                                        <div class="form-group">
+                                            <label for="exampleFormControlSelect2">Marka:</label>
+                                            <select id="brand" class="form-control rounded-0" size="5">
+                                                @if(ViewBag.SubCat != null)
+                                                {
+                                                    var productsbrand = (ViewBag.SubCat as E_Commerce_Project.DAL.ORM.Entity.SubCategory).Products.ToList();
+                                                    List<string> brandlist = new List<string>();
+                                                    foreach(var product in productsbrand)
+                                                    {
+                                                        if(product.Brand != null)
+                                                        {
+                                                            brandlist.Add(product.Brand);
+                                                        }
+                                                    }
+                                                    brandlist = brandlist.Distinct().ToList();
+                                                    foreach(var brand in brandlist)
+                                                    {
+                                                        <option>@brand</option>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    var modelbrand = Model.SubCategories.ToList();
+                                                    List<string> brandlist = new List<string>();
+                                                    foreach(var sub in modelbrand)
+                                                    {
+                                                        foreach(var prod in sub.Products)
+                                                        {
+                                                            if(prod.Brand != null)
+                                                            {
+                                                                brandlist.Add(prod.Brand);
+                                                            }
+                                                        }
+                                                        brandlist = brandlist.Distinct().ToList();
+                                                    }
+                                                    foreach(var brand in brandlist)
+                                                    {
+                                                        <option>@brand</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                        @Html.ActionLink("Filtrele", "Category", new { category = Model.Name, subCategory = ViewBag.SubCategory }, new { @class = "btn btn-primary btn-block", @id = "filter" })
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8 col-lg-9 col-xl-9">
+        <div class="row">
+            @if(ViewBag.BrandProduct != null)
+            {
+                var products = ViewBag.BrandProduct as List<E_Commerce_Project.DAL.ORM.Entity.Product>;
+                foreach(var pro in products)
+                {
+                    <div class="col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <div class="card citem shadow-lg rounded-0">
+                            <img src="@pro.Images.First().Paht" class="card-img-top rounded-0" alt="@pro.Name">
+                            <div class="card-img-overlay p-1" style="height: 31px;">
+                                <div class="input-group input-group-sm cartproductadditem" style="visibility: hidden;">
+                                    <input type="number" style="border-radius: 0;" class="form-control" value="1"
+                                           min="1" max="3" step="1" S>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-success" style="border-radius: 0;" type="button"
+                                                id="button-addon2">
+                                            Sepete Ekle
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body p-2" style="line-height: 1;">
+                                @Html.ActionLink(pro.Name.Substring(0, 60) + "...", "ProductDetails", new { id = pro.Id }, new { @class = "card-link d-block m-0", @style = "font-size: 12px; height: 24px;" })
+                                <div class="text-right mt-1">
+                                    <p class="m-0 text-muted font-weight-lighter" style="text-decoration:line-through; font-size: 12px; height:12px;">
+                                        @if(pro.DiscountPercentage != 0)
+                                        {
+                                            <span>@pro.Price.ToString("c2")</span>
+                                        }
+                                    </p>
+                                    <p class="m-0 font-weight-bold text-danger" style="font-size: 14px;">
+                                        @if(pro.DiscountPercentage != 0)
+                                        {
+                                            <span>@((pro.Price * (100m - Convert.ToDecimal(pro.DiscountPercentage)) / 100m).ToString("c2"))</span>
+
+                                        }
+                                        else
+                                        {
+                                            <span>@pro.Price.ToString("c2")</span>
+                                        }
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                if(ViewBag.SubCategory != null)
+                {
+                    var subCat = Model.SubCategories.Where(i => i.Name == ViewBag.SubCategory && i.IsDeleted == false).FirstOrDefault();
+                    var products = subCat.Products.Where(i => i.IsDeleted == false && i.InSales == true).ToList();
+
+                    foreach(var product in products)
+                    {
+                        <div class="col-md-6 col-lg-4 col-xl-3 mb-3">
+                            <div class="card citem shadow-lg rounded-0">
+                                <img src="@product.Images.First().Paht" class="card-img-top rounded-0" alt="@product.Name">
+                                <div class="card-img-overlay p-1" style="height: 31px;">
+                                    <div class="input-group input-group-sm cartproductadditem" style="visibility: hidden;">
+                                        <input type="number" style="border-radius: 0;" class="form-control" value="1"
+                                               min="1" max="3" step="1" S>
+                                        <div class="input-group-append">
+                                            <button class="btn btn-success" style="border-radius: 0;" type="button"
+                                                    id="button-addon2">
+                                                Sepete Ekle
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body p-2" style="line-height: 1;">
+                                    @Html.ActionLink(product.Name.Substring(0, 60) + "...", "ProductDetails", new { id = product.Id }, new { @class = "card-link d-block m-0", @style = "font-size: 12px; height: 24px;" })
+                                    <div class="text-right mt-1">
+                                        <p class="m-0 text-muted font-weight-lighter" style="text-decoration:line-through; font-size: 12px; height:12px;">
+                                            @if(product.DiscountPercentage != 0)
+                                            {
+                                                <span>@product.Price.ToString("c2")</span>
+                                            }
+                                        </p>
+                                        <p class="m-0 font-weight-bold text-danger" style="font-size: 14px;">
+                                            @if(product.DiscountPercentage != 0)
+                                            {
+                                                <span>@((product.Price * (100m - Convert.ToDecimal(product.DiscountPercentage)) / 100m).ToString("c2"))</span>
+
+                                            }
+                                            else
+                                            {
+                                                <span>@product.Price.ToString("c2")</span>
+                                            }
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    foreach(var subCategory in Model.SubCategories)
+                    {
+                        foreach(var product in subCategory.Products.Where(i => i.IsDeleted == false && i.InSales == true).ToList())
+                        {
+                            <div class="col-md-6 col-lg-4 col-xl-3 mb-3">
+                                <div class="card citem shadow-lg rounded-0">
+                                    <img src="@product.Images.First().Paht" class="card-img-top rounded-0" alt="@product.Name">
+                                    <div class="card-img-overlay p-1" style="height: 31px;">
+                                        <div class="input-group input-group-sm cartproductadditem" style="visibility: hidden;">
+                                            <input type="number" style="border-radius: 0;" class="form-control" value="1"
+                                                   min="1" max="3" step="1" S>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-success" style="border-radius: 0;" type="button"
+                                                        id="button-addon2">
+                                                    Sepete Ekle
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body p-2" style="line-height: 1;">
+                                        @Html.ActionLink(product.Name.Substring(0, 60) + "...", "ProductDetails", new { id = product.Id }, new { @class = "card-link d-block m-0", @style = "font-size: 12px; height: 24px;" })
+                                        <div class="text-right mt-1">
+                                            <p class="m-0 text-muted font-weight-lighter" style="text-decoration:line-through; font-size: 12px; height:12px;">
+                                                @if(product.DiscountPercentage != 0)
+                                                {
+                                                    <span>@product.Price.ToString("c2")</span>
+                                                }
+                                            </p>
+                                            <p class="m-0 font-weight-bold text-danger" style="font-size: 14px;">
+                                                @if(product.DiscountPercentage != 0)
+                                                {
+                                                    <span>@((product.Price * (100m - Convert.ToDecimal(product.DiscountPercentage)) / 100m).ToString("c2"))</span>
+
+                                                }
+                                                else
+                                                {
+                                                    <span>@product.Price.ToString("c2")</span>
+                                                }
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                }
+            }
+        </div>
+    </div>
+</div>
+
+
+@section FilterScripst{
+    <script>
+        $(document).ready(function () {
+            var href = $("#filter").attr("href");
+            $("#brand").on("change", function () {
+                var hrefadd = href + "&brand=" + this.value;
+                $("#filter").attr("href", hrefadd);
+            });
+        })
+    </script>
+}

@@ -1,5 +1,25 @@
-body{
+body {
     background-color: gainsboro;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
 
 .field-validation-error {
@@ -14,7 +34,7 @@ body{
 
 @media screen and (max-width: 575.98px) {
 
-    .navbar-brandcustom{
+    .navbar-brandcustom {
         width: 100%;
         text-align: center;
     }
@@ -24,80 +44,80 @@ body{
         padding-right: 0;
     }
 
-    .nav{
+    .nav {
         width: 100%;
         justify-content: center;
         margin: 0 0.5rem;
     }
 
-    .search{
-        margin: 0 .5rem!important;
+    .search {
+        margin: 0 .5rem !important;
         width: 100%;
     }
 
-    .btn-categories{
+    .btn-categories {
         display: block;
         width: 100%;
-        margin:5px 0;
+        margin: 5px 0;
     }
 
-    .d-xs-block{
+    .d-xs-block {
         display: none;
     }
 
-    .fc{
+    .fc {
         margin: auto;
     }
 
-    .fh{
-        text-align: center;        
+    .fh {
+        text-align: center;
     }
 
     .dropdown-menu {
         right: 0;
     }
 
-    .search-sm{
+    .search-sm {
         width: 100%;
     }
 
-    .fc{
+    .fc {
         margin: auto;
     }
 
-    .fh{
-        text-align: center;        
+    .fh {
+        text-align: center;
     }
 
-    .nav-item-xsm{
+    .nav-item-xsm {
         width: 32.2%;
     }
 
-    .nav-btn-xsm{
+    .nav-btn-xsm {
         width: 100%;
     }
 
-    .nav-btn-xsm-mx{
-        margin:0 1.5%;
+    .nav-btn-xsm-mx {
+        margin: 0 1.5%;
     }
 
-    .btn-text{
+    .btn-text {
         font-size: 12px;
     }
 
-    .ddm-giris{
+    .ddm-giris {
         top: 105%;
         left: -2px;
         width: 313%;
     }
 
-    .ddm-kaydol{
+    .ddm-kaydol {
         top: 105%;
         width: 313%;
         left: -106%;
     }
 
-    .ddm-sepet{
+    .ddm-sepet {
         top: 105%;
         left: -211%;
         width: 313%;
@@ -109,48 +129,49 @@ body{
     }
 }
 
- .percent{
+.percent {
     width: 60px;
     height: 60px;
 }
 
-.carousel-indicators{
+.carousel-indicators {
     margin-bottom: 0px;
 }
 
- @media screen and (min-width: 575.98px) {
-    .btn-categories{
+@media screen and (min-width: 575.98px) {
+    .btn-categories {
         display: none;
     }
 
-    .fh{
-        text-align: right;    
+    .fh {
+        text-align: right;
     }
 
-    .search-sm{
+    .search-sm {
         width: 270px;
     }
 
-    .ddm-giris{
-        width: 272px; top: 110%;
+    .ddm-giris {
+        width: 272px;
+        top: 110%;
     }
 
-    .ddm-kaydol{
+    .ddm-kaydol {
         width: 272px;
         top: 110%;
         left: -94px;
     }
 
-    .ddm-sepet{
+    .ddm-sepet {
         width: 272px;
         top: 110%;
         left: -179px;
     }
 
-    .btn-user{
-        width:175px;
+    .btn-user {
+        width: 175px;
     }
- }
+}
 
 .tooltips {
     position: relative;
@@ -158,71 +179,71 @@ body{
     border-bottom: 1px dotted black;
 }
 
-.tooltips .tooltiptexts {
-    visibility: hidden;
-    width: 120px;
-    background-color: #555;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    position: absolute;
-    z-index: 1;
-    bottom: 140%;
-    left: 42%;
-    margin-left: -60px;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
+    .tooltips .tooltiptexts {
+        visibility: hidden;
+        width: 120px;
+        background-color: #555;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        position: absolute;
+        z-index: 1;
+        bottom: 140%;
+        left: 42%;
+        margin-left: -60px;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
 
-  .tooltips .tooltiptexts::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: #555 transparent transparent transparent;
-  }
+        .tooltips .tooltiptexts::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #555 transparent transparent transparent;
+        }
 
-  .tooltips:hover .tooltiptexts {
-    visibility: visible;
-    opacity: 1;
-  }
+    .tooltips:hover .tooltiptexts {
+        visibility: visible;
+        opacity: 1;
+    }
 
 @media screen and (min-width:768px) and (max-width:992px) {
-    .carousel-md{
+    .carousel-md {
         padding: 3px 1.25rem;
     }
 
-    .carousel-explanation{
-       font-size: 1.05rem;
+    .carousel-explanation {
+        font-size: 1.05rem;
     }
 
-    .md-fontsize{
+    .md-fontsize {
         font-size: 14px;
     }
 
-    .allcategories{
+    .allcategories {
         content: "Tüm Kategoriler";
     }
 }
 
-@media screen and (min-width: 576px) and (max-width: 767.98px){
-    .lbladdress{
+@media screen and (min-width: 576px) and (max-width: 767.98px) {
+    .lbladdress {
         font-size: 15px;
     }
 }
 
 @media screen and (min-width: 992px) {
-    .col-lg-5th{
+    .col-lg-5th {
         max-width: 20%;
     }
 }
 
 @media screen and (max-width: 992px) {
-    .btn-continue{
+    .btn-continue {
         width: 150px;
     }
 }
@@ -250,41 +271,41 @@ body{
     position: relative;
 }
 
-.MultiCarousel .MultiCarousel-inner {
-    transition: 1s ease all;
-    float: left;
-}
+    .MultiCarousel .MultiCarousel-inner {
+        transition: 1s ease all;
+        float: left;
+    }
 
-.MultiCarousel .MultiCarousel-inner .item {
-    float: left;
-}
+        .MultiCarousel .MultiCarousel-inner .item {
+            float: left;
+        }
 
-.MultiCarousel .MultiCarousel-inner .item>div {
-    padding: 10px;
-    margin: 10px;
-    background: #f1f1f1;
-    color: #666;
-}
+            .MultiCarousel .MultiCarousel-inner .item > div {
+                padding: 10px;
+                margin: 10px;
+                background: #f1f1f1;
+                color: #666;
+            }
 
-.MultiCarousel .leftLst,
-.MultiCarousel .rightLst {
-    position: absolute;
-    top: calc(50% - 20px);
-}
+    .MultiCarousel .leftLst,
+    .MultiCarousel .rightLst {
+        position: absolute;
+        top: calc(50% - 20px);
+    }
 
-.MultiCarousel .leftLst {
-    left: 5px;
-}
+    .MultiCarousel .leftLst {
+        left: 5px;
+    }
 
-.MultiCarousel .rightLst {
-    right: 5px;
-}
+    .MultiCarousel .rightLst {
+        right: 5px;
+    }
 
-.MultiCarousel .leftLst.over,
-.MultiCarousel .rightLst.over {
-    pointer-events: none;
-    background: #ccc;
-}
+        .MultiCarousel .leftLst.over,
+        .MultiCarousel .rightLst.over {
+            pointer-events: none;
+            background: #ccc;
+        }
 
 .list-group-item.customactive {
     z-index: 2;

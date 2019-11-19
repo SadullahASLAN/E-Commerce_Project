@@ -52,7 +52,7 @@ namespace E_Commerce_Project.BLL.Repositories.Repository
 
         public Product SelectById(string Id)
         {
-            return db.Products.Where(i => i.IsDeleted == false && i.Id == Id).First();
+            return db.Products.Where(i => i.IsDeleted == false && i.Id == Id).FirstOrDefault();
         }
     }
 }

@@ -32,7 +32,7 @@ namespace E_Commerce_Project.DAL.ORM.Entity
         public decimal Price { get; set; }
         public short Stock { get; set; }
 
-        [MaxLength(500, ErrorMessage = "Ürün açıklaması 500 karakteri geçemez.")]
+        [MaxLength(5000, ErrorMessage = "Ürün açıklaması 5000 karakteri geçemez.")]
         [Required(ErrorMessage = "Ürün açıklaması boş olamaz.")]
         public string Description { get; set; }
         public byte? DiscountPercentage { get; set; }

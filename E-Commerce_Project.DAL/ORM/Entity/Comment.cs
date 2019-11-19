@@ -16,14 +16,6 @@ namespace E_Commerce_Project.DAL.ORM.Entity
             this.Confirmation = false;
         }
 
-        [Key]
-        [Column(Order = 1)]
-        public string UserId { get; set; }
-
-        [Key]
-        [Column(Order = 2)]
-        public string ProductId { get; set; }
-
         [MaxLength(500, ErrorMessage = "Yorum 500 karakteri geçemez.")]
         public string Explanation { get; set; }
         public DateTime Date { get; set; }
@@ -31,6 +23,8 @@ namespace E_Commerce_Project.DAL.ORM.Entity
 
         [Required(ErrorMessage = "Lütfen ürüne puan veriniz.")]
         public byte? Point { get; set; }
+        public string ProductId { get; set; }
+        public string UserId { get; set; }
 
         //Mapping
         public virtual Product Product { get; set; }

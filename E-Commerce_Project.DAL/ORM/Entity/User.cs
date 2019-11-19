@@ -27,5 +27,6 @@ namespace E_Commerce_Project.DAL.ORM.Entity
         //Mapping
         public virtual ICollection<UserAddress> UserAddresses { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

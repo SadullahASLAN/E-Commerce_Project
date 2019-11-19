@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace E_Commerce_Project.BLL.Repositories.Repository
 {
-    class CommentRepository : BaseClass, IBaseRepository<Comment>
+    public class CommentRepository : BaseClass, IBaseRepository<Comment>
     {
         public bool AddOrUpdate(Comment model)
         {

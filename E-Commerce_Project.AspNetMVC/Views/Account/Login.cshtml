@@ -63,6 +63,9 @@
                     <small class="p-1">Mail adresinizi yazıp gönder butonuna basınız.</small>
                 </div>
                 <div class="modal-footer">
+                    <div id="spinner" class="spinner-border text-primary" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
                     <div id="successalert" class="alert alert-success m-0 p-2" style="display:none" role="alert">
                         Sıfırlama maili gönderildi.
                     </div>
@@ -81,15 +84,26 @@
 
             $("#sendmail").click(function () {
                 var mail = $("#mailaddress").val();
-                var stringpaht = "http://localhost:50420/Account/PasswordReset?email=" + mail;
-
-                $.ajax({
-                    url: stringpaht,
-                    success: function (data) {
-                        $("#successalert").css("display","block");
-                    }
-                });
+                if (mail != "") {
+                    var stringpaht = "http://localhost:50420/Account/PasswordReset?email=" + mail;
+                    $.ajax({
+                        url: stringpaht,
+                        success: function (data) {
+                            $("#successalert").css("display", "block");
+                        }
+                    });
+                }
             });
+
+            var $loading = $('#spinner').css("visibility", "hidden");
+            $(document)
+                .ajaxStart(function () {
+                    $loading.css("visibility", "visible").css("display", "block");
+                })
+                .ajaxStop(function () {
+                    $loading.css("display", "none");
+                    $("#mailaddress").attr('readonly', true);
+                });
 
 
         });

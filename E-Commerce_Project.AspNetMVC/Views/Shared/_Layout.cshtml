@@ -1,5 +1,4 @@
-﻿@model E_Commerce_Project.AspNetMVC.Models.DTO.RegisterDTO
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
@@ -117,99 +116,7 @@
                     <div class="row">
                         <div class="col">
                             <nav class="navbar navbar-light pt-0">
-                                <ul class="nav md-fontsize">
-                                    <li class="nav-item w-100">
-                                        <div class="dropdown">
-                                            <button class="btn btn-sm btn-outline-dark btn-categories dropdown-toggle" type="button"
-                                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false">
-                                                Tüm Kategoriler
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a class="nav-link nav-link-bottom text-dark"
-                                                   href="#">Bilgisayar</a>
-                                                <a class="nav-link nav-link-bottom text-dark"
-                                                   href="#">Cep Telefonu</a>
-                                                <a class="nav-link nav-link-bottom text-dark"
-                                                   href="#">Tablet</a>
-                                                <a class="nav-link nav-link-bottom text-dark"
-                                                   href="#">Televizyon</a>
-                                                <a class="nav-link nav-link-bottom text-dark" href="#">
-                                                    Beyaz
-                                                    Eşya
-                                                </a>
-                                                <a class="nav-link nav-link-bottom text-dark" href="#">
-                                                    Küçük Ev
-                                                    Aletleri
-                                                </a>
-                                                <a class="nav-link nav-link-bottom text-dark" href="#">Mobilya</a>
-                                            </div>
-                                        </div>
-
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link nav-link-bottom text-dark d-none d-md-block px-0 mr-3" href="#">Bilgisayar</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link nav-link-bottom text-dark d-none d-md-block px-0 mr-3"
-                                           href="#">
-                                            Cep
-                                            Telefonu
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link nav-link-bottom text-dark d-none d-md-block px-0 mr-3"
-                                           href="#">Tablet</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link nav-link-bottom text-dark d-none d-lg-block px-0 mr-3"
-                                           href="#">Televizyon</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link nav-link-bottom text-dark d-none d-lg-block px-0 mr-3"
-                                           href="#">
-                                            Beyaz
-                                            Eşya
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link nav-link-bottom text-dark d-none d-xl-block px-0 mr-3"
-                                           href="#">
-                                            Küçük Ev
-                                            Aletleri
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link nav-link-bottom text-dark d-none d-xl-block px-0 mr-3"
-                                           href="#">Mobilya</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <div class="dropdown">
-                                            <a id="allcategories" class="nav-link nav-link-bottom text-dark d-none d-sm-block d-xl-none px-0 mr-3" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                Diğer Kategoriler <i class="fas fa-sort-down"></i>
-                                            </a>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                <a class="nav-link nav-link-bottom text-dark d-lg-none d-md-none"
-                                                   href="#">Bilgisayar</a>
-                                                <a class="nav-link nav-link-bottom text-dark d-lg-none d-md-none"
-                                                   href="#">Cep Telefonu</a>
-                                                <a class="nav-link nav-link-bottom text-dark d-lg-none d-md-none"
-                                                   href="#">Tablet</a>
-                                                <a class="nav-link nav-link-bottom text-dark d-lg-none"
-                                                   href="#">Televizyon</a>
-                                                <a class="nav-link nav-link-bottom text-dark d-lg-none" href="#">
-                                                    Beyaz
-                                                    Eşya
-                                                </a>
-                                                <a class="nav-link nav-link-bottom text-dark" href="#">
-                                                    Küçük Ev
-                                                    Aletleri
-                                                </a>
-                                                <a class="nav-link nav-link-bottom text-dark" href="#">Mobilya</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
+                                @Html.Action("_GetMainCategories", "MainCategory")
                                 <form class="search">
                                     <div class="input-group input-group-sm search-sm">
                                         <input type="text" class="form-control" style="border-color: #343a40;"
@@ -266,6 +173,7 @@
         </footer>
 
         @Scripts.Render("~/Scripts")
+        @RenderSection("FilterScripst", false)
     </div>
 </body>
 

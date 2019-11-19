@@ -139,6 +139,12 @@
     <Content Include="Content\css\all.min.css" />
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\site.css" />
+    <Content Include="Content\image\product\hp_15-BS154NT\4.jpg" />
+    <Content Include="Content\image\product\hp_15-BS154NT\5.jpg" />
+    <Content Include="Content\image\product\hp_15-BS154NT\6.jpg" />
+    <Content Include="Content\image\product\huawei_matebook13\1.jpg" />
+    <Content Include="Content\image\product\huawei_matebook13\2.jpg" />
+    <Content Include="Content\image\product\huawei_matebook13\3.jpg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\js\bootstrap.min.js" />
     <Content Include="Scripts\js\jquery-3.4.1.js" />
@@ -155,12 +161,14 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MainCategoryController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DTO\LoginDTO.cs" />
     <Compile Include="Models\DTO\RegisterDTO.cs" />
     <Compile Include="Models\DTO\ResetPasswordDTO.cs" />
+    <Compile Include="Models\VM\ProductViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -172,9 +180,12 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\ConfirmMailOk.cshtml" />
-    <Content Include="Views\Account\Error.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Account\ConfirmMail.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\MainCategory\_GetMainCategories.cshtml" />
+    <Content Include="Views\Home\Category.cshtml" />
+    <Content Include="Views\Home\ProductDetails.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

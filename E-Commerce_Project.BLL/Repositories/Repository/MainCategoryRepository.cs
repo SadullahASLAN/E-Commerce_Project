@@ -54,7 +54,12 @@ namespace E_Commerce_Project.BLL.Repositories.Repository
 
         public MainCategory SelectById(string Id)
         {
-            return db.MainCategories.Where(i => i.IsDeleted == false && i.Id == Id).First();
+            return db.MainCategories.Where(i => i.IsDeleted == false && i.Id == Id).FirstOrDefault();
+        }
+
+        public MainCategory SelectByName(string name)
+        {
+            return db.MainCategories.Where(i => i.Name == name && i.IsDeleted == false).FirstOrDefault();
         }
     }
 }

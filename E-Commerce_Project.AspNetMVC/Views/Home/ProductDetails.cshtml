@@ -1,0 +1,472 @@
+﻿@model E_Commerce_Project.AspNetMVC.Models.VM.ProductViewModel
+@{
+    ViewBag.Title = "Ürün Detay";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<!-- breadcrumb -->
+<div class="row mt-3">
+    <div class="col">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb m-0 p-2 rounded-0 bg-white text-muted shadow" style="font-size:12px;">
+                <li class="breadcrumb-item"><a href="/">Anasayfa</a></li>
+                <li class="breadcrumb-item"><a href="/Home/Category?category=@Model.Product.SubCategory.MainCategory.Name">@Model.Product.SubCategory.MainCategory.Name</a></li>
+                <li class="breadcrumb-item"><a href="/Home/Category?category=@Model.Product.SubCategory.MainCategory.Name&subCategory=@Model.Product.SubCategory.Name">@Model.Product.SubCategory.Name</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@Model.Product.Name</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+
+<!-- üründetay -->
+<div class="row mt-3">
+    <div class="col-lg">
+        <div class="border bg-white p-2">
+            <div class="row">
+                <div class="col">
+                    <img id="productimgshow" src="@Model.Product.Images.First().Paht" class="rounded mx-auto d-block border shadow" alt="@Model.Product.Name" style="max-width:70%;">
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col text-center">
+                    @foreach(var image in Model.Product.Images)
+                    {
+                        <img src="@image.Paht" class="rounded border mx-1 productimg" alt="@Model.Product.Name" style="max-width:15%;">
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg pl-lg-0 mt-3 mt-lg-0">
+        <div class="border bg-white p-2 h-100">
+            <h4 class="m-0">@Model.Product.Name</h4>
+            <small class="d-block mt-1">@Model.Product.Brand - @Model.Product.Model</small>
+            <span class="badge badge-secondary text-monospace mt-1">@Model.Product.Code</span>
+            <div class="row mt-3">
+                <div class="col pr-0">
+                    <div class="d-flex float-left">
+                        @if(Model.Product.DiscountPercentage != 0)
+                        {
+                            <div class="percent text-center bg-danger text-white rounded">
+                                <p class="m-0" style="font-size: 24px;">%@Model.Product.DiscountPercentage</p>
+                                <p class="m-0 ">indirim </p>
+                            </div>
+
+                        }
+                        <div class="pl-2">
+                            <p class="m-0 text-muted font-weight-lighter" style="text-decoration:line-through; height:24px;">
+                                @if(Model.Product.DiscountPercentage != 0)
+                                {
+                                    <span>@Model.Product.Price.ToString("c2")</span>
+                                }
+                            </p>
+                            <p class="m-0 font-weight-bold" style="font-size: 25px;">
+                                @if(Model.Product.DiscountPercentage != 0)
+                                {
+                                    <span>@((Model.Product.Price * (100 - Convert.ToDecimal(Model.Product.DiscountPercentage)) / 100m).ToString("c2"))</span>
+                                }
+                                else
+                                {
+                                    <span>@Model.Product.Price.ToString("c2")</span>
+                                }
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col text-right pl-0">
+                    <img style="width: 84px; height: 69px;" src="https://www.saglikliyasamhl.com/img/cms/%C3%BCcretsiz%20kargo.jpeg" alt="">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <label class=" text-warning m-0" style="font-size: 14px;">
+                        @if(Model.Product.Comments.Count > 0)
+                        {
+                            var Point = Model.Product.Comments.Sum(i => i.Point) / Model.Product.Comments.Count();
+                            for(int i = 0; i < 5; i++)
+                            {
+                                if(i < Point)
+                                {
+                                    <i class="fas fa-star"></i>
+                                }
+                                else
+                                {
+                                    <i class="far fa-star"></i>
+                                }
+                            }
+                        }
+                        else
+                        {
+                            for(int i = 1; i <= 5; i++)
+                            {
+                                <i class="far fa-star"></i>
+                            }
+                        }
+                        <a id="yorumlar" class="text-warning">Yorumlar (@Model.Product.Comments.Count())</a>
+                    </label>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col">
+                    <table class="table table-sm">
+                        <tr>
+                            <th width="100px">Stok</th>
+                            <td>@Model.Product.Stock Adet</td>
+                        </tr>
+                        <tr>
+                            <th>Markar</th>
+                            <td>@Model.Product.Brand</td>
+                        </tr>
+                        <tr>
+                            <th>Model</th>
+                            <td>@Model.Product.Model</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+
+            <div class="input-group">
+                <input type="number" style="border-radius: 0;" class="form-control" value="1" min="1" max="3"
+                       step="1" S>
+                <div class="input-group-append">
+                    <button class="btn btn-success px-5" style="border-radius: 0;" type="button"
+                            id="button-addon2">
+                        Sepete Ekle
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- bu ürünleri gördünüz mü -->
+<div class="row mt-3">
+    <div class="col">
+        <div class="row">
+            <div class="col">
+                <h4>Bu ürünleri gördünüz mü?</h4>
+                <hr class="mt-0">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="row">
+                    <div class="col-sm-6 col-md-3 col-lg col-xl-2 mb-3">
+                        <div class="card citem shadow-lg rounded-0">
+                            <img src="https://www.saatpa.com/image/cache/catalog/lige-9929-erkek-kol-saati-lacivert-hasir-kordon-fonksiyonlu-saat-550x550.jpg"
+                                 class="card-img-top rounded-0" alt="...">
+                            <div class="card-img-overlay p-1" style="height: 31px;">
+                                <div class="input-group input-group-sm cartproductadditem"
+                                     style="visibility: hidden;">
+                                    <input type="number" style="border-radius: 0;" class="form-control"
+                                           value="1" min="1" max="3" step="1" S>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-success" style="border-radius: 0;" type="button"
+                                                id="button-addon2">
+                                            Sepete Ekle
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body p-2" style="line-height: 1;">
+                                <a href="#" class="card-link d-block m-0"
+                                   style="font-size: 12px; height: 24px;">
+                                    Lige 9929 Erkek
+                                    Kol Saati Lacivert
+                                    Hasır Kordon...
+                                </a>
+                                <div class="text-right mt-1">
+                                    <p class="m-0 text-muted font-weight-lighter"
+                                       style="text-decoration:line-through; font-size: 12px;">335,00₺</p>
+                                    <p class="m-0 font-weight-bold text-danger" style="font-size: 14px;">
+                                        229,90₺
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3 col-lg col-xl-2 mb-3">
+                        <div class="card citem shadow-lg rounded-0">
+                            <img src="https://www.saatpa.com/image/cache/catalog/lige-9929-erkek-kol-saati-lacivert-hasir-kordon-fonksiyonlu-saat-550x550.jpg"
+                                 class="card-img-top rounded-0" alt="...">
+                            <div class="card-img-overlay p-1" style="height: 31px;">
+                                <div class="input-group input-group-sm cartproductadditem"
+                                     style="visibility: hidden;">
+                                    <input type="number" style="border-radius: 0;" class="form-control"
+                                           value="1" min="1" max="3" step="1" S>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-success" style="border-radius: 0;" type="button"
+                                                id="button-addon2">
+                                            Sepete Ekle
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body p-2" style="line-height: 1;">
+                                <a href="#" class="card-link d-block m-0"
+                                   style="font-size: 12px; height: 24px;">
+                                    Lige 9929 Erkek
+                                    Kol Saati Lacivert
+                                    Hasır Kordon...
+                                </a>
+                                <div class="text-right mt-1">
+                                    <p class="m-0 text-muted font-weight-lighter"
+                                       style="text-decoration:line-through; font-size: 12px;">335,00₺</p>
+                                    <p class="m-0 font-weight-bold text-danger" style="font-size: 14px;">
+                                        229,90₺
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3 col-lg col-xl-2 mb-3 d-none d-md-block">
+                        <div class="card citem shadow-lg rounded-0">
+                            <img src="https://www.saatpa.com/image/cache/catalog/lige-9929-erkek-kol-saati-lacivert-hasir-kordon-fonksiyonlu-saat-550x550.jpg"
+                                 class="card-img-top rounded-0" alt="...">
+                            <div class="card-img-overlay p-1" style="height: 31px;">
+                                <div class="input-group input-group-sm cartproductadditem"
+                                     style="visibility: hidden;">
+                                    <input type="number" style="border-radius: 0;" class="form-control"
+                                           value="1" min="1" max="3" step="1" S>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-success" style="border-radius: 0;" type="button"
+                                                id="button-addon2">
+                                            Sepete Ekle
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body p-2" style="line-height: 1;">
+                                <a href="#" class="card-link d-block m-0"
+                                   style="font-size: 12px; height: 24px;">
+                                    Lige 9929 Erkek
+                                    Kol Saati Lacivert
+                                    Hasır Kordon...
+                                </a>
+                                <div class="text-right mt-1">
+                                    <p class="m-0 text-muted font-weight-lighter"
+                                       style="text-decoration:line-through; font-size: 12px;">335,00₺</p>
+                                    <p class="m-0 font-weight-bold text-danger" style="font-size: 14px;">
+                                        229,90₺
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3 col-lg col-xl-2 mb-3 d-none d-md-block">
+                        <div class="card citem shadow-lg rounded-0">
+                            <img src="https://www.saatpa.com/image/cache/catalog/lige-9929-erkek-kol-saati-lacivert-hasir-kordon-fonksiyonlu-saat-550x550.jpg"
+                                 class="card-img-top rounded-0" alt="...">
+                            <div class="card-img-overlay p-1" style="height: 31px;">
+                                <div class="input-group input-group-sm cartproductadditem"
+                                     style="visibility: hidden;">
+                                    <input type="number" style="border-radius: 0;" class="form-control"
+                                           value="1" min="1" max="3" step="1" S>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-success" style="border-radius: 0;" type="button"
+                                                id="button-addon2">
+                                            Sepete Ekle
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body p-2" style="line-height: 1;">
+                                <a href="#" class="card-link d-block m-0"
+                                   style="font-size: 12px; height: 24px;">
+                                    Lige 9929 Erkek
+                                    Kol Saati Lacivert
+                                    Hasır Kordon...
+                                </a>
+                                <div class="text-right mt-1">
+                                    <p class="m-0 text-muted font-weight-lighter"
+                                       style="text-decoration:line-through; font-size: 12px;">335,00₺</p>
+                                    <p class="m-0 font-weight-bold text-danger" style="font-size: 14px;">
+                                        229,90₺
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3 col-lg col-xl-2 mb-3 d-none d-lg-block">
+                        <div class="card citem shadow-lg rounded-0">
+                            <img src="https://www.saatpa.com/image/cache/catalog/lige-9929-erkek-kol-saati-lacivert-hasir-kordon-fonksiyonlu-saat-550x550.jpg"
+                                 class="card-img-top rounded-0" alt="...">
+                            <div class="card-img-overlay p-1" style="height: 31px;">
+                                <div class="input-group input-group-sm cartproductadditem"
+                                     style="visibility: hidden;">
+                                    <input type="number" style="border-radius: 0;" class="form-control"
+                                           value="1" min="1" max="3" step="1" S>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-success" style="border-radius: 0;" type="button"
+                                                id="button-addon2">
+                                            Sepete Ekle
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body p-2" style="line-height: 1;">
+                                <a href="#" class="card-link d-block m-0"
+                                   style="font-size: 12px; height: 24px;">
+                                    Lige 9929 Erkek
+                                    Kol Saati Lacivert
+                                    Hasır Kordon...
+                                </a>
+                                <div class="text-right mt-1">
+                                    <p class="m-0 text-muted font-weight-lighter"
+                                       style="text-decoration:line-through; font-size: 12px;">335,00₺</p>
+                                    <p class="m-0 font-weight-bold text-danger" style="font-size: 14px;">
+                                        229,90₺
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3 col-lg col-xl-2 mb-3 d-none d-xl-block">
+                        <div class="card citem shadow-lg rounded-0">
+                            <img src="https://www.saatpa.com/image/cache/catalog/lige-9929-erkek-kol-saati-lacivert-hasir-kordon-fonksiyonlu-saat-550x550.jpg"
+                                 class="card-img-top rounded-0" alt="...">
+                            <div class="card-img-overlay p-1" style="height: 31px;">
+                                <div class="input-group input-group-sm cartproductadditem"
+                                     style="visibility: hidden;">
+                                    <input type="number" style="border-radius: 0;" class="form-control"
+                                           value="1" min="1" max="3" step="1" S>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-success" style="border-radius: 0;" type="button"
+                                                id="button-addon2">
+                                            Sepete Ekle
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body p-2" style="line-height: 1;">
+                                <a href="#" class="card-link d-block m-0"
+                                   style="font-size: 12px; height: 24px;">
+                                    Lige 9929 Erkek
+                                    Kol Saati Lacivert
+                                    Hasır Kordon...
+                                </a>
+                                <div class="text-right mt-1">
+                                    <p class="m-0 text-muted font-weight-lighter"
+                                       style="text-decoration:line-through; font-size: 12px;">335,00₺</p>
+                                    <p class="m-0 font-weight-bold text-danger" style="font-size: 14px;">
+                                        229,90₺
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- açıklama ve yorum -->
+<div class="row my-3">
+    <div class="col">
+        <div class="bg-white">
+            <nav>
+                <div class="nav nav-tabs text-center font-weight-bold m-0" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active w-50 rounded-0" style="border-left: 0;"
+                       id="nav-aciklama-tab" data-toggle="tab" href="#nav-aciklama" role="tab"
+                       aria-controls="nav-aciklama" aria-selected="true">Açıklama</a>
+                    <a class="nav-item nav-link w-50 rounded-0" style="border-right: 0;" id="nav-yorumlar-tab"
+                       data-toggle="tab" href="#nav-yorumlar" role="tab" aria-controls="nav-yorumlar"
+                       aria-selected="false">Yorumlar(@Model.Product.Comments.Count())</a>
+                </div>
+            </nav>
+            <div class="tab-content p-3" id="nav-tabContent">
+                <div class="tab-pane fade show  active" id="nav-aciklama" role="tabpanel" aria-labelledby="nav-aciklama-tab">
+                    @Model.Product.Description
+                </div>
+                <div class="tab-pane fade" id="nav-yorumlar" role="tabpanel" aria-labelledby="nav-yorumlar-tab">
+                    @if(User.Identity.IsAuthenticated)
+                    {
+                        <p>
+                            <a class="card-link" data-toggle="collapse" href="#collapseExample" role="button"
+                               aria-expanded="false" aria-controls="collapseExample">
+                                Yorum Yap
+                            </a>
+                        </p>
+                        <div class="collapse" id="collapseExample">
+                            <label class=" text-warning m-0" style="font-size: 14px;">
+                                <i id="star1" class="far fa-star tooltips border-0">
+                                    <span class="tooltiptexts" style="letter-spacing: 0;">Çok Kötü</span>
+                                </i>
+                                <i id="star2" class="far fa-star tooltips border-0">
+                                    <span class="tooltiptexts" style="letter-spacing: 0;">Kötü</span>
+                                </i>
+                                <i id="star3" class="far fa-star tooltips border-0">
+                                    <span class="tooltiptexts" style="letter-spacing: 0;">Normal</span>
+                                </i>
+                                <i id="star4" class="far fa-star tooltips border-0">
+                                    <span class="tooltiptexts" style="letter-spacing: 0;">İyi</span>
+                                </i>
+                                <i id="star5" class="far fa-star tooltips border-0">
+                                    <span class="tooltiptexts" style="letter-spacing: 0;">Çok İyi</span>
+                                </i>
+                                <span class="d-none d-sm-inline" style="letter-spacing: 0;">Ürüne puan veriniz.</span>
+                            </label>
+                            <span id="commentdate" class="float-right">-</span>
+                            <hr class="m-0 mb-2">
+                            <h5 class="mt-0">@User.Identity.Name</h5>
+
+                            @using(Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" id="commentTab" value="@Model.commentTab.ToString()" />
+                                @Html.HiddenFor(i => i.Comment.Point, new { @id = "point" })
+                                <input type="hidden" name="Comment.ProductId" value="@Model.Product.Id" />
+                                @Html.TextAreaFor(i => i.Comment.Explanation, new { @class = "form-control", @id = "exampleFormControlTextarea1", @rows = "3", @placeholder = "Yorum..." })
+                                <button id="btn-comment" type="submit" class="btn btn-primary my-3" disabled>Gönder</button>
+
+                            }
+                        </div>
+                    }
+                    @if(Model.Product.Comments.Count > 0)
+                    {
+                        var comments = Model.Product.Comments.OrderBy(i=>i.Date).Reverse();
+                        foreach(var comment in comments)
+                        {
+                            <div class="media mb-4">
+                                <div class="media-body">
+                                    <label class=" text-warning m-0" style="font-size: 14px;">
+                                        @for(int i = 0; i < 5; i++)
+                                        {
+                                            if(i < comment.Point)
+                                            {
+                                                <i class="fas fa-star"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="far fa-star"></i>
+                                            }
+                                        }
+                                    </label>
+                                    <span class="float-right">@comment.Date.ToShortDateString()</span>
+                                    <hr class="m-0 mb-2">
+                                    <h5 class="mt-0">@comment.User.UserName</h5>
+                                    @comment.Explanation
+                                </div>
+                            </div>
+                        }
+
+                    }
+                    else
+                    {
+                        <span>Bu ürüne henüz hiç yorum yapılmamış.</span>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

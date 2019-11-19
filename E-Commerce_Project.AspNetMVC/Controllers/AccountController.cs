@@ -159,8 +159,10 @@ namespace E_Commerce_Project.AspNetMVC.Controllers
             if(user != null)
             {
                 ViewBag.Code = code;
-                ViewBag.UserName = user.UserName;
-                return View();
+                var model = new ResetPasswordDTO();
+                model.UserName = user.UserName;
+                model.Password = model.ConfirmPassword = string.Empty;
+                return View(model);
             }
 
             return View("Error");

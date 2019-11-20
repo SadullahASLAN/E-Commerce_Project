@@ -41,7 +41,7 @@
                                     else
                                     {
                                         <li class="nav-item nav-item-xsm">
-                                            <a href="/Account/Login" class="btn btn-sm btn-outline-dark mr-1 nav-btn-xsm btn-text"><i class="fas fa-sign-in-alt mr-1"></i>Giriş Yap</a>
+                                            <a href="/Account/Login?ReturnUrl=@Request.Url.AbsoluteUri" class="btn btn-sm btn-outline-dark mr-1 nav-btn-xsm btn-text"><i class="fas fa-sign-in-alt mr-1"></i>Giriş Yap</a>
                                         </li>
                                         <li class="nav-item nav-item-xsm nav-btn-xsm-mx">
                                             <a href="/Account/Register" class="btn btn-sm btn-outline-dark mr-1 nav-btn-xsm btn-text"><i class="fas fa-user-plus mr-1"></i>Üye Ol</a>
@@ -49,66 +49,10 @@
                                         </li>
 
                                     }
-                                    <li class="nav-item nav-item-xsm">
-                                        <div class="dropdown">
-                                            <button class="btn btn-sm btn-outline-dark nav-btn-xsm btn-text" type="button"
-                                                    id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false" data-offset="0,0">
-                                                <i class="fas fa-shopping-cart mr-1"></i>Sepet <span class="badge badge-danger">8</span>
-                                            </button>
-                                            <div class="dropdown-menu shadow-lg p-1 ddm-sepet"
-                                                 aria-labelledby="dropdownMenuOffset">
-                                                <form action="">
-                                                    <table class="table table-bordered table-sm text-center m-0"
-                                                           style="font-size: 11px;">
-                                                        <thead class="table-dark">
-                                                            <tr>
-                                                                <th class="text-left">Ürün</th>
-                                                                <th>Adet</th>
-                                                                <th>Fiyat</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td class="text-left">
-                                                                    WWL104403 Bayan Kol Saati
-                                                                </td>
-                                                                <td class="text-center">2</td>
-                                                                <td>650,00₺</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="text-left">WWL104403 Bayan Kol Saati</td>
-                                                                <td class="text-center">2</td>
-                                                                <td>650,00₺</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="text-left">WWL104403 Bayan Kol Saati</td>
-                                                                <td class="text-center">2</td>
-                                                                <td>1.650,00₺</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="text-left">WWL104403 Bayan Kol Saati</td>
-                                                                <td class="text-center">2</td>
-                                                                <td>650,00₺</td>
-                                                            </tr>
-                                                        </tbody>
-                                                        <tfoot class="table-dark">
-                                                            <tr>
-                                                                <td class="text-left">Toplam</td>
-                                                                <td class="text-center">7</td>
-                                                                <td>3.684,00₺</td>
-                                                            </tr>
-                                                        </tfoot>
-                                                    </table>
-                                                </form>
-                                                <a href="#"
-                                                   class="btn btn-success btn-sm btn-block rounded-0 mt-1">
-                                                    Sepete
-                                                    Git
-                                                </a>
-                                            </div>
-                                        </div>
+                                    <li id="cart" class="nav-item nav-item-xsm">
+                                        @Html.Action("_CartButton", "Cart")
                                     </li>
+
                                 </ul>
                             </nav>
                         </div>
@@ -171,6 +115,20 @@
                 <p class="m-0 pb-2">© 2019 Brand Sadullah ASLAN</p>
             </div>
         </footer>
+
+        @*model depete eklendi*@
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                <div class="modal-content bg-success">
+                    <div class="modal-body text-white">
+                        <strong>Ürün Sepete Eklendi.</strong>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         @Scripts.Render("~/Scripts")
         @RenderSection("FilterScripst", false)

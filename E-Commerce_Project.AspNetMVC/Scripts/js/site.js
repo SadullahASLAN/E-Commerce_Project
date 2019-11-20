@@ -132,6 +132,7 @@ $(document).ready(function () {
     $("#star1").click(function () {
         $("#point").val("1");
         $("#btn-comment").removeAttr("Disabled");
+        $("#btn-comment").css("cursor", "default");
         click1 = true;
         click2 = false;
         click3 = false;
@@ -142,6 +143,7 @@ $(document).ready(function () {
     $("#star2").click(function () {
         $("#point").val("2");
         $("#btn-comment").removeAttr("Disabled");
+        $("#btn-comment").css("cursor", "default");
         click1 = false;
         click2 = true;
         click3 = false;
@@ -152,6 +154,7 @@ $(document).ready(function () {
     $("#star3").click(function () {
         $("#point").val("3");
         $("#btn-comment").removeAttr("Disabled");
+        $("#btn-comment").css("cursor", "default");
         click1 = false;
         click2 = false;
         click3 = true;
@@ -162,6 +165,7 @@ $(document).ready(function () {
     $("#star4").click(function () {
         $("#point").val("4");
         $("#btn-comment").removeAttr("Disabled");
+        $("#btn-comment").css("cursor", "default");
         click1 = false;
         click2 = false;
         click3 = false;
@@ -172,6 +176,7 @@ $(document).ready(function () {
     $("#star5").click(function () {
         $("#point").val("5");
         $("#btn-comment").removeAttr("Disabled");
+        $("#btn-comment").css("cursor", "default");
         click1 = false;
         click2 = false;
         click3 = false;
@@ -304,3 +309,16 @@ $(window).resize(function () {
         $("#allcategories").html("Diğer Kategoriler  <i class='fas fa-sort-down'></i>")
     }
 });
+
+
+function AddToCart(id) {
+    $.ajax({
+        type: "Get",
+        url: "/Cart/AddToCart",
+        data: { id: id },
+        success: function (data) {
+            $("#cart").html(data);
+            $('#exampleModalCenter').modal('show');
+        }
+    });
+}

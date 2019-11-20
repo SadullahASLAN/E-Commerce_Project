@@ -106,7 +106,7 @@
                                 <i class="far fa-star"></i>
                             }
                         }
-                        <a id="yorumlar" class="text-warning">Yorumlar (@Model.Product.Comments.Count())</a>
+                        <a id="yorumlar" style="cursor: pointer;" class="text-warning">Yorumlar (@Model.Product.Comments.Count())</a>
                     </label>
                 </div>
             </div>
@@ -132,14 +132,9 @@
 
 
             <div class="input-group">
-                <input type="number" style="border-radius: 0;" class="form-control" value="1" min="1" max="3"
-                       step="1" S>
-                <div class="input-group-append">
-                    <button class="btn btn-success px-5" style="border-radius: 0;" type="button"
-                            id="button-addon2">
-                        Sepete Ekle
-                    </button>
-                </div>
+
+                    <button type="submit" onclick="AddToCart('@Model.Product.Id')" class="btn btn-success btn-block px-5" style="border-radius: 0;" id="button-addon2">Sepete Ekle</button>
+               
             </div>
         </div>
     </div>
@@ -158,210 +153,196 @@
         <div class="row">
             <div class="col">
                 <div class="row">
-                    <div class="col-sm-6 col-md-3 col-lg col-xl-2 mb-3">
-                        <div class="card citem shadow-lg rounded-0">
-                            <img src="https://www.saatpa.com/image/cache/catalog/lige-9929-erkek-kol-saati-lacivert-hasir-kordon-fonksiyonlu-saat-550x550.jpg"
-                                 class="card-img-top rounded-0" alt="...">
-                            <div class="card-img-overlay p-1" style="height: 31px;">
-                                <div class="input-group input-group-sm cartproductadditem"
-                                     style="visibility: hidden;">
-                                    <input type="number" style="border-radius: 0;" class="form-control"
-                                           value="1" min="1" max="3" step="1" S>
-                                    <div class="input-group-append">
-                                        <button class="btn btn-success" style="border-radius: 0;" type="button"
-                                                id="button-addon2">
-                                            Sepete Ekle
-                                        </button>
+                    @{
+                        var subCat = Model.Product.SubCategory;
+                        var products = subCat.Products.Where(i => i.IsDeleted == false && i.InSales == true).ToList();
+                        var number = 0;
+                        foreach(var product in products)
+                        {
+                            if(product.Name != Model.Product.Name)
+                            {
+                                if(number < 2)
+                                {
+                                    <div class="col-sm-6 col-md-3 col-lg col-xl-2 mb-3">
+                                        <div class="card citem shadow-lg rounded-0">
+                                            <img src="@product.Images.First().Paht" class="card-img-top rounded-0" alt="@product.Name">
+                                            <div class="card-img-overlay p-1" style="height: 31px;">
+                                                <div class="input-group input-group-sm cartproductadditem" style="visibility: hidden;">
+                                                    <input type="number" style="border-radius: 0;" class="form-control" value="1" min="1" max="3" step="1" S>
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-success" style="border-radius: 0;" type="button"
+                                                                id="button-addon2">
+                                                            Sepete Ekle
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body p-2" style="line-height: 1;">
+                                                @Html.ActionLink(product.Name.Substring(0, 50) + "...", "ProductDetails", new { id = product.Id }, new { @class = "card-link d-block m-0", @style = "font-size: 12px; height: 24px;" })
+                                                <div class="text-right mt-1">
+                                                    <p class="m-0 text-muted font-weight-lighter" style="text-decoration:line-through; font-size: 12px; height:16px;">
+
+                                                        @if(product.DiscountPercentage != 0)
+                                                        {
+                                                            <span>@product.Price.ToString("c2")</span>
+                                                        }
+                                                    </p>
+                                                    <p class="m-0 font-weight-bold text-danger" style="font-size: 14px;">
+                                                        @if(product.DiscountPercentage != 0)
+                                                        {
+                                                            <span>@((product.Price * (100m - Convert.ToDecimal(product.DiscountPercentage)) / 100m).ToString("c2"))</span>
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>@product.Price.ToString("c2")</span>
+                                                        }
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="card-body p-2" style="line-height: 1;">
-                                <a href="#" class="card-link d-block m-0"
-                                   style="font-size: 12px; height: 24px;">
-                                    Lige 9929 Erkek
-                                    Kol Saati Lacivert
-                                    Hasır Kordon...
-                                </a>
-                                <div class="text-right mt-1">
-                                    <p class="m-0 text-muted font-weight-lighter"
-                                       style="text-decoration:line-through; font-size: 12px;">335,00₺</p>
-                                    <p class="m-0 font-weight-bold text-danger" style="font-size: 14px;">
-                                        229,90₺
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3 col-lg col-xl-2 mb-3">
-                        <div class="card citem shadow-lg rounded-0">
-                            <img src="https://www.saatpa.com/image/cache/catalog/lige-9929-erkek-kol-saati-lacivert-hasir-kordon-fonksiyonlu-saat-550x550.jpg"
-                                 class="card-img-top rounded-0" alt="...">
-                            <div class="card-img-overlay p-1" style="height: 31px;">
-                                <div class="input-group input-group-sm cartproductadditem"
-                                     style="visibility: hidden;">
-                                    <input type="number" style="border-radius: 0;" class="form-control"
-                                           value="1" min="1" max="3" step="1" S>
-                                    <div class="input-group-append">
-                                        <button class="btn btn-success" style="border-radius: 0;" type="button"
-                                                id="button-addon2">
-                                            Sepete Ekle
-                                        </button>
+                                }
+                                else if(number < 4)
+                                {
+                                    <div class="col-sm-6 col-md-3 col-lg col-xl-2 mb-3 d-none d-md-block">
+                                        <div class="card citem shadow-lg rounded-0">
+                                            <img src="@product.Images.FirstOrDefault().Paht" class="card-img-top rounded-0" alt="@product.Name">
+                                            <div class="card-img-overlay p-1" style="height: 31px;">
+                                                <div class="input-group input-group-sm cartproductadditem" style="visibility: hidden;">
+                                                    <input type="number" style="border-radius: 0;" class="form-control" value="1" min="1" max="3" step="1" S>
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-success" style="border-radius: 0;" type="button"
+                                                                id="button-addon2">
+                                                            Sepete Ekle
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body p-2" style="line-height: 1;">
+                                                <a href="#" class="card-link d-block m-0"
+                                                   style="font-size: 12px; height: 24px;">
+                                                    <span>@product.Name</span>
+                                                </a>
+                                                <div class="text-right mt-1">
+                                                    <p class="m-0 text-muted font-weight-lighter" style="text-decoration:line-through; font-size: 12px;">
+
+                                                        @if(product.DiscountPercentage != 0)
+                                                        {
+                                                            <span>@product.Price.ToString("c2")</span>
+                                                        }
+                                                    </p>
+                                                    <p class="m-0 font-weight-bold text-danger" style="font-size: 14px;">
+                                                        @if(product.DiscountPercentage != 0)
+                                                        {
+                                                            <span>@((product.Price * (100m - Convert.ToDecimal(product.DiscountPercentage)) / 100m).ToString("c2"))</span>
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>@product.Price.ToString("c2")</span>
+                                                        }
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="card-body p-2" style="line-height: 1;">
-                                <a href="#" class="card-link d-block m-0"
-                                   style="font-size: 12px; height: 24px;">
-                                    Lige 9929 Erkek
-                                    Kol Saati Lacivert
-                                    Hasır Kordon...
-                                </a>
-                                <div class="text-right mt-1">
-                                    <p class="m-0 text-muted font-weight-lighter"
-                                       style="text-decoration:line-through; font-size: 12px;">335,00₺</p>
-                                    <p class="m-0 font-weight-bold text-danger" style="font-size: 14px;">
-                                        229,90₺
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3 col-lg col-xl-2 mb-3 d-none d-md-block">
-                        <div class="card citem shadow-lg rounded-0">
-                            <img src="https://www.saatpa.com/image/cache/catalog/lige-9929-erkek-kol-saati-lacivert-hasir-kordon-fonksiyonlu-saat-550x550.jpg"
-                                 class="card-img-top rounded-0" alt="...">
-                            <div class="card-img-overlay p-1" style="height: 31px;">
-                                <div class="input-group input-group-sm cartproductadditem"
-                                     style="visibility: hidden;">
-                                    <input type="number" style="border-radius: 0;" class="form-control"
-                                           value="1" min="1" max="3" step="1" S>
-                                    <div class="input-group-append">
-                                        <button class="btn btn-success" style="border-radius: 0;" type="button"
-                                                id="button-addon2">
-                                            Sepete Ekle
-                                        </button>
+                                }
+                                else if(number < 5)
+                                {
+                                    <div class="col-sm-6 col-md-3 col-lg col-xl-2 mb-3 d-none d-lg-block">
+                                        <div class="card citem shadow-lg rounded-0">
+                                            <img src="@product.Images.FirstOrDefault().Paht" class="card-img-top rounded-0" alt="@product.Name">
+                                            <div class="card-img-overlay p-1" style="height: 31px;">
+                                                <div class="input-group input-group-sm cartproductadditem" style="visibility: hidden;">
+                                                    <input type="number" style="border-radius: 0;" class="form-control" value="1" min="1" max="3" step="1" S>
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-success" style="border-radius: 0;" type="button"
+                                                                id="button-addon2">
+                                                            Sepete Ekle
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body p-2" style="line-height: 1;">
+                                                <a href="#" class="card-link d-block m-0"
+                                                   style="font-size: 12px; height: 24px;">
+                                                    <span>@product.Name</span>
+                                                </a>
+                                                <div class="text-right mt-1">
+                                                    <p class="m-0 text-muted font-weight-lighter" style="text-decoration:line-through; font-size: 12px;">
+
+                                                        @if(product.DiscountPercentage != 0)
+                                                        {
+                                                            <span>@product.Price.ToString("c2")</span>
+                                                        }
+                                                    </p>
+                                                    <p class="m-0 font-weight-bold text-danger" style="font-size: 14px;">
+                                                        @if(product.DiscountPercentage != 0)
+                                                        {
+                                                            <span>@((product.Price * (100m - Convert.ToDecimal(product.DiscountPercentage)) / 100m).ToString("c2"))</span>
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>@product.Price.ToString("c2")</span>
+                                                        }
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="card-body p-2" style="line-height: 1;">
-                                <a href="#" class="card-link d-block m-0"
-                                   style="font-size: 12px; height: 24px;">
-                                    Lige 9929 Erkek
-                                    Kol Saati Lacivert
-                                    Hasır Kordon...
-                                </a>
-                                <div class="text-right mt-1">
-                                    <p class="m-0 text-muted font-weight-lighter"
-                                       style="text-decoration:line-through; font-size: 12px;">335,00₺</p>
-                                    <p class="m-0 font-weight-bold text-danger" style="font-size: 14px;">
-                                        229,90₺
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3 col-lg col-xl-2 mb-3 d-none d-md-block">
-                        <div class="card citem shadow-lg rounded-0">
-                            <img src="https://www.saatpa.com/image/cache/catalog/lige-9929-erkek-kol-saati-lacivert-hasir-kordon-fonksiyonlu-saat-550x550.jpg"
-                                 class="card-img-top rounded-0" alt="...">
-                            <div class="card-img-overlay p-1" style="height: 31px;">
-                                <div class="input-group input-group-sm cartproductadditem"
-                                     style="visibility: hidden;">
-                                    <input type="number" style="border-radius: 0;" class="form-control"
-                                           value="1" min="1" max="3" step="1" S>
-                                    <div class="input-group-append">
-                                        <button class="btn btn-success" style="border-radius: 0;" type="button"
-                                                id="button-addon2">
-                                            Sepete Ekle
-                                        </button>
+                                }
+                                else if(number < 6)
+                                {
+                                    <div class="col-sm-6 col-md-3 col-lg col-xl-2 mb-3 d-none d-xl-block">
+                                        <div class="card citem shadow-lg rounded-0">
+                                            <img src="@product.Images.FirstOrDefault().Paht" class="card-img-top rounded-0" alt="@product.Name">
+                                            <div class="card-img-overlay p-1" style="height: 31px;">
+                                                <div class="input-group input-group-sm cartproductadditem" style="visibility: hidden;">
+                                                    <input type="number" style="border-radius: 0;" class="form-control" value="1" min="1" max="3" step="1" S>
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-success" style="border-radius: 0;" type="button"
+                                                                id="button-addon2">
+                                                            Sepete Ekle
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body p-2" style="line-height: 1;">
+                                                <a href="#" class="card-link d-block m-0"
+                                                   style="font-size: 12px; height: 24px;">
+                                                    <span>@product.Name</span>
+                                                </a>
+                                                <div class="text-right mt-1">
+                                                    <p class="m-0 text-muted font-weight-lighter" style="text-decoration:line-through; font-size: 12px;">
+
+                                                        @if(product.DiscountPercentage != 0)
+                                                        {
+                                                            <span>@product.Price.ToString("c2")</span>
+                                                        }
+                                                    </p>
+                                                    <p class="m-0 font-weight-bold text-danger" style="font-size: 14px;">
+                                                        @if(product.DiscountPercentage != 0)
+                                                        {
+                                                            <span>@((product.Price * (100m - Convert.ToDecimal(product.DiscountPercentage)) / 100m).ToString("c2"))</span>
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>@product.Price.ToString("c2")</span>
+                                                        }
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="card-body p-2" style="line-height: 1;">
-                                <a href="#" class="card-link d-block m-0"
-                                   style="font-size: 12px; height: 24px;">
-                                    Lige 9929 Erkek
-                                    Kol Saati Lacivert
-                                    Hasır Kordon...
-                                </a>
-                                <div class="text-right mt-1">
-                                    <p class="m-0 text-muted font-weight-lighter"
-                                       style="text-decoration:line-through; font-size: 12px;">335,00₺</p>
-                                    <p class="m-0 font-weight-bold text-danger" style="font-size: 14px;">
-                                        229,90₺
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3 col-lg col-xl-2 mb-3 d-none d-lg-block">
-                        <div class="card citem shadow-lg rounded-0">
-                            <img src="https://www.saatpa.com/image/cache/catalog/lige-9929-erkek-kol-saati-lacivert-hasir-kordon-fonksiyonlu-saat-550x550.jpg"
-                                 class="card-img-top rounded-0" alt="...">
-                            <div class="card-img-overlay p-1" style="height: 31px;">
-                                <div class="input-group input-group-sm cartproductadditem"
-                                     style="visibility: hidden;">
-                                    <input type="number" style="border-radius: 0;" class="form-control"
-                                           value="1" min="1" max="3" step="1" S>
-                                    <div class="input-group-append">
-                                        <button class="btn btn-success" style="border-radius: 0;" type="button"
-                                                id="button-addon2">
-                                            Sepete Ekle
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body p-2" style="line-height: 1;">
-                                <a href="#" class="card-link d-block m-0"
-                                   style="font-size: 12px; height: 24px;">
-                                    Lige 9929 Erkek
-                                    Kol Saati Lacivert
-                                    Hasır Kordon...
-                                </a>
-                                <div class="text-right mt-1">
-                                    <p class="m-0 text-muted font-weight-lighter"
-                                       style="text-decoration:line-through; font-size: 12px;">335,00₺</p>
-                                    <p class="m-0 font-weight-bold text-danger" style="font-size: 14px;">
-                                        229,90₺
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3 col-lg col-xl-2 mb-3 d-none d-xl-block">
-                        <div class="card citem shadow-lg rounded-0">
-                            <img src="https://www.saatpa.com/image/cache/catalog/lige-9929-erkek-kol-saati-lacivert-hasir-kordon-fonksiyonlu-saat-550x550.jpg"
-                                 class="card-img-top rounded-0" alt="...">
-                            <div class="card-img-overlay p-1" style="height: 31px;">
-                                <div class="input-group input-group-sm cartproductadditem"
-                                     style="visibility: hidden;">
-                                    <input type="number" style="border-radius: 0;" class="form-control"
-                                           value="1" min="1" max="3" step="1" S>
-                                    <div class="input-group-append">
-                                        <button class="btn btn-success" style="border-radius: 0;" type="button"
-                                                id="button-addon2">
-                                            Sepete Ekle
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body p-2" style="line-height: 1;">
-                                <a href="#" class="card-link d-block m-0"
-                                   style="font-size: 12px; height: 24px;">
-                                    Lige 9929 Erkek
-                                    Kol Saati Lacivert
-                                    Hasır Kordon...
-                                </a>
-                                <div class="text-right mt-1">
-                                    <p class="m-0 text-muted font-weight-lighter"
-                                       style="text-decoration:line-through; font-size: 12px;">335,00₺</p>
-                                    <p class="m-0 font-weight-bold text-danger" style="font-size: 14px;">
-                                        229,90₺
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                    break;
+                                }
+                                number++;
+                            }
+                        }
+                    }
                 </div>
             </div>
         </div>
@@ -385,7 +366,7 @@
             </nav>
             <div class="tab-content p-3" id="nav-tabContent">
                 <div class="tab-pane fade show  active" id="nav-aciklama" role="tabpanel" aria-labelledby="nav-aciklama-tab">
-                    @Model.Product.Description
+                    @Html.Raw(Model.Product.Description);
                 </div>
                 <div class="tab-pane fade" id="nav-yorumlar" role="tabpanel" aria-labelledby="nav-yorumlar-tab">
                     @if(User.Identity.IsAuthenticated)
@@ -426,14 +407,14 @@
                                 @Html.HiddenFor(i => i.Comment.Point, new { @id = "point" })
                                 <input type="hidden" name="Comment.ProductId" value="@Model.Product.Id" />
                                 @Html.TextAreaFor(i => i.Comment.Explanation, new { @class = "form-control", @id = "exampleFormControlTextarea1", @rows = "3", @placeholder = "Yorum..." })
-                                <button id="btn-comment" type="submit" class="btn btn-primary my-3" disabled>Gönder</button>
+                                <button style="cursor: no-drop;" id="btn-comment" type="submit" class="btn btn-primary my-3" disabled>Gönder</button>
 
                             }
                         </div>
                     }
                     @if(Model.Product.Comments.Count > 0)
                     {
-                        var comments = Model.Product.Comments.OrderBy(i=>i.Date).Reverse();
+                        var comments = Model.Product.Comments.OrderBy(i => i.Date).Reverse();
                         foreach(var comment in comments)
                         {
                             <div class="media mb-4">

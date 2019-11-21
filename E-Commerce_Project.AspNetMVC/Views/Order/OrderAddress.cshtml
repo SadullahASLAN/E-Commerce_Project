@@ -9,16 +9,16 @@
             <div class="col-lg-9">
                 <div class="card rounded-0">
                     <div class="card-body">
-                        <div id="address1" class="card mb-3 rounded-0">
+                        <div class="alert alert-primary font-weight-bold shadow-lg rounded-0">Sipariş Adresi</div>
+                        <div id="address1" onclick="SelectAddress(this)" name="address" class="card mb-3 rounded-0" style="opacity:0.3;cursor:pointer;">
                             <div class="row no-gutters">
-                                <div class="col-sm-8 col-md-9 p-1">
+                                <div class="col-sm-8 col-md p-1">
                                     <table style="height: 100%; width: 100%;">
                                         <tbody>
                                             <tr>
                                                 <td class="align-middle">
                                                     <p class="mb-2">
-                                                        <span class="badge badge-secondary">Ev Adresi</span>
-                                                        <a href="#" class="badge badge-danger">Sil</a>
+                                                        <span class="badge badge-secondary float-right">Ev Adresi</span>
                                                     </p>
                                                     <p class="h5">
                                                         <span class="d-block d-sm-inline">Sadullah Aslan</span>
@@ -32,32 +32,20 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="col-sm-4 col-md-3 p-1 text-sm-right">
-                                    <table style="height: 100%; width: 100%;">
-                                        <tbody>
-                                            <tr>
-                                                <td class="align-middle">
-
-                                                    <button id="btnAddress1" type="button" class="btn btn-primary btn-block">Bu adresi kullan</button>
-
-
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
                             </div>
                         </div>
-                        <div id="address2" class="card mb-3 rounded-0">
+
+
+
+                        <div id="address2" onclick="SelectAddress(this)" name="address" class="card mb-3 rounded-0" style="opacity:0.3;cursor:pointer;">
                             <div class="row no-gutters">
-                                <div class="col-sm-8 col-md-9 p-1">
+                                <div class="col-sm-8 col-md p-1">
                                     <table style="height: 100%; width: 100%;">
                                         <tbody>
                                             <tr>
                                                 <td class="align-middle">
                                                     <p class="mb-2">
-                                                        <span class="badge badge-secondary">Ev Adresi</span>
-                                                        <a href="#" class="badge badge-danger">Sil</a>
+                                                        <span class="badge badge-secondary float-right">Ev Adresi</span>
                                                     </p>
                                                     <p class="h5">
                                                         <span class="d-block d-sm-inline">Sadullah Aslan</span>
@@ -71,42 +59,22 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="col-sm-4 col-md-3 p-1 text-sm-right">
-                                    <table style="height: 100%; width: 100%;">
-                                        <tbody>
-                                            <tr>
-                                                <td class="align-middle">
-
-                                                    <button id="btnAddress2" type="button" class="btn btn-primary btn-block">Bu adresi kullan</button>
-
-
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
                             </div>
                         </div>
-                        <div id="newAddress" class="card mb-3 rounded-0">
+
+
+
+
+                        <div id="newAddress" onclick="SelectAddress(this)" name="address" class="card mb-3 rounded-0" style="opacity:1">
                             <div class="row no-gutters">
-                                <div class="col-sm-8 col-md-9 p-1">
-                                    <form id="formNewAddress">
+                                <div class="col-md p-1">
+                                    <button id="btnNewAddress" onclick="NewAddressForm()" type="button" class="btn btn-primary btn-block rounded-0">Yeni adres ekle</button>
+                                    <form id="formNewAddress" class="collapse">
                                         <input class="form-control mb-3" type="text" placeholder="Adres başlığı">
                                         <input class="form-control mb-3" type="text" placeholder="Alıcı ad soyad">
                                         <input class="form-control mb-3" type="text" placeholder="Alıcı telefon no">
                                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Adres"></textarea>
                                     </form>
-                                </div>
-                                <div class="col-sm-4 col-md-3 p-1 text-sm-right">
-                                    <table style="height: 100%; width: 100%;">
-                                        <tbody>
-                                            <tr>
-                                                <td class="align-middle">
-                                                    <button id="btnNewAddress" type="button" class="btn btn-primary btn-block">Yeni adres ekle</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -161,52 +129,28 @@
 
 @section AddressSelect{
     <script>
+        function NewAddressForm() {
+            $('#formNewAddress').collapse('show')
+            $("#btnNewAddress").css("display", "none")
+        }
+        function SelectAddress(item) {
+            var addresses = $("[name='address']")
+            $.each(addresses, function (key, value) {
+                value.style.opacity = 0.3;
+                value.style.borderColor = "rgba(0, 0, 0, .125)";
+                value.className = value.className.replace(/\bshadow-lg\b/g, "");
+                if (value.id == "newAddress" && item.id != value.id) {
+                    $('#formNewAddress').collapse('hide');
+                    $("#btnNewAddress").css("display", "block");
+                    $("#newAddress").css("opacity", "1")
+                }
+            });
+            $(item).css("border", "1px solid #007bff").css("opacity", "1")
+            $(item).addClass("shadow-lg")
+        }
         $(document).ready(function () {
-            var adress;
-            $("#btnAddress1").click(function () {
-                $("#address1").css("border", "1px solid #007bff")
-                $("#address1").addClass("shadow-lg")
-                adress = 1;
-            })
-
-            $("#btnAddress1").focusout(function () {
-                $("#address1").removeAttr("style")
-                $("#address1").removeClass("shadow-lg")
-
-            })
-
-            $("#btnAddress2").click(function () {
-                $("#address2").css("border", "1px solid #007bff")
-                $("#address2").addClass("shadow-lg")
-                adress = 2;
-            })
-
-            $("#btnAddress2").focusout(function () {
-                $("#address2").removeAttr("style")
-                $("#address2").removeClass("shadow-lg")
-
-            })
-
-
-            $("#formNewAddress").css("display", "none")
-
-            $("#btnNewAddress").click(function () {
-                $("#newAddress").css("border", "1px solid #007bff")
-                $("#newAddress").addClass("shadow-lg")
-                $("#formNewAddress").css("display", "block")
-            })
-
-            $("#btnNewAddress").focusout(function () {
-                $("#newAddress").removeAttr("style")
-                $("#newAddress").removeClass("shadow-lg")
-            })
+            $("#address1").trigger("click");
         });
-
-
-
-
-
-
     </script>
 }
 

@@ -25,10 +25,11 @@ namespace E_Commerce_Project.AspNetMVC.Models.Cart
             _cart.Add(item);
         }
 
-        public void Remove(CartItem item)
+        public void Remove(string id)
         {
-            if(UserCart.Any(i => i.ProductId == item.ProductId))
+            if(_cart.Any(i => i.ProductId == id))
             {
+                var item = _cart.FirstOrDefault(i => i.ProductId == id);
                 _cart.Remove(item);
             }
         }
@@ -38,9 +39,9 @@ namespace E_Commerce_Project.AspNetMVC.Models.Cart
             return _cart.Sum(i => i.SubTotal);
         }
 
-        public void Clear()
+        public decimal SubDiscountedPrice()
         {
-            _cart.Clear();
+            return _cart.Sum(i => i.SubDiscountedPrice);
         }
     }
 }

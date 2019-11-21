@@ -1,5 +1,9 @@
 ﻿using E_Commerce_Project.AspNetMVC.Models.Cart;
+using E_Commerce_Project.BLL.DbTools;
 using E_Commerce_Project.BLL.Repositories.Repository;
+using E_Commerce_Project.DAL.ORM.Entity;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +15,9 @@ namespace E_Commerce_Project.AspNetMVC.Controllers
     public class CartController : Controller
     {
         // GET: Card
-        public ActionResult Index()
+        public ActionResult CartList()
         {
-            return View();
+            return View(GetCart());
         }
 
         public ActionResult _CartButton()
@@ -32,9 +36,20 @@ namespace E_Commerce_Project.AspNetMVC.Controllers
                 cartItem.ProductName = product.Name;
                 cartItem.Amount = 1;
                 cartItem.Price = product.Price;
+                cartItem.Image = product.Images.FirstOrDefault().Paht;
+                cartItem.DiscountPercentage = product.DiscountPercentage;
                 GetCart().Add(cartItem);
             }
             return RedirectToAction("_CartButton");
+        }
+
+        public ActionResult RemoveToItemCart(string id)
+        {
+            if(GetCart() != null)
+            {
+                GetCart().Remove(id);
+            }
+            return RedirectToAction("CartList");
         }
 
         public Cart GetCart()

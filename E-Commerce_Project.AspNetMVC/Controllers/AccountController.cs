@@ -32,7 +32,6 @@ namespace E_Commerce_Project.AspNetMVC.Controllers
 
         [HttpGet]
         public ActionResult Login(string returnUrl)
-
         {
             ViewBag.returnUrl = returnUrl;
             return View();

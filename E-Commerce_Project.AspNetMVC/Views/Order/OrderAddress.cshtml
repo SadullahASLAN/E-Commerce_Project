@@ -1,0 +1,212 @@
+﻿@model Order
+@{
+    ViewBag.Title = "Sipariş Adresi";
+}
+
+<div class="row my-3">
+    <div class="col">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="card rounded-0">
+                    <div class="card-body">
+                        <div id="address1" class="card mb-3 rounded-0">
+                            <div class="row no-gutters">
+                                <div class="col-sm-8 col-md-9 p-1">
+                                    <table style="height: 100%; width: 100%;">
+                                        <tbody>
+                                            <tr>
+                                                <td class="align-middle">
+                                                    <p class="mb-2">
+                                                        <span class="badge badge-secondary">Ev Adresi</span>
+                                                        <a href="#" class="badge badge-danger">Sil</a>
+                                                    </p>
+                                                    <p class="h5">
+                                                        <span class="d-block d-sm-inline">Sadullah Aslan</span>
+                                                        <span class="d-block d-sm-inline">0555 555 55 55</span>
+                                                    </p>
+                                                    <p>
+                                                        Yeni Mahalle Çiçek Sokak No: 12 Daire: 5 Kadiköy/İstanbul
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-sm-4 col-md-3 p-1 text-sm-right">
+                                    <table style="height: 100%; width: 100%;">
+                                        <tbody>
+                                            <tr>
+                                                <td class="align-middle">
+
+                                                    <button id="btnAddress1" type="button" class="btn btn-primary btn-block">Bu adresi kullan</button>
+
+
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="address2" class="card mb-3 rounded-0">
+                            <div class="row no-gutters">
+                                <div class="col-sm-8 col-md-9 p-1">
+                                    <table style="height: 100%; width: 100%;">
+                                        <tbody>
+                                            <tr>
+                                                <td class="align-middle">
+                                                    <p class="mb-2">
+                                                        <span class="badge badge-secondary">Ev Adresi</span>
+                                                        <a href="#" class="badge badge-danger">Sil</a>
+                                                    </p>
+                                                    <p class="h5">
+                                                        <span class="d-block d-sm-inline">Sadullah Aslan</span>
+                                                        <span class="d-block d-sm-inline">0555 555 55 55</span>
+                                                    </p>
+                                                    <p>
+                                                        Yeni Mahalle Çiçek Sokak No: 12 Daire: 5 Kadiköy/İstanbul
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-sm-4 col-md-3 p-1 text-sm-right">
+                                    <table style="height: 100%; width: 100%;">
+                                        <tbody>
+                                            <tr>
+                                                <td class="align-middle">
+
+                                                    <button id="btnAddress2" type="button" class="btn btn-primary btn-block">Bu adresi kullan</button>
+
+
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="newAddress" class="card mb-3 rounded-0">
+                            <div class="row no-gutters">
+                                <div class="col-sm-8 col-md-9 p-1">
+                                    <form id="formNewAddress">
+                                        <input class="form-control mb-3" type="text" placeholder="Adres başlığı">
+                                        <input class="form-control mb-3" type="text" placeholder="Alıcı ad soyad">
+                                        <input class="form-control mb-3" type="text" placeholder="Alıcı telefon no">
+                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Adres"></textarea>
+                                    </form>
+                                </div>
+                                <div class="col-sm-4 col-md-3 p-1 text-sm-right">
+                                    <table style="height: 100%; width: 100%;">
+                                        <tbody>
+                                            <tr>
+                                                <td class="align-middle">
+                                                    <button id="btnNewAddress" type="button" class="btn btn-primary btn-block">Yeni adres ekle</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 pl-lg-0 mt-3 mt-lg-0">
+                <div class="card rounded-0 mb-3">
+                    <div class="card-body p-1">
+                        <table class="table table-bordered table-sm text-center m-0" style="font-size: 11px;">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th class="text-left">Ürün</th>
+                                    <th>Adet</th>
+                                    <th>Fiyat</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach(var orderDetail in Model.OrderDetails)
+                                {
+                                    <tr>
+                                        <td class="text-left">
+                                            @orderDetail.Product.Name.Substring(0, 25)...
+                                        </td>
+                                        <td class="text-center">
+                                            @orderDetail.Quantity
+                                        </td>
+                                        <td>
+                                            @orderDetail.UnitPrice.ToString("c2")
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card rounded-0">
+                    <div class="card-body text-center">
+                        <p class="lead font-weight-bolder mb-1">GENEL TOPLAM</p>
+                        <p class="lead font-weight-normal mb-2">
+                            @Model.OrderDetails.Sum(i => i.UnitPrice).ToString("c2")
+                        </p>
+                        <a href="#" class="btn btn-success d-lg-block btn-continue">Devam Et</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section AddressSelect{
+    <script>
+        $(document).ready(function () {
+            var adress;
+            $("#btnAddress1").click(function () {
+                $("#address1").css("border", "1px solid #007bff")
+                $("#address1").addClass("shadow-lg")
+                adress = 1;
+            })
+
+            $("#btnAddress1").focusout(function () {
+                $("#address1").removeAttr("style")
+                $("#address1").removeClass("shadow-lg")
+
+            })
+
+            $("#btnAddress2").click(function () {
+                $("#address2").css("border", "1px solid #007bff")
+                $("#address2").addClass("shadow-lg")
+                adress = 2;
+            })
+
+            $("#btnAddress2").focusout(function () {
+                $("#address2").removeAttr("style")
+                $("#address2").removeClass("shadow-lg")
+
+            })
+
+
+            $("#formNewAddress").css("display", "none")
+
+            $("#btnNewAddress").click(function () {
+                $("#newAddress").css("border", "1px solid #007bff")
+                $("#newAddress").addClass("shadow-lg")
+                $("#formNewAddress").css("display", "block")
+            })
+
+            $("#btnNewAddress").focusout(function () {
+                $("#newAddress").removeAttr("style")
+                $("#newAddress").removeClass("shadow-lg")
+            })
+        });
+
+
+
+
+
+
+    </script>
+}
+

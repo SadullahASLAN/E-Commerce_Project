@@ -1,52 +1,50 @@
 ﻿@model E_Commerce_Project.AspNetMVC.Models.Cart.Cart
 <div class="dropdown">
-    <button class="btn btn-sm btn-outline-dark nav-btn-xsm btn-text" type="button"
-            id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false" data-offset="0,0">
-        <i class="fas fa-shopping-cart mr-1"></i>Sepet <span class="badge badge-danger">@Model.UserCart.Sum(i => i.Amount)</span>
+    <button class="btn btn-sm btn-outline-dark nav-btn-xsm btn-text" type="button" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="0,0">
+        <i class="fas fa-shopping-cart mr-1"></i>Sepet <span class="badge badge-danger">@Html.Raw(Model.UserCart.Sum(i => i.Amount) > 9 ? "&#9660;" : Model.UserCart.Sum(i => i.Amount).ToString())</span>
     </button>
     <div class="dropdown-menu shadow-lg p-1 ddm-sepet"
          aria-labelledby="dropdownMenuOffset">
-        <form action="">
-            <table class="table table-bordered table-sm text-center m-0"
-                   style="font-size: 11px;">
-                <thead class="table-dark">
-                    <tr>
-                        <th class="text-left">Ürün</th>
-                        <th>Adet</th>
-                        <th>Fiyat</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if(Model.UserCart.Count != 0)
-                    {
-                        foreach(var cartItem in Model.UserCart)
+
+
+        @if(Model.UserCart.Count != 0)
+        {
+            <form action="">
+                <table class="table table-bordered table-sm text-center m-0"
+                       style="font-size: 11px;">
+                    <thead class="table-dark">
+                        <tr>
+                            <th class="text-left">Ürün</th>
+                            <th>Adet</th>
+                            <th>Fiyat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var cartItem in Model.UserCart)
                         {
                             <tr>
                                 <td class="text-left">@cartItem.ProductName.Substring(0, 20)...</td>
                                 <td>@cartItem.Amount</td>
-                                <td>@cartItem.SubTotal.ToString("c2")</td>
+                                <td>@cartItem.SubDiscountedPrice.ToString("c2")</td>
                             </tr>
                         }
-                    }
-                    else
-                    {
+                    </tbody>
+                    <tfoot class="table-dark">
                         <tr>
-                            <td colspan="3">Sepetiniz boş</td>
+                            <td class="text-left">Toplam</td>
+                            <td class="text-center">@Model.UserCart.Sum(i => i.Amount)</td>
+                            <td>@Model.SubDiscountedPrice().ToString("c2")</td>
                         </tr>
-                    }
-                </tbody>
-                <tfoot class="table-dark">
-                    <tr>
-                        <td class="text-left">Toplam</td>
-                        <td class="text-center">@Model.UserCart.Sum(i => i.Amount)</td>
-                        <td>@Model.SubTotal().ToString("c2")</td>
-                    </tr>
-                </tfoot>
-            </table>
-        </form>
-        <a href="#" class="btn btn-success btn-sm btn-block rounded-0 mt-1">
-            Sepete Git
-        </a>
+                    </tfoot>
+                </table>
+            </form>
+            <a href="/Cart/Cartlist" class="btn btn-success btn-sm btn-block rounded-0 mt-1">
+                Sepete Git
+            </a>
+        }
+        else
+        {
+            <span class="d-block m-3 text-center"><strong>Sepetiniz Boş</strong></span>
+        }
     </div>
 </div>

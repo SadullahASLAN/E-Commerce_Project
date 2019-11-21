@@ -35,7 +35,7 @@ namespace E_Commerce_Project.DAL.ORM.Entity
         [MaxLength(5000, ErrorMessage = "Ürün açıklaması 5000 karakteri geçemez.")]
         [Required(ErrorMessage = "Ürün açıklaması boş olamaz.")]
         public string Description { get; set; }
-        public byte? DiscountPercentage { get; set; }
+        public byte DiscountPercentage { get; set; }
 
         [MaxLength(100, ErrorMessage = "Marka 100 karakteri geçemez.")]
         public string Brand { get; set; }

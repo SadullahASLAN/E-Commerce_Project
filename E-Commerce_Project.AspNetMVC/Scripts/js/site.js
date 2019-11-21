@@ -288,12 +288,6 @@ $(document).ready(function () {
         ResCarousel(ell, Parent, slide);
     }
 
-    $("#customCollapseExample").css("display", "none")
-
-    $("#customRadio3").click(function () {
-        $("#customCollapseExample").css("display", "block")
-    });
-
     if ($("#commentTab").val() == "True") {
         $("#nav-yorumlar-tab").trigger("click");
         $(window).scrollTop($("#nav-tab").offset().top);

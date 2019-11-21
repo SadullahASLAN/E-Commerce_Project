@@ -11,13 +11,15 @@ namespace E_Commerce_Project.DAL.ORM.Entity
     {
         public Order()
         {
-            this.OrderStatuses = new HashSet<OrderStatus>();
+            this.OrderDetails = new HashSet<OrderDetail>();
             this.OrderDate = DateTime.Now;
             this.TrackingNumber = "Kargoya verilmedi.";
         }
 
         [Required(ErrorMessage = "Musteri alanı boş olamaz.")]
-        public string UsurId { get; set; }
+        public string UserId { get; set; }
+
+        public string OrderStatusId { get; set; }
 
         public DateTime OrderDate { get; set; }
 
@@ -33,11 +35,9 @@ namespace E_Commerce_Project.DAL.ORM.Entity
         public string TrackingNumber { get; set; }
 
         //Mapping
-        public virtual ICollection<OrderStatus> OrderStatuses { get; set; }
-
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+        public virtual OrderStatus OrderStatus { get; set; }
         public virtual Shipping Shipping { get; set; }
-
         public virtual User User { get; set; }
-
     }
 }

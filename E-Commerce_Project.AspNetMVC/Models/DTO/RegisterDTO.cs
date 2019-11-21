@@ -10,7 +10,7 @@ namespace E_Commerce_Project.AspNetMVC.Models.DTO
     {
         private string _userName;
         [Required(ErrorMessage = "Kullanıcı adı boş olamaz.")]
-        [MaxLength(50, ErrorMessage = "Kullanıcı Adı 50 karakteri geçemez.")]
+        [MaxLength(15, ErrorMessage = "Kullanıcı Adı 15 karakteri geçemez.")]
         public string UserName { get => _userName; set => _userName = value.Trim(); }
 
         private string _name;

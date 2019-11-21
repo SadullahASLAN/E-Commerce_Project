@@ -1,0 +1,114 @@
+﻿@model Cart
+@{
+    ViewBag.Title = "Sepetim";
+}
+
+<div class="row my-3">
+    <div class="col">
+        <div class="row">
+            @if(Model.UserCart.Count() != 0)
+            {
+                <div class="col-lg-9 col-xl-9">
+                    <div class="card rounded-0">
+                        <div class="card-body">
+                            @foreach(var cartItem in Model.UserCart)
+                            {
+                                <div class="card mb-3 rounded-0">
+                                    <div class="row no-gutters">
+                                        <div class="col-md-2 p-1">
+                                            <img src="@cartItem.Image" class="card-img" alt="@cartItem.ProductName">
+                                        </div>
+                                        <div class="col-md-6 p-1">
+                                            <table style="height: 100%; width: 100%;">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="align-middle text-center text-md-left">
+                                                            @Html.ActionLink(cartItem.ProductName, "ProductDetails", "Home", new { id = cartItem.ProductId }, new { @class = "card-link" })
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-1 p-1 text-center">
+                                            <table style="height: 100%; width: 100%;">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="align-middle">
+                                                            @cartItem.Amount
+                                                            <br>
+                                                            <small> Adet</small>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-2 p-1 text-center" style="font-size: 12px;">
+                                            <table style="height: 100%; width: 100%;">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="align-middle">
+                                                            @if(cartItem.DiscountPercentage != 0)
+                                                            {
+                                                                <p class="m-0">
+                                                                    <s>
+                                                                        @cartItem.SubTotal.ToString("c2")
+                                                                    </s>
+                                                                </p>
+                                                                <p class="text-success m-0"><small>%@cartItem.DiscountPercentage İndirim</small></p>
+                                                            }
+                                                            <p class="font-weight-bolder m-0 h6">
+                                                                @cartItem.SubDiscountedPrice.ToString("c2")
+                                                            </p>
+                                                            <p class="m-0">
+                                                                @cartItem.Amount X @cartItem.DiscountedPrice.ToString("c2")
+                                                            </p>
+                                                            <p class="m-0 badge badge-info">Kargo Bedava</p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-1 p-1 text-center">
+                                            <table style="height: 100%; width: 100%;">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="align-middle">
+                                                            @Html.ActionLink("X", "RemoveToItemCart", new { id = cartItem.ProductId }, new { @class = "badge badge-danger" })
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-xl-3 pl-lg-0 mt-3 mt-lg-0">
+                    <div class="card rounded-0">
+                        <div class="card-body text-center">
+                            <p class="lead font-weight-bolder mb-1">GENEL TOPLAM</p>
+                            <p class="lead font-weight-normal mb-2">@Model.SubDiscountedPrice().ToString("c2")</p>
+                            @Html.ActionLink("Devam Et", "OrderAddress", "Order", null, new { @class = "btn btn-success d-lg-block btn-continue" })
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="col">
+                    <div class="card card-body rounded-0 shadow" style="height:300px">
+                        <table class="h-100 text-center font-weight-bold" style="font-size:20px">
+                            <tr>
+                                <td>
+                                    Sepetiniz Boş
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

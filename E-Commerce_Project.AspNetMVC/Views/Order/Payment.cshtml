@@ -1,0 +1,97 @@
+﻿@model Order
+@{
+    ViewBag.Title = "Ödeme";
+}
+
+<div class="row my-3">
+    <div class="col">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="card rounded-0">
+                    <div class="card-body">
+                        <div class="card card-body rounded-0">
+                            <div class="row no-gutters">
+                                <div class="col-md-4">
+                                    <img src="~/Content/image/site/kredikartiodeme.png" class="card-img" alt="kredikartiödeme">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Kredi kartı numarası</label>
+                                                <input type="text" class="form-control">
+                                                <small class="form-text text-muted">Lütfen kredi kartınızın ön yüzünde bulunan numarayı giriniz.</small>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 pl-lg-0 mt-3 mt-lg-0">
+                <div class="card rounded-0 mb-3">
+                    <div class="card-body p-1">
+                        <table class="table table-bordered table-sm text-center m-0" style="font-size: 11px;">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th class="text-left">Ürün</th>
+                                    <th>Adet</th>
+                                    <th>Fiyat</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach(var orderDetail in Model.OrderDetails)
+                                {
+                                    <tr>
+                                        <td class="text-left">
+                                            @orderDetail.Product.Name.Substring(0, 25)...
+                                        </td>
+                                        <td class="text-center">
+                                            @orderDetail.Quantity
+                                        </td>
+                                        <td>
+                                            @orderDetail.UnitPrice.ToString("c2")
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <table class="table table-bordered table-sm m-0" style="font-size: 11px;">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th colspan="3">Sipariş Adresi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Alıcı</td>
+                                    <td>@Model.UserAddress.ReceivingName</td>
+                                </tr>
+                                <tr>
+                                    <td>Telefon</td>
+                                    <td>@Model.UserAddress.ReceivingPhone</td>
+                                </tr>
+                                <tr>
+                                    <td>Adres</td>
+                                    <td>
+                                        @Model.UserAddress.Address
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card rounded-0">
+                    <div class="card-body text-center">
+                        <p class="lead font-weight-bolder mb-1">GENEL TOPLAM</p>
+                        <p class="lead font-weight-normal mb-2">@Model.OrderDetails.Sum(i => i.UnitPrice).ToString("c2")</p>
+                        <a href="/Order/OrderIsOk" class="btn btn-success d-lg-block btn-continue">Devam Et</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

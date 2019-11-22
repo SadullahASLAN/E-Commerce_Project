@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace E_Commerce_Project.BLL.Repositories.Repository
 {
-    class OrderRepository : BaseClass, IBaseRepository<Order>
+    public class OrderRepository : BaseClass, IBaseRepository<Order>
     {
         public bool AddOrUpdate(Order model)
         {

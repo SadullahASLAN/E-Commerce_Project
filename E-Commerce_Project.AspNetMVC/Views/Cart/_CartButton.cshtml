@@ -1,7 +1,7 @@
 ﻿@model E_Commerce_Project.AspNetMVC.Models.Cart.Cart
 <div class="dropdown">
     <button class="btn btn-sm btn-outline-dark nav-btn-xsm btn-text" type="button" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="0,0">
-        <i class="fas fa-shopping-cart mr-1"></i>Sepet <span class="badge badge-danger">@Html.Raw(Model.UserCart.Sum(i => i.Amount) > 9 ? "&#9660;" : Model.UserCart.Sum(i => i.Amount).ToString())</span>
+        <i class="fas fa-shopping-cart mr-1"></i>Sepet <span class="badge badge-danger">@Html.Raw(Model.UserCart.Sum(i => i.Amount) > 9 ? "<i class='fas fa-level-down-alt'></i>" : Model.UserCart.Sum(i => i.Amount).ToString())</span>
     </button>
     <div class="dropdown-menu shadow-lg p-1 ddm-sepet"
          aria-labelledby="dropdownMenuOffset">

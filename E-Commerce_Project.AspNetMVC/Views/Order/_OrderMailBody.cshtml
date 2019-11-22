@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sipariş Özeti</title>
+</head>
+<body style="margin: 10px; box-shadow: 0px 5px 23px; font-family: arial; font-size: 12px;">
+    <div>
+        <div style="border: 1px solid #007bff;">
+            <div style="background-color: #007bff; color: white; padding: 10px;">
+                <strong>Sipariş No: </strong>@((Session["Order"] as Order).Id.Replace("-", "").ToUpper())
+            </div>
+            <div>
+                <table style="width: 100%; border-collapse: collapse; text-align: center; font-size: 12px;" border="1">
+                    <thead style="background-color: #f8f9fa;">
+                        <tr>
+                            <th style="text-align: left; padding: 5px 10px;">
+                                Ürün
+                            </th>
+                            <th style="width: 40px;">
+                                Adet
+                            </th>
+                            <th style="width: 80px;">
+                                Fiyat
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var orderDetail in (Session["Order"] as Order).OrderDetails)
+                        {
+                            <tr>
+                                <td style="text-align: left; padding: 5px 10px;">
+                                    @orderDetail.Product.Name
+                                </td>
+                                <td>@orderDetail.Quantity</td>
+                                <td>@orderDetail.UnitPrice.ToString("c2")</td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot style="background-color: #f8f9fa;">
+                        <tr>
+                            <th style="text-align: left; padding: 5px 10px;">
+                                Toplam
+                            </th>
+                            <td>
+                                <b><u>@((Session["Order"] as Order).OrderDetails.Sum(i => i.Quantity))</u></b>
+                            </td>
+                            <td>
+                                <b><u>@((Session["Order"] as Order).OrderDetails.Sum(i => i.UnitPrice).ToString("c2"))</u></b>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div style="padding: 10px; border: 1px solid black; border-top: 0;">
+                    <p style="margin: 5px 0;">
+                        <span style="padding: 5px 10px; border-radius: 5px; background-color: #6c757d; color: white; font-weight: bold;">
+                            @((Session["Order"] as Order).UserAddress.Title)
+                        </span>
+                    </p>
+                    <p style="font-weight: bold;">
+                        <span>
+                            @((Session["Order"] as Order).UserAddress.ReceivingName)
+                        </span>
+                        <span>
+                            @((Session["Order"] as Order).UserAddress.ReceivingPhone)
+                        </span>
+                    </p>
+                    <p>
+                        @((Session["Order"] as Order).UserAddress.Address)
+                    </p>
+                </div>
+            </div>
+            <div style="padding: 10px;border: 1px solid black;border-top: 0;background-color: #f8f9fa;text-align-last: justify;">
+                <span style="display: inline-block;">
+                    <small style="border-bottom: 1px solid red;">
+                        <strong>
+                            Sipariş Durumu:
+                        </strong>
+                        @((Session["Order"] as Order).OrderStatus.Status)
+                    </small>
+                </span>
+                <a href="#" style="background-color: #dc3545;padding: 3px 10px; border-radius: 4px; color: white; text-decoration: none; display: inline-block;">
+                    Siparişi İptal Et
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

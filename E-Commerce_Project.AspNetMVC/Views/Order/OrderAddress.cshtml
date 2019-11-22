@@ -10,70 +10,53 @@
                 <div class="card rounded-0">
                     <div class="card-body">
                         <div class="alert alert-primary font-weight-bold shadow-lg rounded-0">Sipariş Adresi</div>
-                        <div id="address1" onclick="SelectAddress(this)" name="address" class="card mb-3 rounded-0" style="opacity:0.3;cursor:pointer;">
-                            <div class="row no-gutters">
-                                <div class="col-sm-8 col-md p-1">
-                                    <table style="height: 100%; width: 100%;">
-                                        <tbody>
-                                            <tr>
-                                                <td class="align-middle">
-                                                    <p class="mb-2">
-                                                        <span class="badge badge-secondary float-right">Ev Adresi</span>
-                                                    </p>
-                                                    <p class="h5">
-                                                        <span class="d-block d-sm-inline">Sadullah Aslan</span>
-                                                        <span class="d-block d-sm-inline">0555 555 55 55</span>
-                                                    </p>
-                                                    <p>
-                                                        Yeni Mahalle Çiçek Sokak No: 12 Daire: 5 Kadiköy/İstanbul
-                                                    </p>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                        @{int number = 1;}
+                        @foreach(var Address in (ViewBag.User as User).UserAddresses)
+                        {
+                            <div id="address@(number.ToString())" onclick="SelectAddress(this)" name="address" class="card mb-3 rounded-0" style="opacity:0.3;cursor:pointer;" addressid="@Address.Id">
+                                <div class="row no-gutters">
+                                    <div class="col-sm-8 col-md p-1">
+                                        <table style="height: 100%; width: 100%;">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="align-middle">
+                                                        <p class="mb-2">
+                                                            <span class="badge badge-secondary float-right">
+                                                                @Address.Title
+                                                            </span>
+                                                        </p>
+                                                        <p class="h5">
+                                                            <span class="d-block d-sm-inline">
+                                                                @Address.ReceivingName
+                                                            </span>
+                                                            <span class="d-block d-sm-inline">
+                                                                @Address.ReceivingPhone
+                                                            </span>
+                                                        </p>
+                                                        <p>
+                                                            @Address.Address
+                                                        </p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-
-
-
-                        <div id="address2" onclick="SelectAddress(this)" name="address" class="card mb-3 rounded-0" style="opacity:0.3;cursor:pointer;">
-                            <div class="row no-gutters">
-                                <div class="col-sm-8 col-md p-1">
-                                    <table style="height: 100%; width: 100%;">
-                                        <tbody>
-                                            <tr>
-                                                <td class="align-middle">
-                                                    <p class="mb-2">
-                                                        <span class="badge badge-secondary float-right">Ev Adresi</span>
-                                                    </p>
-                                                    <p class="h5">
-                                                        <span class="d-block d-sm-inline">Sadullah Aslan</span>
-                                                        <span class="d-block d-sm-inline">0555 555 55 55</span>
-                                                    </p>
-                                                    <p>
-                                                        Yeni Mahalle Çiçek Sokak No: 12 Daire: 5 Kadiköy/İstanbul
-                                                    </p>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-
-
-
+                            number++;
+                        }
                         <div id="newAddress" onclick="SelectAddress(this)" name="address" class="card mb-3 rounded-0" style="opacity:1">
                             <div class="row no-gutters">
                                 <div class="col-md p-1">
                                     <button id="btnNewAddress" onclick="NewAddressForm()" type="button" class="btn btn-primary btn-block rounded-0">Yeni adres ekle</button>
-                                    <form id="formNewAddress" class="collapse">
-                                        <input class="form-control mb-3" type="text" placeholder="Adres başlığı">
-                                        <input class="form-control mb-3" type="text" placeholder="Alıcı ad soyad">
-                                        <input class="form-control mb-3" type="text" placeholder="Alıcı telefon no">
-                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Adres"></textarea>
+                                    <form id="formNewAddress" class="collapse" action="/Order/NewOrderAddress" method="post">
+                                        <fieldset>
+                                            <input id="Title" name="Title" class="form-control mb-3" type="text" placeholder="Adres başlığı" required maxlength="50">
+                                            <input id="ReceivingName" name="ReceivingName" class="form-control mb-3" type="text" placeholder="Alıcı ad soyad" required maxlength="20">
+                                            <input id="ReceivingPhone" name="ReceivingPhone" class="form-control mb-3" type="number" placeholder="Alıcı telefon no" required>
+                                            <textarea id="Address" name="Address" class="form-control" rows="3" placeholder="Adres" required maxlength="300"></textarea>
+                                            <button type="submit" class="btn btn-primary mt-2 btn-block">Adresi Kaydet</button>
+                                        </fieldset>
                                     </form>
                                 </div>
                             </div>
@@ -117,7 +100,7 @@
                         <p class="lead font-weight-normal mb-2">
                             @Model.OrderDetails.Sum(i => i.UnitPrice).ToString("c2")
                         </p>
-                        <a href="#" class="btn btn-success d-lg-block btn-continue">Devam Et</a>
+                        <a id="contunie" href="/Order/AddToOrderAddress" class="btn btn-success d-lg-block btn-continue">Devam Et</a>
                     </div>
                 </div>
             </div>
@@ -127,8 +110,13 @@
 
 
 
+
 @section AddressSelect{
     <script>
+        $(document).ready(function () {
+            $("#address1").trigger("click");
+        });
+
         function NewAddressForm() {
             $('#formNewAddress').collapse('show')
             $("#btnNewAddress").css("display", "none")
@@ -147,10 +135,14 @@
             });
             $(item).css("border", "1px solid #007bff").css("opacity", "1")
             $(item).addClass("shadow-lg")
+            if ($(item).attr("id") == "newAddress") {
+                $("#contunie").addClass("disabled")
+            }
+            else {
+                $("#contunie").removeClass("disabled");
+                $("#contunie").attr("href", "/Order/AddToOrderAddress/" + $(item).attr("addressid"));
+            }
         }
-        $(document).ready(function () {
-            $("#address1").trigger("click");
-        });
     </script>
 }
 

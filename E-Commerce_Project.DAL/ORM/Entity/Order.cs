@@ -14,22 +14,20 @@ namespace E_Commerce_Project.DAL.ORM.Entity
             this.OrderDetails = new HashSet<OrderDetail>();
             this.OrderDate = DateTime.Now;
             this.TrackingNumber = "Kargoya verilmedi.";
+            this.OrderStatus = new OrderStatus() { Status = "Onay Bekleniyor" };
         }
 
-        [Required(ErrorMessage = "Musteri alanı boş olamaz.")]
         public string UserId { get; set; }
 
         public string OrderStatusId { get; set; }
 
         public DateTime OrderDate { get; set; }
 
-        [MaxLength(100)]
-        [Required(ErrorMessage = "Kargo firması boş geçilemez.")]
         public string ShippingId { get; set; }
 
         [MaxLength(500, ErrorMessage = "Sipariş adresi 500 karakteri geçemez.")]
         [Required(ErrorMessage = "Sipariş adresi boş olamaz.")]
-        public string ShipAddress { get; set; }
+        public string UserAddressId { get; set; }
 
         [MaxLength(50, ErrorMessage = "Takip numarası 50 karakteri geçemez.")]
         public string TrackingNumber { get; set; }
@@ -39,5 +37,6 @@ namespace E_Commerce_Project.DAL.ORM.Entity
         public virtual OrderStatus OrderStatus { get; set; }
         public virtual Shipping Shipping { get; set; }
         public virtual User User { get; set; }
+        public UserAddress UserAddress { get; set; }
     }
 }

@@ -1,0 +1,76 @@
+﻿@model List<Product>
+@{
+    ViewBag.Title = "Search";
+}
+
+<!-- breadcrumb -->
+<div class="row mt-3">
+    <div class="col">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb m-0 p-2 rounded-0 bg-white text-muted shadow" style="font-size:12px;">
+                <li class="breadcrumb-item"><a href="/">Anasayfa</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@ViewBag.Search (@Model.Count)</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="row my-3">
+    @if(Model.Count > 0)
+    {
+        foreach(var product in Model)
+        {
+            <div class="col-sm-6 col-md-3 col-lg-5th col-xl-2 mb-3">
+                <div class="card citem shadow-lg rounded-0">
+                    <img src="@product.Images.FirstOrDefault().Paht" class="card-img-top rounded-0" alt="@product.Name">
+                    <div class="card-img-overlay p-1" style="height: 31px;">
+                        <div class="input-group input-group-sm cartproductadditem" style="visibility: hidden;">
+                            <button class="btn btn-success btn-block" onclick="AddToCart('@product.Id')" style="border-radius: 0;" type="button" id="button-addon2">
+                                Sepete Ekle
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body p-2" style="line-height: 1;">
+                        @Html.ActionLink(product.Name.Length > 55 ? product.Name.Substring(0, 55) + "..." : product.Name, "ProductDetails", new { id = product.Id }, new { @class = "card-link d-block m-0", @style = "font-size: 12px; height: 24px;" })
+                        <div class="text-right mt-1">
+                            <p class="m-0 text-muted font-weight-lighter"
+                               style="text-decoration:line-through; font-size: 12px; height:12px">
+
+                                @if(product.DiscountPercentage != 0)
+                                {
+                                    <span>@product.Price.ToString("c2")</span>
+                                }
+                            </p>
+                            <p class="m-0 font-weight-bold text-danger" style="font-size: 14px;">
+                                @if(product.DiscountPercentage != 0)
+                                {
+                                    <span>@((product.Price * (100m - Convert.ToDecimal(product.DiscountPercentage)) / 100m).ToString("c2"))</span>
+
+                                }
+                                else
+                                {
+                                    <span>@product.Price.ToString("c2")</span>
+                                }
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="col">
+            <div class="card card-body rounded-0 shadow" style="height:300px">
+                <table class="h-100 text-center font-weight-bold" style="font-size:20px">
+                    <tr>
+                        <td>
+                            Aradığınız ürün bulunamadı... <i class="far fa-dizzy"></i>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    }
+</div>
+

@@ -29,7 +29,8 @@ namespace E_Commerce_Project.AspNetMVC.Controllers
         {
             var pr = new ProductRepository();
             var product = pr.SelectById(id);
-            if(product != null)
+            var amount = GetCart().UserCart.FirstOrDefault(i => i.ProductId == product.Id) == null ? 0 : GetCart().UserCart.FirstOrDefault(i => i.ProductId == product.Id).Amount;
+            if(product != null && product.Stock != amount)
             {
                 var cartItem = new CartItem();
                 cartItem.ProductId = product.Id;
@@ -39,8 +40,9 @@ namespace E_Commerce_Project.AspNetMVC.Controllers
                 cartItem.Image = product.Images.FirstOrDefault().Paht;
                 cartItem.DiscountPercentage = product.DiscountPercentage;
                 GetCart().Add(cartItem);
+                return RedirectToAction("_CartButton");
             }
-            return RedirectToAction("_CartButton");
+            return Content("false");
         }
 
         public ActionResult RemoveToItemCart(string id)

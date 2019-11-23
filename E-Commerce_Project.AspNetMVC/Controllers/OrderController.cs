@@ -105,19 +105,19 @@ namespace E_Commerce_Project.AspNetMVC.Controllers
                 var user = userManager.FindByName(User.Identity.Name);
                 ViewBag.UserEmail = user.Email;
 
-                SmtpClient smtp = new SmtpClient();
-                smtp.Port = 587;
-                smtp.Host = "smtp.office365.com";
-                smtp.EnableSsl = true;
-                smtp.Credentials = new NetworkCredential("e-commerce-project@hotmail.com", "project321");
+                //SmtpClient smtp = new SmtpClient();
+                //smtp.Port = 587;
+                //smtp.Host = "smtp.office365.com";
+                //smtp.EnableSsl = true;
+                //smtp.Credentials = new NetworkCredential("e-commerce-project@hotmail.com", "project321");
 
-                MailMessage mail = new MailMessage();
-                mail.From = new MailAddress("e-commerce-project@hotmail.com", "E-Commerce Project");
-                mail.To.Add(user.Email);
-                mail.Subject = "Siparişiniz Hk.";
-                mail.IsBodyHtml = true;
-                mail.Body = _OrderMailBody().PartialRenderToString(); ;
-                smtp.Send(mail);
+                //MailMessage mail = new MailMessage();
+                //mail.From = new MailAddress("e-commerce-project@hotmail.com", "E-Commerce Project");
+                //mail.To.Add(user.Email);
+                //mail.Subject = "Siparişiniz Hk.";
+                //mail.IsBodyHtml = true;
+                //mail.Body = _OrderMailBody().PartialRenderToString(); ;
+                //smtp.Send(mail);
 
                 return View();
             }

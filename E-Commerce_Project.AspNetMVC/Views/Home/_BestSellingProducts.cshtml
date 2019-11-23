@@ -1,0 +1,65 @@
+﻿@model List<Product>
+
+<div class="row mt-3">
+    <div class="col">
+        <div class="row">
+            <div class="col">
+                <h4>En Çok Satılan Ürünler</h4>
+                <hr class="my-0">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel"
+                     data-interval="1000">
+                    <div class="MultiCarousel-inner">
+                        @foreach(var product in Model)
+                        {
+                            <div class="item">
+                                <div class="card m-0 p-0 citem rounded-0">
+                                    <img src="@product.Images.FirstOrDefault().Paht" class="card-img-top rounded-0" alt="@product.Name">
+                                    <div class="card-img-overlay p-1" style="height: 31px;">
+                                        <div class="input-group input-group-sm cartproductadditem" style="visibility: hidden;">
+                                            <button class="btn btn-success btn-block" onclick="AddToCart('@product.Id')" style="border-radius: 0;" type="button" id="button-addon2">
+                                                Sepete Ekle
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body p-2" style="line-height: 1;">
+
+                                        @Html.ActionLink(product.Name.Length > 60 ? product.Name.Substring(0, 60) + "..." : product.Name, "ProductDetails", new { id = product.Id }, new { @class = "card-link d-block m-0", @style = "font-size: 12px; height: 24px;" })
+                                        <div class="text-right mt-1">
+                                            <p class="m-0 text-muted font-weight-lighter" style="text-decoration:line-through; font-size: 12px;height:12px">
+                                                @if(product.DiscountPercentage != 0)
+                                                {
+                                                    <span>@product.Price.ToString("c2")</span>
+                                                }
+                                            </p>
+                                            <p class="m-0 font-weight-bold text-danger" style="font-size: 14px;">
+                                                @if(product.DiscountPercentage != 0)
+                                                {
+                                                    <span>@((product.Price * (100m - Convert.ToDecimal(product.DiscountPercentage)) / 100m).ToString("c2"))</span>
+
+                                                }
+                                                else
+                                                {
+                                                    <span>@product.Price.ToString("c2")</span>
+                                                }
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <button class="btn btn-primary leftLst">
+                        <i class="fas fa-caret-left"></i>
+                    </button> <button class="btn btn-primary rightLst">
+                        <i class="fas fa-caret-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

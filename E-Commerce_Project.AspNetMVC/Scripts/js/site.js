@@ -311,8 +311,15 @@ function AddToCart(id) {
         url: "/Cart/AddToCart",
         data: { id: id },
         success: function (data) {
-            $("#cart").html(data);
-            $('#exampleModalCenter').modal('show');
+            if (data == "false") {
+                $('#exampleModalCenter').modal('show');
+                $("#modalText").text("Tüm stok eklendi.")
+            }
+            else {
+                $("#cart").html(data);
+                $('#exampleModalCenter').modal('show');
+                $("#modalText").text("Ürün Sepete Eklendi.")
+            }
         }
     });
 }

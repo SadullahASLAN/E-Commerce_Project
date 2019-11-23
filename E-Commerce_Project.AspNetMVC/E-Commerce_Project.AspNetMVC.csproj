@@ -199,6 +199,10 @@
     <Content Include="Views\Order\Payment.cshtml" />
     <Content Include="Views\Order\OrderIsOk.cshtml" />
     <Content Include="Views\Order\_OrderMailBody.cshtml" />
+    <Content Include="Views\Home\_NewPRoducts.cshtml" />
+    <Content Include="Views\Home\_BestSellingProducts.cshtml" />
+    <Content Include="Views\Home\_CampaignProducts.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

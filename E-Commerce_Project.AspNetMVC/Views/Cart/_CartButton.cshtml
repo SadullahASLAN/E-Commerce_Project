@@ -23,7 +23,7 @@
                         @foreach(var cartItem in Model.UserCart)
                         {
                             <tr>
-                                <td class="text-left">@cartItem.ProductName.Substring(0, 20)...</td>
+                                <td class="text-left">@(cartItem.ProductName.Length > 20 ? cartItem.ProductName.Substring(0, 20) + "..." : cartItem.ProductName)</td>
                                 <td>@cartItem.Amount</td>
                                 <td>@cartItem.SubDiscountedPrice.ToString("c2")</td>
                             </tr>

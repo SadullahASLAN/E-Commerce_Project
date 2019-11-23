@@ -1,0 +1,100 @@
+﻿@model IEnumerable<Product>
+
+<div class="row mt-1">
+    <div class="col">
+        <div class="row">
+            <div class="col">
+                <h4>Yeni Ürünler</h4>
+                <hr class="mt-0">
+            </div>
+        </div>
+        <div class="row">
+            @{int number = 1;}
+            @foreach(var product in Model)
+            {
+                if(number < 11)
+                {
+                    <div class="col-sm-6 col-md-3 col-lg-5th col-xl-2 mb-3">
+                        <div class="card citem shadow-lg rounded-0">
+                            <img src="@product.Images.FirstOrDefault().Paht"
+                                 class="card-img-top rounded-0" alt="@product.Name">
+                            <div class="card-img-overlay p-1" style="height: 31px;">
+                                <div class="input-group input-group-sm cartproductadditem" style="visibility: hidden;">
+                                    <button class="btn btn-success btn-block" onclick="AddToCart('@product.Id')" style="border-radius: 0;" type="button" id="button-addon2">
+                                        Sepete Ekle
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body p-2" style="line-height: 1;">
+                                @Html.ActionLink(product.Name.Length > 55 ? product.Name.Substring(0, 55) + "..." : product.Name, "ProductDetails", new { id = product.Id }, new { @class = "card-link d-block m-0", @style = "font-size: 12px; height: 24px;" })
+                                <div class="text-right mt-1">
+                                    <p class="m-0 text-muted font-weight-lighter"
+                                       style="text-decoration:line-through; font-size: 12px; height:12px">
+
+                                        @if(product.DiscountPercentage != 0)
+                                        {
+                                            <span>@product.Price.ToString("c2")</span>
+                                        }
+                                    </p>
+                                    <p class="m-0 font-weight-bold text-danger" style="font-size: 14px;">
+                                        @if(product.DiscountPercentage != 0)
+                                        {
+                                            <span>@((product.Price * (100m - Convert.ToDecimal(product.DiscountPercentage)) / 100m).ToString("c2"))</span>
+
+                                        }
+                                        else
+                                        {
+                                            <span>@product.Price.ToString("c2")</span>
+                                        }
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-sm-6 col-md-3 col-lg-5th col-xl-2 mb-3 d-lg-none d-xl-block">
+                        <div class="card citem shadow-lg rounded-0">
+                            <img src="@product.Images.FirstOrDefault().Paht"
+                                 class="card-img-top rounded-0" alt="@product.Name">
+                            <div class="card-img-overlay p-1" style="height: 31px;">
+                                <div class="input-group input-group-sm cartproductadditem" style="visibility: hidden;">
+                                    <button class="btn btn-success btn-block" onclick="AddToCart('@product.Id')" style="border-radius: 0;" type="button" id="button-addon2">
+                                        Sepete Ekle
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body p-2" style="line-height: 1;">
+
+                                @Html.ActionLink(product.Name.Length > 55 ? product.Name.Substring(0, 55) + "..." : product.Name, "ProductDetails", new { id = product.Id }, new { @class = "card-link d-block m-0", @style = "font-size: 12px; height: 24px;" })
+                                <div class="text-right mt-1">
+                                    <p class="m-0 text-muted font-weight-lighter"
+                                       style="text-decoration:line-through; font-size: 12px; height:12px">
+
+                                        @if(product.DiscountPercentage != 0)
+                                        {
+                                            <span>@product.Price.ToString("c2")</span>
+                                        }
+                                    </p>
+                                    <p class="m-0 font-weight-bold text-danger" style="font-size: 14px;">
+                                        @if(product.DiscountPercentage != 0)
+                                        {
+                                            <span>@((product.Price * (100m - Convert.ToDecimal(product.DiscountPercentage)) / 100m).ToString("c2"))</span>
+
+                                        }
+                                        else
+                                        {
+                                            <span>@product.Price.ToString("c2")</span>
+                                        }
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                number++;
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,182 @@
+﻿@model List<Product>
+
+<div class="row mt-3">
+    <div class="col">
+        <div id="carouselExampleIndicators" class="carousel slide shadow" data-ride="carousel">
+            <ol class="carousel-indicators">
+                @for(int i = 0; i < Model.Count; i++)
+                {
+                    if(i == 0)
+                    {
+                        <li data-target="#carouselExampleIndicators" data-slide-to="@i" class="active"></li>
+                    }
+                    else
+                    {
+                        <li data-target="#carouselExampleIndicators" data-slide-to="@i"></li>
+                    }
+                }
+            </ol>
+            <div class="carousel-inner">
+                @for(int k = 0; k < Model.Count; k++)
+                {
+                    if(k == 0)
+                    {
+                        <div class="carousel-item active">
+                            <div class="card bg-warning rounded-0">
+                                <div class="row no-gutters">
+                                    <div class="col-md-4">
+                                        <img src="@Model[k].Images.FirstOrDefault().Paht" class="card-img rounded-0" alt="@Model[k].Name">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body carousel-md">
+                                            @Html.ActionLink(@Model[k].Name, "ProductDetails", "Home", new { id = Model[k].Id }, new { @class = "card-title h4 card-link text-dark" })
+                                            <p class="lead carousel-explanation">
+                                                @Model[k].DiscountDescription
+                                            </p>
+                                            <label class="m-0">
+                                                @if(Model[k].Comments.Count > 0)
+                                                {
+                                                    var Point = (Model[k].Comments.Sum(i => i.Point) / Model[k].Comments.Count());
+                                                    for(int j = 0; j < 5; j++)
+                                                    {
+                                                        if(j < Point)
+                                                        {
+                                                            <i class="fas fa-star"></i>
+                                                        }
+                                                        else
+                                                        {
+                                                            <i class="far fa-star"></i>
+                                                        }
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    for(int o = 1; o <= 5; o++)
+                                                    {
+                                                        <i class="far fa-star"></i>
+                                                    }
+                                                }
+                                                <a href="/Home/ProductDetails/@Model[k].Id?campanyComment=true">Yorumlar (@Model[k].Comments.Count())</a>
+                                            </label>
+                                            <div class="mt-3 mb-2 d-flex">
+                                                @if(Model[k].DiscountPercentage != 0)
+                                                {
+                                                    <div class="percent text-center bg-danger text-white rounded">
+                                                        <p class="m-0" style="font-size: 24px;">
+                                                            %@Model[k].DiscountPercentage
+                                                        </p>
+                                                        <p class="m-0 ">indirim</p>
+                                                    </div>
+                                                }
+                                                <div class="pl-2">
+                                                    <p class="m-0 text-muted font-weight-lighter" style="text-decoration:line-through;height:24px">
+                                                        @if(Model[k].DiscountPercentage != 0)
+                                                        {
+                                                            <span>@Model[k].Price.ToString("c2")</span>
+                                                        }
+                                                    </p>
+                                                    <p class="m-0 font-weight-bold" style="font-size: 30px;">
+                                                        @if(Model[k].DiscountPercentage != 0)
+                                                        {
+                                                            <span>@((Model[k].Price * (100 - Convert.ToDecimal(Model[k].DiscountPercentage)) / 100m).ToString("c2"))</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>@Model[k].Price.ToString("c2")</span>
+                                                        }
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="carousel-item">
+                            <div class="card bg-warning rounded-0">
+                                <div class="row no-gutters">
+                                    <div class="col-md-4">
+                                        <img src="@Model[k].Images.FirstOrDefault().Paht" class="card-img rounded-0" alt="@Model[k].Name">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body carousel-md">
+                                            @Html.ActionLink(@Model[k].Name, "ProductDetails", "Home", new { id = Model[k].Id }, new { @class = "card-title h4 card-link text-dark" })
+                                            <p class="lead carousel-explanation">
+                                                @Model[k].DiscountDescription
+                                            </p>
+                                            <label class="m-0">
+                                                @if(Model[k].Comments.Count > 0)
+                                                {
+                                                    var Point = (Model[k].Comments.Sum(i => i.Point) / Model[k].Comments.Count());
+                                                    for(int j = 0; j < 5; j++)
+                                                    {
+                                                        if(j < Point)
+                                                        {
+                                                            <i class="fas fa-star"></i>
+                                                        }
+                                                        else
+                                                        {
+                                                            <i class="far fa-star"></i>
+                                                        }
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    for(int m = 1; m <= 5; m++)
+                                                    {
+                                                        <i class="far fa-star"></i>
+                                                    }
+                                                }
+                                                <a href="#">Yorumlar (@Model[k].Comments.Count())</a>
+                                            </label>
+                                            <div class="mt-3 mb-2 d-flex">
+                                                @if(Model[k].DiscountPercentage != 0)
+                                                {
+                                                    <div class="percent text-center bg-danger text-white rounded">
+                                                        <p class="m-0" style="font-size: 24px;">
+                                                            %@Model[k].DiscountPercentage
+                                                        </p>
+                                                        <p class="m-0 ">indirim</p>
+                                                    </div>
+                                                }
+                                                <div class="pl-2">
+                                                    <p class="m-0 text-muted font-weight-lighter" style="text-decoration:line-through;height:24px">
+                                                        @if(Model[k].DiscountPercentage != 0)
+                                                        {
+                                                            <span>@Model[k].Price.ToString("c2")</span>
+                                                        }
+                                                    </p>
+                                                    <p class="m-0 font-weight-bold" style="font-size: 30px;">
+                                                        @if(Model[k].DiscountPercentage != 0)
+                                                        {
+                                                            <span>@((Model[k].Price * (100 - Convert.ToDecimal(Model[k].DiscountPercentage)) / 100m).ToString("c2"))</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>@Model[k].Price.ToString("c2")</span>
+                                                        }
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+</div>

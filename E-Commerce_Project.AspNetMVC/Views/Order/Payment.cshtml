@@ -46,7 +46,7 @@
                                 {
                                     <tr>
                                         <td class="text-left">
-                                            @orderDetail.Product.Name.Substring(0, 25)...
+                                            @(orderDetail.Product.Name.Length > 25 ? orderDetail.Product.Name.Substring(0, 25) + "..." : orderDetail.Product.Name)
                                         </td>
                                         <td class="text-center">
                                             @orderDetail.Quantity

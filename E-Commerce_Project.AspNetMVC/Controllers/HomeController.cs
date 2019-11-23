@@ -14,16 +14,32 @@ namespace E_Commerce_Project.AspNetMVC.Controllers
 {
     public class HomeController : Controller
     {
-        // GET: Home
+        MainCategoryRepository mcr = new MainCategoryRepository();
+        CommentRepository cr = new CommentRepository();
+        ProductRepository pr = new ProductRepository();
+        SubCategoryRepository scr = new SubCategoryRepository();
+        OrderDetailRepository odr = new OrderDetailRepository();
+
         public ActionResult Index()
         {
             return View();
         }
 
+        public ActionResult Search(string search)
+        {
+            if(search != null)
+            {
+                ViewBag.Search = search;
+                search = search.ToLower();
+                var products = pr.SelectAll().Where(i => i.Name.ToLower().Contains(search) || i.Brand.ToLower().Contains(search) || i.Model.ToLower().Contains(search) || i.Code.ToLower() == search).ToList();
+                return View(products);
+            }
+            return View("Index");
+        }
+
         public ActionResult Category(string category, string subCategory, string brand)
         {
             ViewBag.SubCategory = subCategory;
-            var mcr = new MainCategoryRepository();
             if(category == null) return RedirectToAction("Index");
             var mainCategory = mcr.SelectByName(category);
             if(subCategory != null)
@@ -56,13 +72,16 @@ namespace E_Commerce_Project.AspNetMVC.Controllers
         }
 
         [HttpGet]
-        public ActionResult ProductDetails(string id)
+        public ActionResult ProductDetails(string id, bool campanyComment = false)
         {
-            var pr = new ProductRepository();
             var product = pr.SelectById(id);
             if(product == null) return View("Error");
             var productViewModel = new ProductViewModel();
             productViewModel.Product = product;
+            if(campanyComment)
+            {
+                productViewModel.commentTab = true;
+            }
             return View(productViewModel);
         }
 
@@ -75,14 +94,65 @@ namespace E_Commerce_Project.AspNetMVC.Controllers
                 var userManager = new UserManager<User>(new UserStore<User>(DbInstance.Instance));
                 var user = userManager.FindByName(User.Identity.Name);
                 model.Comment.UserId = user.Id;
-                var cr = new CommentRepository();
                 cr.AddOrUpdate(model.Comment);
             }
-            var pr = new ProductRepository();
             var product = pr.SelectById(model.Comment.ProductId);
             model.Product = product;
             model.commentTab = true;
             return View(model);
+        }
+
+        public PartialViewResult _NewPRoducts()
+        {
+            var products = pr.SelectAll();
+            var newProducts = products.OrderByDescending(i => i.CreatedDate).Take(12).ToList();
+            return PartialView(newProducts);
+        }
+
+        [OutputCache(Duration = 86400)]
+        public PartialViewResult _BestSellingProducts()
+        {
+            var bestSellingProducts = odr.SelectAll().GroupBy(i => i.ProductId).Select(i => new
+            {
+                productId = i.Key,
+                quantity = i.Sum(x => x.Quantity)
+            }).OrderByDescending(i => i.quantity).Take(12).ToList();
+
+            var products = new List<Product>();
+            foreach(var item in bestSellingProducts)
+            {
+                products.Add(pr.SelectById(item.productId));
+            }
+
+            return PartialView(products);
+        }
+
+        public PartialViewResult _CampaignProducts()
+        {
+            var products = pr.SelectAll().Where(i => i.DiscountDescription != null).ToList();
+
+            var product = products[0];
+
+            return PartialView(products);
+        }
+        public bool urunekle()
+        {
+            var urun = new Product()
+            {
+                Name = "HP EliteOne 800 G3 All-in-One PC (1KA85EA)",
+                Price = 10000m,
+                Description = "Açıklama",
+                Stock = 5,
+                Brand = "Hp",
+                Model = "EliteOne 800",
+                SubCategoryId = scr.SelectAll().Where(i => i.Name == "All In One").FirstOrDefault().Id,
+                InSales = true,
+                Images = new List<Image>()
+                    {
+                        new Image(){Paht="https://webdenal.s3.amazonaws.com/catalog2/948237.jpg"},
+                    }
+            };
+            return pr.AddOrUpdate(urun);
         }
     }
 }

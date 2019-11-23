@@ -47,7 +47,7 @@ namespace E_Commerce_Project.BLL.Repositories.Repository
 
         public List<Product> SelectAll()
         {
-            return db.Products.Where(i => i.IsDeleted == false).ToList();
+            return db.Products.Where(i => i.IsDeleted == false && i.InSales == true).ToList();
         }
 
         public Product SelectById(string Id)

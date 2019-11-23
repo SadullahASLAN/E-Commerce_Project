@@ -91,7 +91,20 @@
                         <div class="card-body text-center">
                             <p class="lead font-weight-bolder mb-1">GENEL TOPLAM</p>
                             <p class="lead font-weight-normal mb-2">@Model.SubDiscountedPrice().ToString("c2")</p>
-                            @Html.ActionLink("Devam Et", "OrderAddress", "Order", null, new { @class = "btn btn-success d-lg-block btn-continue" })
+                            @if(User.Identity.IsAuthenticated)
+                            {
+                                @Html.ActionLink("Devam Et", "OrderAddress", "Order", null, new { @class = "btn btn-success d-lg-block btn-continue" })
+                            }
+                            else
+                            {
+                                <p class="alert alert-danger mb-1">Devam Edebilmek için</p>
+                                <p class="alert alert-danger mt-0">
+                                    @Html.ActionLink("Giriş yap", "Login", "Account", new { ReturnUrl = Request.Url.AbsoluteUri }, new { @class = "btn btn-primary btn-block" })
+                                    @Html.ActionLink("Üye ol", "Register", "Account", new { @class = "btn btn-success btn-block" })
+                                </p>
+                            }
+
+
                         </div>
                     </div>
                 </div>

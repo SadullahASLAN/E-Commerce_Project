@@ -14,7 +14,7 @@ namespace E_Commerce_Project.DAL.ORM.Entity
         {
             this.Images = new HashSet<Image>();
             this.Comments = new HashSet<Comment>();
-            this.Code = Guid.NewGuid().ToString().Substring(0, 5);
+            this.Code = Guid.NewGuid().ToString().Substring(0, 5).ToUpper();
             this.InSales = false;
             this.CreatedDate = DateTime.Now;
         }

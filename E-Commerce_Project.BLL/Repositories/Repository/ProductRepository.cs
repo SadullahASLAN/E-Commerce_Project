@@ -45,9 +45,35 @@ namespace E_Commerce_Project.BLL.Repositories.Repository
             }
         }
 
+        public bool Delete(string id)
+        {
+            if(id == null)
+            {
+                throw new Exception("Silinen değer boş. Lütfen tekrar deneyin.");
+            }
+            else
+            {
+                var product = db.Products.Find(id);
+                if(product != null)
+                {
+                    product.IsDeleted = true;
+                    return this.AddOrUpdate(product);
+                }
+                else
+                {
+                    throw new Exception("Seçili ürün bulunamadı.");
+                }
+            }
+        }
+
         public List<Product> SelectAll()
         {
             return db.Products.Where(i => i.IsDeleted == false && i.InSales == true).ToList();
+        }
+
+        public List<Product> SelectAllAdmin()
+        {
+            return db.Products.Where(i => i.IsDeleted == false).ToList();
         }
 
         public Product SelectById(string Id)

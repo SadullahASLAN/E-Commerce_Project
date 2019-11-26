@@ -21,6 +21,19 @@ namespace E_Commerce_Project.AspNetMVC
                 "~/Scripts/js/bootstrap.min.js",
                 "~/Scripts/js/site.js"
                 ));
+            bundles.Add(new StyleBundle("~/ContentsAdmin/CSS").Include(
+                "~/Content/css/bootstrap.min.css",
+                "~/Content/css/all.min.css",
+                "~/Areas/Admin/Content/css/admincss.css",
+                "~/Areas/Admin/Content/css/jquery-ui.theme.css"
+                ));
+            bundles.Add(new ScriptBundle("~/ScriptsAdmin").Include(
+                "~/Scripts/js/jquery-3.4.1.js",
+                "~/Scripts/js/popper.min.js",
+                "~/Scripts/js/bootstrap.min.js",
+                "~/Areas/Admin/Scripts/jquery-ui.js"
+                ));
+
         }
     }
 }

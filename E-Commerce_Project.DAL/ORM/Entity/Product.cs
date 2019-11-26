@@ -15,7 +15,7 @@ namespace E_Commerce_Project.DAL.ORM.Entity
             this.Images = new HashSet<Image>();
             this.Comments = new HashSet<Comment>();
             this.Code = Guid.NewGuid().ToString().Substring(0, 5).ToUpper();
-            this.InSales = false;
+            this.InSales = true;
             this.CreatedDate = DateTime.Now;
         }
 
@@ -42,7 +42,6 @@ namespace E_Commerce_Project.DAL.ORM.Entity
 
         [MaxLength(100, ErrorMessage = "Model 100 karakteri geçemez.")]
         public string Model { get; set; }
-
         public string SubCategoryId { get; set; }
         public bool InSales { get; set; }
         public DateTime CreatedDate { get; set; }

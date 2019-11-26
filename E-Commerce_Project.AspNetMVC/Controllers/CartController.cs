@@ -37,7 +37,7 @@ namespace E_Commerce_Project.AspNetMVC.Controllers
                 cartItem.ProductName = product.Name;
                 cartItem.Amount = 1;
                 cartItem.Price = product.Price;
-                cartItem.Image = product.Images.FirstOrDefault().Paht;
+                cartItem.Image = product.Images.FirstOrDefault() != null ? product.Images.FirstOrDefault().Paht : "/Content/image/site/noimg.png";
                 cartItem.DiscountPercentage = product.DiscountPercentage;
                 GetCart().Add(cartItem);
                 return RedirectToAction("_CartButton");

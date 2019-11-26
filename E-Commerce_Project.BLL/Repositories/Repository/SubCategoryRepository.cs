@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace E_Commerce_Project.BLL.Repositories.Repository
 {
-   public class SubCategoryRepository : BaseClass, IBaseRepository<SubCategory>
+    public class SubCategoryRepository : BaseClass, IBaseRepository<SubCategory>
     {
         public bool AddOrUpdate(SubCategory model)
         {
@@ -55,6 +55,16 @@ namespace E_Commerce_Project.BLL.Repositories.Repository
         public SubCategory SelectById(string Id)
         {
             return db.SubCategories.Where(i => i.IsDeleted == false && i.Id == Id).First();
+        }
+
+        public List<SubCategory> MainCategoryId(string id)
+        {
+            if(id == null) return null;
+
+            var main = db.MainCategories.FirstOrDefault(i => i.Id == id && i.IsDeleted == false);
+            if(main == null) return null;
+
+            return main.SubCategories.ToList();
         }
     }
 }

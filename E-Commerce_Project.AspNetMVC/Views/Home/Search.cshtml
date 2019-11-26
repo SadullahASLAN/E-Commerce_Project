@@ -22,7 +22,7 @@
         {
             <div class="col-sm-6 col-md-3 col-lg-5th col-xl-2 mb-3">
                 <div class="card citem shadow-lg rounded-0">
-                    <img src="@product.Images.FirstOrDefault().Paht" class="card-img-top rounded-0" alt="@product.Name">
+                    <img src="@(product.Images.FirstOrDefault()!=null?product.Images.FirstOrDefault().Paht:"/Content/image/site/noimg.png")" class="card-img-top rounded-0" alt="@product.Name">
                     <div class="card-img-overlay p-1" style="height: 31px;">
                         <div class="input-group input-group-sm cartproductadditem" style="visibility: hidden;">
                             <button class="btn btn-success btn-block" onclick="AddToCart('@product.Id')" style="border-radius: 0;" type="button" id="button-addon2">

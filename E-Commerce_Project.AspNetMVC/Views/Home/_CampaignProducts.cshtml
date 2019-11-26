@@ -25,7 +25,7 @@
                             <div class="card bg-warning rounded-0">
                                 <div class="row no-gutters">
                                     <div class="col-md-4">
-                                        <img src="@Model[k].Images.FirstOrDefault().Paht" class="card-img rounded-0" alt="@Model[k].Name">
+                                        <img src="@(Model[k].Images.FirstOrDefault()!=null?Model[k].Images.FirstOrDefault().Paht:"/Content/image/site/noimg.png")" class="card-img rounded-0" alt="@Model[k].Name">
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body carousel-md">
@@ -99,7 +99,7 @@
                             <div class="card bg-warning rounded-0">
                                 <div class="row no-gutters">
                                     <div class="col-md-4">
-                                        <img src="@Model[k].Images.FirstOrDefault().Paht" class="card-img rounded-0" alt="@Model[k].Name">
+                                        <img src="@(Model[k].Images.FirstOrDefault()!=null?Model[k].Images.FirstOrDefault().Paht:"/Content/image/site/noimg.png")" class="card-img rounded-0" alt="@Model[k].Name">
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body carousel-md">
@@ -130,7 +130,7 @@
                                                         <i class="far fa-star"></i>
                                                     }
                                                 }
-                                                <a href="#">Yorumlar (@Model[k].Comments.Count())</a>
+                                                <a href="/Home/ProductDetails/@Model[k].Id?campanyComment=true">Yorumlar (@Model[k].Comments.Count())</a>
                                             </label>
                                             <div class="mt-3 mb-2 d-flex">
                                                 @if(Model[k].DiscountPercentage != 0)

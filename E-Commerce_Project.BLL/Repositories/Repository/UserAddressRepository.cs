@@ -45,6 +45,21 @@ namespace E_Commerce_Project.BLL.Repositories.Repository
             }
         }
 
+        public bool Delete(string id)
+        {
+            var userAddress = db.UserAddresses.Find(id);
+            if(userAddress != null)
+            {
+                userAddress.IsDeleted = true;
+                return this.AddOrUpdate(userAddress);
+            }
+            else
+            {
+                throw new Exception("Seçili adres bulunamadı.");
+            }
+
+        }
+
         public List<UserAddress> SelectAll()
         {
             return db.UserAddresses.Where(i => i.IsDeleted == false).ToList();

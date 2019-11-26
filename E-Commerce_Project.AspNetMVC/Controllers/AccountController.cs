@@ -13,6 +13,8 @@ using Microsoft.Owin.Security;
 using System.Net.Mail;
 using System.Net;
 using System.Text.RegularExpressions;
+using E_Commerce_Project.AspNetMVC.Models.VM;
+using E_Commerce_Project.BLL.Repositories.Repository;
 
 namespace E_Commerce_Project.AspNetMVC.Controllers
 {
@@ -29,6 +31,47 @@ namespace E_Commerce_Project.AspNetMVC.Controllers
                 AllowOnlyAlphanumericUserNames = false
             };
         }
+
+        [Authorize(Roles = "User")]
+        public ActionResult Index()
+        {
+            var user = userManager.FindByName(User.Identity.Name);
+            if(user != null)
+            {
+                return View(user);
+            }
+            return View("Error");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "User")]
+        public ActionResult UpdateInformation(UpdateInformation model)
+        {
+            if(ModelState.IsValid)
+            {
+                var user = userManager.FindByName(User.Identity.Name);
+                user.Name = model.Name;
+                user.Surname = model.Surname;
+                user.PhoneNumber = model.Phone;
+                user.Email = model.Email;
+                userManager.Update(user);
+            }
+            return RedirectToAction("Index");
+        }
+
+        [Authorize(Roles = "User")]
+        public ActionResult AddressRemove(string id)
+        {
+            if(id != null)
+            {
+                var uar = new UserAddressRepository();
+                uar.Delete(id);
+                return RedirectToAction("Index");
+            }
+            return View("Error");
+        }
+
 
         [HttpGet]
         public ActionResult Login(string returnUrl)

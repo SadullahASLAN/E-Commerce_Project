@@ -1,0 +1,166 @@
+﻿@model E_Commerce_Project.AspNetMVC.Areas.Admin.Models.AddProductModel
+@{
+    ViewBag.Title = "AddProduct";
+}
+
+<div class="row mt-2">
+    <div class="col-md">
+        <div class="card card-body mb-3 rounded shadow">
+            @using(Html.BeginForm("AddProduct", "Product", null, FormMethod.Post, new { @enctype = "multipart/form-data" }))
+            {
+                <fieldset>
+                    @Html.AntiForgeryToken()
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="form-row lg-3">
+                                <div class="col-md">
+                                    <label class="font-weight-bold">Oluşturulma Zamanı</label>
+                                    @Html.TextBoxFor(i => i.Product.CreatedDate, new { @class = "form-control", @readonly = true })
+                                </div>
+                                <div class="col-lg mt-3 mt-lg-0">
+                                    <label class="font-weight-bold">Ürün Kodu</label>
+                                    @Html.TextBoxFor(i => i.Product.Code, new { @class = "form-control", @readonly = true })
+                                </div>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label class="font-weight-bold">Ürün Adı</label>
+                                @Html.TextBoxFor(i => i.Product.Name, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(i => i.Product.Name)
+                            </div>
+                            <div class="form-row mb-3">
+                                <div class="col-lg">
+                                    <label class="font-weight-bold">Fiyat</label>
+                                    <input type="number" id="Product_Price" name="Product.Price" class="form-control" value="0" min="0" step="any" />
+                                    @Html.ValidationMessageFor(i => i.Product.Price)
+                                </div>
+                                <div class="col-lg mt-3 mt-lg-0">
+                                    <label class="font-weight-bold">İndirim Yüzdesi</label>
+                                    <input type="number" id="Product_DiscountPercentage" name="Product.DiscountPercentage" class="form-control" value="0" min="0" max="100" />
+                                </div>
+                                <div class="col-lg mt-3 mt-lg-0">
+                                    <label class="font-weight-bold">İndirimli Fiyat</label>
+                                    <input id="discountedprice" type="text" class="form-control" readonly />
+                                </div>
+                            </div>
+                            <div class="form-group mt-3 mt-lg-0">
+                                <label class="font-weight-bold">Ürün Açıklaması</label>
+                                @Html.TextAreaFor(i => i.Product.Description, new { @class = "form-control", @rows = "5" })
+                                @Html.ValidationMessageFor(i => i.Product.Description)
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-row lg-3">
+                                <div class="col-md">
+                                    <label class="font-weight-bold">Stok</label>
+                                    @Html.TextBoxFor(i => i.Product.Stock, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(i => i.Product.Stock)
+                                </div>
+                                <div class="col-lg mt-3 mt-lg-0">
+                                    <label class="font-weight-bold">Marka</label>
+                                    @Html.TextBoxFor(i => i.Product.Brand, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(i => i.Product.Brand)
+                                </div>
+                                <div class="col-lg mt-3 mt-lg-0">
+                                    <label class="font-weight-bold">Model</label>
+                                    @Html.TextBoxFor(i => i.Product.Model, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(i => i.Product.Model)
+                                </div>
+                            </div>
+                            <div class="form-row mt-3 lg-3">
+                                <div class="col-md">
+                                    <label class="font-weight-bold">Ana Kategori</label>
+                                    @Html.DropDownList("MainCat", ViewBag.MainCat as SelectList, null, new { @class = "form-control", @id = "MainId" })
+                                </div>
+                                <div class="col-lg mt-3 mt-lg-0">
+                                    <label class="font-weight-bold">Alt Kategori</label>
+                                    @Html.DropDownListFor(i => i.Product.SubCategoryId, new SelectList(" "), null, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label class="font-weight-bold">Kampanya Açıklaması</label>
+                                @Html.TextAreaFor(i => i.Product.DiscountDescription, new { @class = "form-control", @rows = "2" })
+                                @Html.ValidationMessageFor(i => i.Product.DiscountDescription)
+                            </div>
+                            <div class="form-group mt-3 mb-0">
+                                @Html.HiddenFor(i => i.Product.InSales)
+                                <label class="font-weight-bold">Satışa Durumu</label>
+                                <div class="form-row lg-3">
+                                    <div class="col-lg ">
+                                        <label id="Product_InSalesTrue" class="form-control text-center" style="cursor:pointer">Satışa Çıkart</label>
+                                    </div>
+                                    <div class="col-lg">
+                                        <label id="Product_InSalesFalse" class="form-control text-center" style="cursor:pointer">Satışa Çıkartma</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="custom-file my-3">
+                                <input multiple type="file" class="custom-file-input" id="Images" name="Images">
+                                <label class="custom-file-label" for="customFile" data-browse="Resim Ekle">Resim yok...</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3 mt-lg-0">
+                        <div class="col">
+                            <button type="submit" class="btn btn-outline-primary btn-lg btn-block">Kaydet</button>
+                        </div>
+                    </div>
+                </fieldset>
+            }
+        </div>
+    </div>
+</div>
+
+@section SubCatScripst{
+    <script>
+        $(document).ready(function () {
+            $("#MainId").change(function () {
+                $.get("/Admin/Product/SubCategory", { Id: $("#MainId").val() }, function (data) {
+                    $("#Product_SubCategoryId").empty();
+                    $.each(data, function (index, row) {
+                        $("#Product_SubCategoryId").append("<option value='" + index + "'>" + row + "</option>")
+                    });
+                });
+            })
+
+            $("#MainId").trigger("change");
+
+
+            $.get("/Admin/Product/GetAllBrand", null, function (data) {
+                $("#Product_Brand").autocomplete({
+                    source: data
+                })
+            })
+
+            $("#Product_Price").change(function () {
+                $("#discountedprice").val($("#Product_Price").val() * (100 - $("#Product_DiscountPercentage").val()) / 100)
+            })
+            $("#Product_DiscountPercentage").change(function () {
+                $("#discountedprice").val($("#Product_Price").val() * (100 - $("#Product_DiscountPercentage").val()) / 100)
+            })
+
+            if ($("#Product_InSales").val().toLowerCase() == "true") {
+                $("#Product_InSalesTrue").addClass("bg-secondary text-white");
+            }
+            else {
+                $("#Product_InSalesFalse").addClass("bg-secondary text-white");
+            }
+
+
+            $("#Product_InSalesTrue").click(function () {
+                $("#Product_InSalesTrue").addClass("bg-secondary text-white");
+                $("#Product_InSalesFalse").removeClass("bg-secondary text-white");
+                $("#Product_InSales").val(true);
+            });
+            $("#Product_InSalesFalse").click(function () {
+                $("#Product_InSalesFalse").addClass("bg-secondary text-white");
+                $("#Product_InSalesTrue").removeClass("bg-secondary text-white");
+                $("#Product_InSales").val(false);
+            });
+
+            bsCustomFileInput.init()
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
+}
+
+

@@ -135,24 +135,5 @@ namespace E_Commerce_Project.AspNetMVC.Controllers
 
             return PartialView(products);
         }
-        public bool urunekle()
-        {
-            var urun = new Product()
-            {
-                Name = "HP EliteOne 800 G3 All-in-One PC (1KA85EA)",
-                Price = 10000m,
-                Description = "Açıklama",
-                Stock = 5,
-                Brand = "Hp",
-                Model = "EliteOne 800",
-                SubCategoryId = scr.SelectAll().Where(i => i.Name == "All In One").FirstOrDefault().Id,
-                InSales = true,
-                Images = new List<Image>()
-                    {
-                        new Image(){Paht="https://webdenal.s3.amazonaws.com/catalog2/948237.jpg"},
-                    }
-            };
-            return pr.AddOrUpdate(urun);
-        }
     }
 }

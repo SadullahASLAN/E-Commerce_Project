@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @using System.Web.Optimization
+    @Styles.Render("~/ContentsAdmin/CSS")
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <span class="navbar-brand d-block d-md-none">Menü</span>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Ürünler
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/Admin/Product/ProductList?filter=productlist">Tümünü Listele</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/Admin/Product/ProductList?filter=stocklow">Stokta Azalan Ürünler</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/Admin/Product/ProductList?filter=onsale">Satışta Olan</a>
+                        <a class="dropdown-item" href="/Admin/Product/ProductList?filter=notonsale">Satışta Olmayan</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/Admin/Product/AddProduct">Yeni Ürün Ekle</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Kategoriler</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Kampanyalı Ürünler</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">İstatistik</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Siparişler</a>
+                </li>
+            </ul>
+            <a class="nav-link text-danger p-0" href="#">Çıkış Yap</a>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        @RenderBody()
+    </div>
+
+    @Scripts.Render("~/ScriptsAdmin")
+    @RenderSection("SubCatScripst", false)
+</body>
+</html>

@@ -12,7 +12,6 @@ namespace E_Commerce_Project.DAL.ORM.Entity
         public MainCategory()
         {
             this.SubCategories = new HashSet<SubCategory>();
-            this.Images = new HashSet<Image>();
         }
 
         [MaxLength(100, ErrorMessage = "Kategori ismi 100 karakteri geçemez.")]
@@ -23,7 +22,6 @@ namespace E_Commerce_Project.DAL.ORM.Entity
         public string Description { get; set; }
 
         //Mapping       
-        public virtual ICollection<Image> Images { get; set; }
         public virtual ICollection<SubCategory> SubCategories { get; set; }
     }
 }

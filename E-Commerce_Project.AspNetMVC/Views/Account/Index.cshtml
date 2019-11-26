@@ -1,0 +1,184 @@
+﻿@model User
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row my-3">
+    <div class="col">
+        <div class="card card-body p-1">
+            <nav>
+                <div class="nav nav-tabs m-0 font-weight-bold" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-userinformation-tab" data-toggle="tab"
+                       href="#nav-userinformation" role="tab" aria-controls="nav-userinformation"
+                       aria-selected="true">Bilgilerim</a>
+                    <a class="nav-item nav-link" id="nav-orders-tab" data-toggle="tab" href="#nav-orders"
+                       role="tab" aria-controls="nav-orders" aria-selected="false">Siparişlerim</a>
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade  show active" id="nav-userinformation" role="tabpanel"
+                     aria-labelledby="nav-userinformation-tab">
+                    <div class="card card-body rounded-0 border-top-0 p-3">
+                        <button type="button" onclick="Information()" class="btn btn-outline-secondary btn-block btn-sm" data-toggle="modal" data-target="#exampleModalCenter">Bilgilerimi Güncelle</button>
+                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalCenterTitle">Bilgileriniz</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form action="/Account/UpdateInformation" method="post">
+                                        <div class="modal-body">
+                                            @Html.AntiForgeryToken()
+                                            <div class="form-group">
+                                                <label>Adınız:</label>
+                                                <input id="Name" name="Name" type="text" class="form-control" value="@Model.Name" required maxlength="50" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Soyadınız:</label>
+                                                <input id="Surname" name="Surname" type="text" class="form-control" value="@Model.Surname" required maxlength="50" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Telefon:</label>
+                                                <input id="Phone" name="Phone" type="number" class="form-control" value="@Model.PhoneNumber" required />
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Email:</label>
+                                                <input id="Email" name="Email" type="text" class="form-control" value="@Model.Email" required maxlength="250" />
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                                            <button type="submit" class="btn btn-primary">Güncelle</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row no-gutters">
+                            <div class="col-md pr-md-2">
+                                <form>
+                                    <div class="form-group m-0">
+                                        <label class="m-0 font-weight-bold">
+                                            <small class="font-weight-bold">Adınız:</small>
+                                        </label>
+                                        <label class="form-control">@Model.Name</label>
+                                    </div>
+                                    <div class="form-group m-0">
+                                        <label class="m-0">
+                                            <small class="font-weight-bold">Soyadınız:</small>
+                                        </label>
+                                        <label class="form-control">@Model.Surname</label>
+                                    </div>
+                                    <div class="form-group m-0">
+                                        <label class="m-0">
+                                            <small class="font-weight-bold">Telefon:</small>
+                                        </label>
+                                        <label class="form-control">@Model.PhoneNumber</label>
+                                    </div>
+                                    <div class="form-group m-0">
+                                        <label class="m-0">
+                                            <small class="font-weight-bold">Email:</small>
+                                        </label>
+                                        <label class="form-control">@Model.Email</label>
+                                    </div>
+                                    <div class="form-group m-0">
+                                        <label class="m-0">
+                                            <small class="font-weight-bold">
+                                                Hesap Durumu:
+                                            </small>
+                                        </label>
+                                        <label class="form-control bg-success">Onaylandı</label>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md pl-md-2">
+                                <div class="form-group m-0">
+                                    <label class="m-0"><small class="font-weight-bold">Adresler:</small></label>
+                                    <div class="form-control h-auto">
+                                        @foreach(var address in Model.UserAddresses.Where(i => i.IsDeleted == false).ToList())
+                                        {
+                                            <p class="m-0 d-flex justify-content-between">
+                                                <b>@address.Title</b>
+                                                <a href="/Account/AddressRemove?id=@address.Id" class="badge badge-danger" style="padding-top: 5px;">Sil</a>
+                                            </p>
+                                            <hr class="m-0">
+                                            <p class="m-0">@address.ReceivingName</p>
+                                            <p class="m-0">@address.ReceivingPhone</p>
+                                            <p class="mb-3">@address.Address</p>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="nav-orders" role="tabpanel" aria-labelledby="nav-orders-tab">
+                    <div class="card card-body rounded-0 border-top-0 p-2">
+                        @foreach(var order in Model.Orders)
+                        {
+                            <div class="card bg-light rounded-0 mb-3 shadow">
+                                <div class="card-header p-1 bg-primary text-white rounded-0">
+                                    <small><strong>Sipariş No: </strong>@order.Id.Replace("-", "").ToUpper()</small>
+                                </div>
+                                <div class="card-body p-0">
+                                    <table class="table table-bordered table-sm text-center m-0"
+                                           style="font-size: 11px;">
+                                        <thead>
+                                            <tr class="thead-light">
+                                                <th class="text-left">Ürün</th>
+                                                <th style="width: 40px;">Adet</th>
+                                                <th style="width: 80px;">Fiyat</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach(var orderDetail in order.OrderDetails)
+                                            {
+                                                <tr>
+                                                    <td class="text-left">@orderDetail.Product.Name</td>
+                                                    <td class="align-middle">@orderDetail.Quantity</td>
+                                                    <td class="align-middle">@orderDetail.UnitPrice.ToString("c2")</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td class="text-left">Toplam</td>
+                                                <td><b><u>@order.OrderDetails.Sum(i=>i.Quantity)</u></b></td>
+                                                <td><b><u>@order.OrderDetails.Sum(i=>i.UnitPrice).ToString("c2")</u></b></td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                    <div class="p-1">
+                                        <p class="mb-2">
+                                            <span class="badge badge-secondary">
+                                               @order.UserAddress.Title
+                                            </span>
+                                        </p>
+                                        <p class="h5">
+                                            <span class="d-block d-sm-inline">@order.UserAddress.ReceivingName</span>
+                                            <span class="d-block d-sm-inline">@order.UserAddress.ReceivingPhone</span>
+                                        </p>
+                                        <p>
+                                            @order.UserAddress.Address
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="card-footer p-1 d-sm-flex justify-content-between">
+                                    <span class="d-block">
+                                        <small>
+                                            <strong>Sipariş Durumu: </strong>@order.OrderStatus.Status
+                                        </small>
+                                    </span>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -136,6 +136,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Admin\Content\css\admincss.css" />
+    <Content Include="Areas\Admin\Content\css\jquery-ui.theme.css" />
+    <Content Include="Areas\Admin\Scripts\jquery-ui.js" />
     <Content Include="Content\css\all.min.css" />
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\site.css" />
@@ -146,6 +149,8 @@
     <Content Include="Content\image\product\huawei_matebook13\2.jpg" />
     <Content Include="Content\image\product\huawei_matebook13\3.jpg" />
     <Content Include="Content\image\site\kredikartiodeme.png" />
+    <Content Include="Content\image\site\noimg.png" />
+    <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\js\bootstrap.min.js" />
     <Content Include="Scripts\js\jquery-3.4.1.js" />
@@ -160,6 +165,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
+    <Compile Include="Areas\Admin\Models\AddProductModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -173,12 +181,18 @@
     <Compile Include="Models\DTO\LoginDTO.cs" />
     <Compile Include="Models\DTO\RegisterDTO.cs" />
     <Compile Include="Models\DTO\ResetPasswordDTO.cs" />
+    <Compile Include="Models\DTO\UpdateInformation.cs" />
     <Compile Include="Models\VM\ProductViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\MailBody.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\ProductList.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\AddProduct.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -203,6 +217,7 @@
     <Content Include="Views\Home\_BestSellingProducts.cshtml" />
     <Content Include="Views\Home\_CampaignProducts.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

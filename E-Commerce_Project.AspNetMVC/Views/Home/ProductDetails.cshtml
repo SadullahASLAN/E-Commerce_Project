@@ -27,14 +27,17 @@
         <div class="border bg-white p-2">
             <div class="row">
                 <div class="col">
-                    <img id="productimgshow" src="@Model.Product.Images.First().Paht" class="rounded mx-auto d-block border shadow" alt="@Model.Product.Name" style="max-width:70%;">
+                    <img id="productimgshow" src="@(Model.Product.Images.FirstOrDefault()!=null?Model.Product.Images.FirstOrDefault().Paht:"/Content/image/site/noimg.png")" class="rounded mx-auto d-block border shadow" alt="@Model.Product.Name" style="max-width:70%;">
                 </div>
             </div>
             <div class="row mt-2">
                 <div class="col text-center">
-                    @foreach(var image in Model.Product.Images)
+                    @if(Model.Product.Images.Count() > 0)
                     {
-                        <img src="@image.Paht" class="rounded border mx-1 productimg" alt="@Model.Product.Name" style="max-width:15%;">
+                        foreach(var image in Model.Product.Images)
+                        {
+                            <img src="@image.Paht" class="rounded border mx-1 productimg" alt="@Model.Product.Name" style="max-width:15%;">
+                        }
                     }
                 </div>
             </div>
@@ -165,7 +168,7 @@
                                 {
                                     <div class="col-sm-6 col-md-3 col-lg col-xl-2 mb-3">
                                         <div class="card citem shadow-lg rounded-0">
-                                            <img src="@product.Images.First().Paht" class="card-img-top rounded-0" alt="@product.Name">
+                                            <img src="@(product.Images.FirstOrDefault()!=null?product.Images.FirstOrDefault().Paht:"/Content/image/site/noimg.png")" class="card-img-top rounded-0" alt="@product.Name">
                                             <div class="card-img-overlay p-1" style="height: 31px;">
                                                 <div class="input-group input-group-sm cartproductadditem" style="visibility: hidden;">
                                                     <button class="btn btn-success btn-block" onclick="AddToCart('@product.Id')" style="border-radius: 0;" type="button" id="button-addon2">
@@ -203,7 +206,7 @@
                                 {
                                     <div class="col-sm-6 col-md-3 col-lg col-xl-2 mb-3 d-none d-md-block">
                                         <div class="card citem shadow-lg rounded-0">
-                                            <img src="@product.Images.FirstOrDefault().Paht" class="card-img-top rounded-0" alt="@product.Name">
+                                            <img src="@(product.Images.FirstOrDefault()!=null?product.Images.FirstOrDefault().Paht:"/Content/image/site/noimg.png")" class="card-img-top rounded-0" alt="@product.Name">
                                             <div class="card-img-overlay p-1" style="height: 31px;">
                                                 <div class="input-group input-group-sm cartproductadditem" style="visibility: hidden;">
                                                     <input type="number" style="border-radius: 0;" class="form-control" value="1" min="1" max="3" step="1" S>
@@ -248,7 +251,7 @@
                                 {
                                     <div class="col-sm-6 col-md-3 col-lg col-xl-2 mb-3 d-none d-lg-block">
                                         <div class="card citem shadow-lg rounded-0">
-                                            <img src="@product.Images.FirstOrDefault().Paht" class="card-img-top rounded-0" alt="@product.Name">
+                                            <img src="@(product.Images.FirstOrDefault()!=null?product.Images.FirstOrDefault().Paht:"/Content/image/site/noimg.png")" class="card-img-top rounded-0" alt="@product.Name">
                                             <div class="card-img-overlay p-1" style="height: 31px;">
                                                 <div class="input-group input-group-sm cartproductadditem" style="visibility: hidden;">
                                                     <input type="number" style="border-radius: 0;" class="form-control" value="1" min="1" max="3" step="1" S>
@@ -293,7 +296,7 @@
                                 {
                                     <div class="col-sm-6 col-md-3 col-lg col-xl-2 mb-3 d-none d-xl-block">
                                         <div class="card citem shadow-lg rounded-0">
-                                            <img src="@product.Images.FirstOrDefault().Paht" class="card-img-top rounded-0" alt="@product.Name">
+                                            <img src="@(product.Images.FirstOrDefault()!=null?product.Images.FirstOrDefault().Paht:"/Content/image/site/noimg.png")" class="card-img-top rounded-0" alt="@product.Name">
                                             <div class="card-img-overlay p-1" style="height: 31px;">
                                                 <div class="input-group input-group-sm cartproductadditem" style="visibility: hidden;">
                                                     <input type="number" style="border-radius: 0;" class="form-control" value="1" min="1" max="3" step="1" S>
@@ -365,6 +368,7 @@
                     @Html.Raw(Model.Product.Description);
                 </div>
                 <div class="tab-pane fade" id="nav-yorumlar" role="tabpanel" aria-labelledby="nav-yorumlar-tab">
+                    <input type="hidden" id="commentTab" value="@Model.commentTab.ToString()" />
                     @if(User.Identity.IsAuthenticated)
                     {
                         <p>
@@ -399,7 +403,6 @@
                             @using(Html.BeginForm())
                             {
                                 @Html.AntiForgeryToken()
-                                <input type="hidden" id="commentTab" value="@Model.commentTab.ToString()" />
                                 @Html.HiddenFor(i => i.Comment.Point, new { @id = "point" })
                                 <input type="hidden" name="Comment.ProductId" value="@Model.Product.Id" />
                                 @Html.TextAreaFor(i => i.Comment.Explanation, new { @class = "form-control", @id = "exampleFormControlTextarea1", @rows = "3", @placeholder = "Yorum..." })

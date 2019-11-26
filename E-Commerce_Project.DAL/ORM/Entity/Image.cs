@@ -15,8 +15,6 @@ namespace E_Commerce_Project.DAL.ORM.Entity
         public string Paht { get; set; }
 
         //Mapping
-        public virtual MainCategory MainCategory { get; set; }
-        public virtual SubCategory SubCategory { get; set; }
         public virtual Product Product { get; set; }
     }
 }

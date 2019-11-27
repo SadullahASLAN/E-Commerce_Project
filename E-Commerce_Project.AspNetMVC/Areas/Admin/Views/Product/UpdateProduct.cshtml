@@ -1,15 +1,16 @@
 ﻿@model E_Commerce_Project.AspNetMVC.Areas.Admin.Models.AddOrUpdateProductModel
 @{
-    ViewBag.Title = "AddProduct";
+    ViewBag.Title = "UpdateProduct";
 }
 
 <div class="row mt-2">
     <div class="col-md">
         <div class="card card-body mb-3 rounded shadow">
-            @using(Html.BeginForm("AddProduct", "Product", null, FormMethod.Post, new { @enctype = "multipart/form-data" }))
+            @using(Html.BeginForm("UpdateProduct", "Product", new { filter = ViewBag.Filter }, FormMethod.Post, new { @enctype = "multipart/form-data" }))
             {
                 <fieldset>
                     @Html.AntiForgeryToken()
+                    @Html.HiddenFor(i => i.Product.Id)
                     <div class="row">
                         <div class="col-md">
                             <div class="form-row lg-3">
@@ -30,12 +31,12 @@
                             <div class="form-row mb-3">
                                 <div class="col-lg">
                                     <label class="font-weight-bold">Fiyat</label>
-                                    <input type="number" id="Product_Price" name="Product.Price" class="form-control" value="0" min="0" step=".01" />
+                                    @Html.TextBoxFor(i => i.Product.Price, new { @class = "form-control", @type = "number", @step = ".01", @min = "0" })
                                     @Html.ValidationMessageFor(i => i.Product.Price)
                                 </div>
                                 <div class="col-lg mt-3 mt-lg-0">
                                     <label class="font-weight-bold">İndirim Yüzdesi</label>
-                                    <input type="number" id="Product_DiscountPercentage" name="Product.DiscountPercentage" class="form-control" value="0" min="0" max="100" />
+                                    @Html.TextBoxFor(i => i.Product.DiscountPercentage, new { @class = "form-control" })
                                 </div>
                                 <div class="col-lg mt-3 mt-lg-0">
                                     <label class="font-weight-bold">İndirimli Fiyat</label>
@@ -44,7 +45,7 @@
                             </div>
                             <div class="form-group mt-3 mt-lg-0">
                                 <label class="font-weight-bold">Ürün Açıklaması</label>
-                                @Html.TextAreaFor(i => i.Product.Description, new { @class = "form-control", @rows = "5" })
+                                @Html.TextAreaFor(i => i.Product.Description, new { @class = "form-control", @rows = "11" })
                                 @Html.ValidationMessageFor(i => i.Product.Description)
                             </div>
                         </div>
@@ -69,11 +70,11 @@
                             <div class="form-row mt-3 lg-3">
                                 <div class="col-md">
                                     <label class="font-weight-bold">Ana Kategori</label>
-                                    @Html.DropDownList("MainCat", ViewBag.MainCat as SelectList, null, new { @class = "form-control", @id = "MainId" })
+                                    @Html.DropDownList("MainCat", null, new { @class = "form-control", @id = "MainId" })
                                 </div>
                                 <div class="col-lg mt-3 mt-lg-0">
                                     <label class="font-weight-bold">Alt Kategori</label>
-                                    @Html.DropDownListFor(i => i.Product.SubCategoryId, new SelectList(" "), null, new { @class = "form-control" })
+                                    @Html.DropDownListFor(i => i.Product.SubCategoryId, ViewBag.SubCat as SelectList, null, new { @class = "form-control" })
                                 </div>
                             </div>
                             <div class="form-group mt-3">
@@ -93,9 +94,29 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="custom-file my-3">
-                                <input multiple type="file" class="custom-file-input" id="Images" name="Images" accept="image/png, image/jpeg">
-                                <label class="custom-file-label" style="overflow:hidden;" for="customFile" data-browse="Resim Ekle">Resim yok...</label>
+
+                            <div class="form-group mt-3 mb-1">
+                                <label class="font-weight-bold">Ürün Resimleri</label>
+                                <div id="productImages" class=" border rounded p-3">
+                                    @if(Model.Product.Images.Count() > 0)
+                                    {
+                                        foreach(var image in Model.Product.Images)
+                                        {
+                                            <div class="d-inline imageItem" style="position:relative">
+                                                <img src="@image.Paht" alt="@Model.Product.Name" class="img-thumbnail" style="width:75px">
+                                                <span class="badge badge-danger" onclick="DeleteImage('@image.Id',this)" style="position:absolute; top:-22px; right:7px; cursor:pointer">X</span>
+                                            </div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span>Ürüne ait resim bulunmamaktadır.</span>
+                                    }
+                                </div>
+                            </div>
+                            <div class="custom-file mb-3">
+                                <input multiple type="file" itemtype="" class="custom-file-input" id="Images" name="Images">
+                                <label class="custom-file-label" for="customFile" style="overflow:hidden;" data-browse="Resim Ekle">Yeni resim ekle...</label>
                             </div>
                         </div>
                     </div>
@@ -122,8 +143,6 @@
                 });
             })
 
-            $("#MainId").trigger("change");
-
             $.get("/Admin/Product/GetAllBrand", null, function (data) {
                 $("#Product_Brand").autocomplete({
                     source: data
@@ -136,6 +155,8 @@
             $("#Product_DiscountPercentage").change(function () {
                 $("#discountedprice").val($("#Product_Price").val() * (100 - $("#Product_DiscountPercentage").val()) / 100)
             })
+            $("#Product_Price").val($("#Product_Price").val().replace(",", "."));
+            $("#discountedprice").val($("#Product_Price").val() * (100 - $("#Product_DiscountPercentage").val()) / 100)
 
             if ($("#Product_InSales").val().toLowerCase() == "true") {
                 $("#Product_InSalesTrue").addClass("bg-secondary text-white");
@@ -158,6 +179,13 @@
 
             bsCustomFileInput.init()
         });
+
+        function DeleteImage(id, e) {
+            $.get("/Admin/Product/DeleteProductImage", { id: id });
+            $(e).parent().removeClass("d-inline");
+            $(e).parent().css("display", "none");
+
+        };
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
 }

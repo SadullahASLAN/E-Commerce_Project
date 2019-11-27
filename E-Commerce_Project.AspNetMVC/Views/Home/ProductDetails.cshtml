@@ -365,7 +365,7 @@
             </nav>
             <div class="tab-content p-3" id="nav-tabContent">
                 <div class="tab-pane fade show  active" id="nav-aciklama" role="tabpanel" aria-labelledby="nav-aciklama-tab">
-                    @Html.Raw(Model.Product.Description);
+                    @Html.Raw(Model.Product.Description)
                 </div>
                 <div class="tab-pane fade" id="nav-yorumlar" role="tabpanel" aria-labelledby="nav-yorumlar-tab">
                     <input type="hidden" id="commentTab" value="@Model.commentTab.ToString()" />

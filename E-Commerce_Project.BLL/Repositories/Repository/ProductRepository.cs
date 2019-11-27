@@ -68,17 +68,51 @@ namespace E_Commerce_Project.BLL.Repositories.Repository
 
         public List<Product> SelectAll()
         {
-            return db.Products.Where(i => i.IsDeleted == false && i.InSales == true).ToList();
+            var products = db.Products.Where(i => i.IsDeleted == false && i.InSales == true).ToList();
+            List<Product> listProducts = new List<Product>();
+            foreach(var product in products)
+            {
+                foreach(var img in product.Images.ToList())
+                {
+                    if(img.IsDeleted)
+                    {
+                        product.Images.Remove(img);
+                    }
+                }
+                listProducts.Add(product);
+            }
+            return listProducts;
         }
 
         public List<Product> SelectAllAdmin()
         {
-            return db.Products.Where(i => i.IsDeleted == false).ToList();
+            var products = db.Products.Where(i => i.IsDeleted == false).ToList();
+            List<Product> listProducts = new List<Product>();
+            foreach(var product in products)
+            {
+                foreach(var image in product.Images.ToList())
+                {
+                    if(image.IsDeleted)
+                    {
+                        product.Images.Remove(image);
+                    }
+                }
+                listProducts.Add(product);
+            }
+            return listProducts;
         }
 
         public Product SelectById(string Id)
         {
-            return db.Products.Where(i => i.IsDeleted == false && i.Id == Id).FirstOrDefault();
+            var product = db.Products.Where(i => i.IsDeleted == false && i.Id == Id).FirstOrDefault();
+            foreach(var image in product.Images.ToList())
+            {
+                if(image.IsDeleted)
+                {
+                    product.Images.Remove(image);
+                }
+            }
+            return product;
         }
     }
 }

@@ -13,6 +13,7 @@ namespace E_Commerce_Project.DAL.ORM.Entity
         [MaxLength(200)]
         [Required]
         public string Paht { get; set; }
+        public string ProductId { get; set; }
 
         //Mapping
         public virtual Product Product { get; set; }

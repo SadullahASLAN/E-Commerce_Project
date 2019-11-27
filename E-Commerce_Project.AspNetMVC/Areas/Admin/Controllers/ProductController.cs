@@ -15,11 +15,13 @@ namespace E_Commerce_Project.AspNetMVC.Areas.Admin.Controllers
         ProductRepository pr = new ProductRepository();
         MainCategoryRepository mcr = new MainCategoryRepository();
         SubCategoryRepository scr = new SubCategoryRepository();
+        ImageRepository ir = new ImageRepository();
 
         // GET: Admin/Product
         public ActionResult ProductList(string filter)
         {
             ViewBag.Header = "Tüm Ürünler";
+            ViewBag.Filter = filter;
             var products = pr.SelectAllAdmin();
 
             if(filter == "stocklow")
@@ -47,30 +49,74 @@ namespace E_Commerce_Project.AspNetMVC.Areas.Admin.Controllers
         {
             ViewBag.MainCat = new SelectList(mcr.SelectAll(), "Id", "Name", "00000000-3e66-4dba-99e3-d255f90080cd");
             var product = new Product();
-            var addProductModel = new AddProductModel();
+            var addProductModel = new AddOrUpdateProductModel();
             addProductModel.Product = product;
             return View(addProductModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddProduct(AddProductModel addProductModel)
+        public ActionResult AddProduct(AddOrUpdateProductModel addOrUpdateProductModel)
         {
             if(ModelState.IsValid)
             {
-                string folderPath = Server.MapPath($"~/Content/image/product/{addProductModel.Product.Id}");
-                Directory.CreateDirectory(folderPath);
-                foreach(var image in addProductModel.Images)
+                if(addOrUpdateProductModel.Images.FirstOrDefault() != null)
                 {
-                    string imagePaht = Server.MapPath($"~/Content/image/product/{addProductModel.Product.Id}/{image.FileName}");
-                    image.SaveAs(imagePaht);
-                    addProductModel.Product.Images.Add(new Image() { Paht = $"/Content/image/product/{addProductModel.Product.Id}/{image.FileName}" });
+                    string folderPath = Server.MapPath($"~/Content/image/product/{addOrUpdateProductModel.Product.Id}");
+                    Directory.CreateDirectory(folderPath);
+                    foreach(var image in addOrUpdateProductModel.Images)
+                    {
+                        string imagePaht = Server.MapPath($"~/Content/image/product/{addOrUpdateProductModel.Product.Id}/{image.FileName}");
+                        image.SaveAs(imagePaht);
+                        addOrUpdateProductModel.Product.Images.Add(new Image() { Paht = $"/Content/image/product/{addOrUpdateProductModel.Product.Id}/{image.FileName}" });
+                    }
                 }
-                pr.AddOrUpdate(addProductModel.Product);
+                pr.AddOrUpdate(addOrUpdateProductModel.Product);
                 return RedirectToAction("ProductList");
             }
             ViewBag.MainCat = new SelectList(mcr.SelectAll(), "Id", "Name", "00000000-3e66-4dba-99e3-d255f90080cd");
-            return View(addProductModel);
+            return View(addOrUpdateProductModel);
+        }
+
+        [HttpGet]
+        public ActionResult UpdateProduct(string id, string filter)
+        {
+            var product = pr.SelectById(id);
+            if(product != null)
+            {
+                ViewBag.MainCat = new SelectList(mcr.SelectAll(), "Id", "Name", product.SubCategory.MainCategoryId);
+                ViewBag.SubCat = new SelectList(mcr.SelectById(product.SubCategory.MainCategoryId).SubCategories, "Id", "Name", product.SubCategoryId);
+                ViewBag.Filter = filter;
+                var addProductModel = new AddOrUpdateProductModel();
+                addProductModel.Product = product;
+                return View(addProductModel);
+            }
+            return Redirect("/Admin/Product/ProductList?filter=" + filter);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UpdateProduct(AddOrUpdateProductModel addOrUpdateProductModel, string filter)
+        {
+            if(ModelState.IsValid)
+            {
+                if(addOrUpdateProductModel.Images.FirstOrDefault() != null)
+                {
+                    string folderPath = Server.MapPath($"~/Content/image/product/{addOrUpdateProductModel.Product.Id}");
+                    Directory.CreateDirectory(folderPath);
+                    foreach(var image in addOrUpdateProductModel.Images)
+                    {
+                        string imagePaht = Server.MapPath($"~/Content/image/product/{addOrUpdateProductModel.Product.Id}/{image.FileName}");
+                        image.SaveAs(imagePaht);
+                        ir.AddOrUpdate(new Image() { ProductId = addOrUpdateProductModel.Product.Id, Paht = $"/Content/image/product/{addOrUpdateProductModel.Product.Id}/{image.FileName}" });
+                    }
+                }
+                pr.AddOrUpdate(addOrUpdateProductModel.Product);
+                return RedirectToAction("ProductList", new { filter = filter });
+            }
+            ViewBag.MainCat = new SelectList(mcr.SelectAll(), "Id", "Name", scr.SelectById(addOrUpdateProductModel.Product.SubCategoryId).MainCategoryId);
+            ViewBag.SubCat = new SelectList(mcr.SelectById(scr.SelectById(addOrUpdateProductModel.Product.SubCategoryId).MainCategoryId).SubCategories, "Id", "Name", ViewBag.Filter = filter);
+            return View(addOrUpdateProductModel);
         }
 
         public ActionResult DeleteProduct(string id)
@@ -99,6 +145,15 @@ namespace E_Commerce_Project.AspNetMVC.Areas.Admin.Controllers
                 list.Add(product.Brand);
             }
             return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        public void DeleteProductImage(string id)
+        {
+            var image = ir.SelectById(id);
+            if(image != null)
+            {
+                ir.Delete(image);
+            }
         }
     }
 }

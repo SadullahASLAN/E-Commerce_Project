@@ -5,7 +5,7 @@
 
 <div class="row mt-3">
     <div class="col">
-        <div class="alert alert-primary font-weight-bold shadow-lg rounded-0 sticky-top" style="z-index:1">
+        <div class="alert alert-primary font-weight-bold shadow-lg rounded-0 sticky-top" style="z-index:2">
             @ViewBag.Header
         </div>
         @if(Model.Count() != 0)
@@ -78,7 +78,7 @@
                                 <tbody>
                                     <tr>
                                         <td class="align-middle">
-                                            @Html.ActionLink("Düzenle", "RemoveToItemCart", new { id = product.Id }, new { @class = "badge badge-primary d-block" })
+                                            @Html.ActionLink("Düzenle", "UpdateProduct", new { id = product.Id, filter = ViewBag.Filter }, new { @class = "badge badge-primary d-block" })
                                             @Html.ActionLink("Sil", "DeleteProduct", new { id = product.Id }, new { @class = "badge badge-danger d-block mt-3" })
                                         </td>
                                     </tr>

@@ -100,7 +100,7 @@
                                 <p class="alert alert-danger mb-0 rounded-0 border-bottom-0">Devam Edebilmek için</p>
                                 <p class="alert alert-danger rounded-0 border-top-0">
                                     @Html.ActionLink("Giriş yap", "Login", "Account", new { ReturnUrl = Request.Url.AbsoluteUri }, new { @class = "btn btn-primary btn-block" })
-                                    @Html.ActionLink("Üye ol", "Register", "Account", new { @class = "btn btn-success btn-block" })
+                                    @Html.ActionLink("Üye ol", "Register", "Account", null, new { @class = "btn btn-success btn-block" })
                                 </p>
                             }
 

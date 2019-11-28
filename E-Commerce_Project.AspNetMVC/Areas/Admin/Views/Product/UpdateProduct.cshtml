@@ -31,12 +31,22 @@
                             <div class="form-row mb-3">
                                 <div class="col-lg">
                                     <label class="font-weight-bold">Fiyat</label>
-                                    @Html.TextBoxFor(i => i.Product.Price, new { @class = "form-control", @type = "number", @step = ".01", @min = "0" })
-                                    @Html.ValidationMessageFor(i => i.Product.Price)
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">₺</span>
+                                        </div>
+                                        @Html.TextBoxFor(i => i.Product.Price, new { @class = "form-control", @type = "number", @step = ".01", @min = "0" })
+                                        @Html.ValidationMessageFor(i => i.Product.Price)
+                                    </div>
                                 </div>
                                 <div class="col-lg mt-3 mt-lg-0">
                                     <label class="font-weight-bold">İndirim Yüzdesi</label>
-                                    @Html.TextBoxFor(i => i.Product.DiscountPercentage, new { @class = "form-control" })
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">%</span>
+                                        </div>
+                                        @Html.TextBoxFor(i => i.Product.DiscountPercentage, new { @class = "form-control" })
+                                    </div>
                                 </div>
                                 <div class="col-lg mt-3 mt-lg-0">
                                     <label class="font-weight-bold">İndirimli Fiyat</label>

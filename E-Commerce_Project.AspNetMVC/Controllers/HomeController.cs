@@ -48,7 +48,7 @@ namespace E_Commerce_Project.AspNetMVC.Controllers
                 ViewBag.SubCat = subCat;
                 if(brand != null)
                 {
-                    ViewBag.BrandProduct = subCat.Products.Where(i => i.IsDeleted == false && i.InSales == true && i.Brand == brand).ToList();
+                    ViewBag.BrandProduct = subCat.Products.Where(i => i.IsDeleted == false && i.InSales == true && i.Brand == brand && i.Stock > 0).ToList();
                 }
             }
             else
@@ -59,7 +59,7 @@ namespace E_Commerce_Project.AspNetMVC.Controllers
                     var listBrandProduct = new List<Product>();
                     foreach(var sub in subCat)
                     {
-                        var products = sub.Products.Where(i => i.IsDeleted == false && i.InSales == true && i.Brand == brand).ToList();
+                        var products = sub.Products.Where(i => i.IsDeleted == false && i.InSales == true && i.Brand == brand && i.Stock > 0).ToList();
                         foreach(var pro in products)
                         {
                             listBrandProduct.Add(pro);
@@ -109,7 +109,6 @@ namespace E_Commerce_Project.AspNetMVC.Controllers
             return PartialView(newProducts);
         }
 
-        [OutputCache(Duration = 86400)]
         public PartialViewResult _BestSellingProducts()
         {
             var bestSellingProducts = odr.SelectAll().GroupBy(i => i.ProductId).Select(i => new
@@ -124,14 +123,14 @@ namespace E_Commerce_Project.AspNetMVC.Controllers
                 products.Add(pr.SelectById(item.productId));
             }
 
-            return PartialView(products);
+            return PartialView(products.Where(i => i.Stock > 0).ToList());
         }
 
         public PartialViewResult _CampaignProducts()
         {
             var products = pr.SelectAll().Where(i => i.DiscountDescription != null).ToList();
 
-            var product = products[0];
+            var product = products.FirstOrDefault();
 
             return PartialView(products);
         }

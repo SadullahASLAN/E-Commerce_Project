@@ -63,7 +63,7 @@
                                 @Html.Action("_GetMainCategories", "MainCategory")
                                 <form class="search" action="/Home/Search" method="get">
                                     <div class="input-group input-group-sm search-sm">
-                                        <input id="search" name="search" type="text" class="form-control" style="border-color: #343a40;" placeholder="Ara..." required>
+                                        <input id="search" name="search" type="text" class="form-control" style="border-color: #343a40;" placeholder="Ara..." required maxlength="100">
                                         <div class="input-group-append">
                                             <button class="btn btn-outline-dark" type="submit">
                                                 <i class="fa fa-search"></i>

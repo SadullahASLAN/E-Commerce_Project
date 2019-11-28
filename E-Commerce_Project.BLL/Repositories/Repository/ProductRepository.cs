@@ -68,7 +68,7 @@ namespace E_Commerce_Project.BLL.Repositories.Repository
 
         public List<Product> SelectAll()
         {
-            var products = db.Products.Where(i => i.IsDeleted == false && i.InSales == true).ToList();
+            var products = db.Products.Where(i => i.IsDeleted == false && i.InSales == true && i.Stock > 0).ToList();
             List<Product> listProducts = new List<Product>();
             foreach(var product in products)
             {

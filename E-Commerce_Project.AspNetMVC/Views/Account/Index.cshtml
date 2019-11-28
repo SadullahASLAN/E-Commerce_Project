@@ -98,16 +98,23 @@
                                 <div class="form-group m-0">
                                     <label class="m-0"><small class="font-weight-bold">Adresler:</small></label>
                                     <div class="form-control h-auto">
-                                        @foreach(var address in Model.UserAddresses.Where(i => i.IsDeleted == false).ToList())
+                                        @if(Model.UserAddresses.Count > 0)
                                         {
-                                            <p class="m-0 d-flex justify-content-between">
-                                                <b>@address.Title</b>
-                                                <a href="/Account/AddressRemove?id=@address.Id" class="badge badge-danger" style="padding-top: 5px;">Sil</a>
-                                            </p>
-                                            <hr class="m-0">
-                                            <p class="m-0">@address.ReceivingName</p>
-                                            <p class="m-0">@address.ReceivingPhone</p>
-                                            <p class="mb-3">@address.Address</p>
+                                            foreach(var address in Model.UserAddresses.Where(i => i.IsDeleted == false).ToList())
+                                            {
+                                                <p class="m-0 d-flex justify-content-between">
+                                                    <b>@address.Title</b>
+                                                    <a href="/Account/AddressRemove?id=@address.Id" class="badge badge-danger" style="padding-top: 5px;">Sil</a>
+                                                </p>
+                                                <hr class="m-0">
+                                                <p class="m-0">@address.ReceivingName</p>
+                                                <p class="m-0">@address.ReceivingPhone</p>
+                                                <p class="mb-3">@address.Address</p>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <p class="m-3">Adres bulunmamaktadır.</p>
                                         }
                                     </div>
                                 </div>
@@ -117,63 +124,70 @@
                 </div>
                 <div class="tab-pane fade" id="nav-orders" role="tabpanel" aria-labelledby="nav-orders-tab">
                     <div class="card card-body rounded-0 border-top-0 p-2">
-                        @foreach(var order in Model.Orders)
+                        @if(Model.Orders.Count() > 0)
                         {
-                            <div class="card bg-light rounded-0 mb-3 shadow">
-                                <div class="card-header p-1 bg-primary text-white rounded-0">
-                                    <small><strong>Sipariş No: </strong>@order.Id.Replace("-", "").ToUpper()</small>
-                                </div>
-                                <div class="card-body p-0">
-                                    <table class="table table-bordered table-sm text-center m-0"
-                                           style="font-size: 11px;">
-                                        <thead>
-                                            <tr class="thead-light">
-                                                <th class="text-left">Ürün</th>
-                                                <th style="width: 40px;">Adet</th>
-                                                <th style="width: 80px;">Fiyat</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach(var orderDetail in order.OrderDetails)
-                                            {
-                                                <tr>
-                                                    <td class="text-left">@orderDetail.Product.Name</td>
-                                                    <td class="align-middle">@orderDetail.Quantity</td>
-                                                    <td class="align-middle">@orderDetail.UnitPrice.ToString("c2")</td>
+                            foreach(var order in Model.Orders)
+                            {
+                                <div class="card bg-light rounded-0 mb-3 shadow">
+                                    <div class="card-header p-1 bg-primary text-white rounded-0">
+                                        <small><strong>Sipariş No: </strong>@order.Id.Replace("-", "").ToUpper()</small>
+                                    </div>
+                                    <div class="card-body p-0">
+                                        <table class="table table-bordered table-sm text-center m-0"
+                                               style="font-size: 11px;">
+                                            <thead>
+                                                <tr class="thead-light">
+                                                    <th class="text-left">Ürün</th>
+                                                    <th style="width: 40px;">Adet</th>
+                                                    <th style="width: 80px;">Fiyat</th>
                                                 </tr>
-                                            }
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <td class="text-left">Toplam</td>
-                                                <td><b><u>@order.OrderDetails.Sum(i=>i.Quantity)</u></b></td>
-                                                <td><b><u>@order.OrderDetails.Sum(i=>i.UnitPrice).ToString("c2")</u></b></td>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                    <div class="p-1">
-                                        <p class="mb-2">
-                                            <span class="badge badge-secondary">
-                                               @order.UserAddress.Title
-                                            </span>
-                                        </p>
-                                        <p class="h5">
-                                            <span class="d-block d-sm-inline">@order.UserAddress.ReceivingName</span>
-                                            <span class="d-block d-sm-inline">@order.UserAddress.ReceivingPhone</span>
-                                        </p>
-                                        <p>
-                                            @order.UserAddress.Address
-                                        </p>
+                                            </thead>
+                                            <tbody>
+                                                @foreach(var orderDetail in order.OrderDetails)
+                                                {
+                                                    <tr>
+                                                        <td class="text-left">@orderDetail.Product.Name</td>
+                                                        <td class="align-middle">@orderDetail.Quantity</td>
+                                                        <td class="align-middle">@orderDetail.UnitPrice.ToString("c", new CultureInfo("tr-TR", false).NumberFormat)</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td class="text-left">Toplam</td>
+                                                    <td><b><u>@order.OrderDetails.Sum(i => i.Quantity)</u></b></td>
+                                                    <td><b><u>@order.OrderDetails.Sum(i => i.UnitPrice).ToString("c", new CultureInfo("tr-TR", false).NumberFormat)</u></b></td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                        <div class="p-1">
+                                            <p class="mb-2">
+                                                <span class="badge badge-secondary">
+                                                    @order.UserAddress.Title
+                                                </span>
+                                            </p>
+                                            <p class="h5">
+                                                <span class="d-block d-sm-inline">@order.UserAddress.ReceivingName</span>
+                                                <span class="d-block d-sm-inline">@order.UserAddress.ReceivingPhone</span>
+                                            </p>
+                                            <p>
+                                                @order.UserAddress.Address
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer p-1 d-sm-flex justify-content-between">
+                                        <span class="d-block">
+                                            <small>
+                                                <strong>Sipariş Durumu: </strong>@order.OrderStatus.Status
+                                            </small>
+                                        </span>
                                     </div>
                                 </div>
-                                <div class="card-footer p-1 d-sm-flex justify-content-between">
-                                    <span class="d-block">
-                                        <small>
-                                            <strong>Sipariş Durumu: </strong>@order.OrderStatus.Status
-                                        </small>
-                                    </span>
-                                </div>
-                            </div>
+                            }
+                        }
+                        else
+                        {
+                            <p class="m-3">Siparişiniz bulunmamaktadır.</p>
                         }
                     </div>
                 </div>

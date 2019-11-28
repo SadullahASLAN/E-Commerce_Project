@@ -63,17 +63,17 @@
                             <p class="m-0 text-muted font-weight-lighter" style="text-decoration:line-through; height:24px;">
                                 @if(Model.Product.DiscountPercentage != 0)
                                 {
-                                    <span>@Model.Product.Price.ToString("c2")</span>
+                                    <span>@Model.Product.Price.ToString("c", new CultureInfo("tr-TR", false).NumberFormat)</span>
                                 }
                             </p>
                             <p class="m-0 font-weight-bold" style="font-size: 25px;">
                                 @if(Model.Product.DiscountPercentage != 0)
                                 {
-                                    <span>@((Model.Product.Price * (100 - Convert.ToDecimal(Model.Product.DiscountPercentage)) / 100m).ToString("c2"))</span>
+                                    <span>@((Model.Product.Price * (100 - Convert.ToDecimal(Model.Product.DiscountPercentage)) / 100m).ToString("c", new CultureInfo("tr-TR", false).NumberFormat))</span>
                                 }
                                 else
                                 {
-                                    <span>@Model.Product.Price.ToString("c2")</span>
+                                    <span>@Model.Product.Price.ToString("c", new CultureInfo("tr-TR", false).NumberFormat)</span>
                                 }
                             </p>
                         </div>
@@ -183,18 +183,18 @@
 
                                                         @if(product.DiscountPercentage != 0)
                                                         {
-                                                            <span>@product.Price.ToString("c2")</span>
+                                                            <span>@product.Price.ToString("c", new CultureInfo("tr-TR", false).NumberFormat)</span>
                                                         }
                                                     </p>
                                                     <p class="m-0 font-weight-bold text-danger" style="font-size: 14px;">
                                                         @if(product.DiscountPercentage != 0)
                                                         {
-                                                            <span>@((product.Price * (100m - Convert.ToDecimal(product.DiscountPercentage)) / 100m).ToString("c2"))</span>
+                                                            <span>@((product.Price * (100m - Convert.ToDecimal(product.DiscountPercentage)) / 100m).ToString("c", new CultureInfo("tr-TR", false).NumberFormat))</span>
 
                                                         }
                                                         else
                                                         {
-                                                            <span>@product.Price.ToString("c2")</span>
+                                                            <span>@product.Price.ToString("c", new CultureInfo("tr-TR", false).NumberFormat)</span>
                                                         }
                                                     </p>
                                                 </div>
@@ -228,18 +228,18 @@
 
                                                         @if(product.DiscountPercentage != 0)
                                                         {
-                                                            <span>@product.Price.ToString("c2")</span>
+                                                            <span>@product.Price.ToString("c", new CultureInfo("tr-TR", false).NumberFormat)</span>
                                                         }
                                                     </p>
                                                     <p class="m-0 font-weight-bold text-danger" style="font-size: 14px;">
                                                         @if(product.DiscountPercentage != 0)
                                                         {
-                                                            <span>@((product.Price * (100m - Convert.ToDecimal(product.DiscountPercentage)) / 100m).ToString("c2"))</span>
+                                                            <span>@((product.Price * (100m - Convert.ToDecimal(product.DiscountPercentage)) / 100m).ToString("c", new CultureInfo("tr-TR", false).NumberFormat))</span>
 
                                                         }
                                                         else
                                                         {
-                                                            <span>@product.Price.ToString("c2")</span>
+                                                            <span>@product.Price.ToString("c", new CultureInfo("tr-TR", false).NumberFormat)</span>
                                                         }
                                                     </p>
                                                 </div>
@@ -273,18 +273,18 @@
 
                                                         @if(product.DiscountPercentage != 0)
                                                         {
-                                                            <span>@product.Price.ToString("c2")</span>
+                                                            <span>@product.Price.ToString("c", new CultureInfo("tr-TR", false).NumberFormat)</span>
                                                         }
                                                     </p>
                                                     <p class="m-0 font-weight-bold text-danger" style="font-size: 14px;">
                                                         @if(product.DiscountPercentage != 0)
                                                         {
-                                                            <span>@((product.Price * (100m - Convert.ToDecimal(product.DiscountPercentage)) / 100m).ToString("c2"))</span>
+                                                            <span>@((product.Price * (100m - Convert.ToDecimal(product.DiscountPercentage)) / 100m).ToString("c", new CultureInfo("tr-TR", false).NumberFormat))</span>
 
                                                         }
                                                         else
                                                         {
-                                                            <span>@product.Price.ToString("c2")</span>
+                                                            <span>@product.Price.ToString("c", new CultureInfo("tr-TR", false).NumberFormat)</span>
                                                         }
                                                     </p>
                                                 </div>
@@ -318,18 +318,18 @@
 
                                                         @if(product.DiscountPercentage != 0)
                                                         {
-                                                            <span>@product.Price.ToString("c2")</span>
+                                                            <span>@product.Price.ToString("c", new CultureInfo("tr-TR", false).NumberFormat)</span>
                                                         }
                                                     </p>
                                                     <p class="m-0 font-weight-bold text-danger" style="font-size: 14px;">
                                                         @if(product.DiscountPercentage != 0)
                                                         {
-                                                            <span>@((product.Price * (100m - Convert.ToDecimal(product.DiscountPercentage)) / 100m).ToString("c2"))</span>
+                                                            <span>@((product.Price * (100m - Convert.ToDecimal(product.DiscountPercentage)) / 100m).ToString("c", new CultureInfo("tr-TR", false).NumberFormat))</span>
 
                                                         }
                                                         else
                                                         {
-                                                            <span>@product.Price.ToString("c2")</span>
+                                                            <span>@product.Price.ToString("c", new CultureInfo("tr-TR", false).NumberFormat)</span>
                                                         }
                                                     </p>
                                                 </div>

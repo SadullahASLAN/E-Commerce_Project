@@ -52,16 +52,16 @@
                                                             {
                                                                 <p class="m-0">
                                                                     <s>
-                                                                        @cartItem.SubTotal.ToString("c2")
+                                                                        @cartItem.SubTotal.ToString("c", new CultureInfo("tr-TR", false).NumberFormat)
                                                                     </s>
                                                                 </p>
                                                                 <p class="text-success m-0"><small>%@cartItem.DiscountPercentage İndirim</small></p>
                                                             }
                                                             <p class="font-weight-bolder m-0 h6">
-                                                                @cartItem.SubDiscountedPrice.ToString("c2")
+                                                                @cartItem.SubDiscountedPrice.ToString("c", new CultureInfo("tr-TR", false).NumberFormat)
                                                             </p>
                                                             <p class="m-0">
-                                                                @cartItem.Amount X @cartItem.DiscountedPrice.ToString("c2")
+                                                                @cartItem.Amount X @cartItem.DiscountedPrice.ToString("c", new CultureInfo("tr-TR", false).NumberFormat)
                                                             </p>
                                                             <p class="m-0 badge badge-info">Kargo Bedava</p>
                                                         </td>
@@ -90,7 +90,7 @@
                     <div class="card rounded-0">
                         <div class="card-body text-center">
                             <p class="lead font-weight-bolder mb-1">GENEL TOPLAM</p>
-                            <p class="lead font-weight-normal mb-2">@Model.SubDiscountedPrice().ToString("c2")</p>
+                            <p class="lead font-weight-normal mb-2">@Model.SubDiscountedPrice().ToString("c", new CultureInfo("tr-TR", false).NumberFormat)</p>
                             @if(User.Identity.IsAuthenticated)
                             {
                                 @Html.ActionLink("Devam Et", "OrderAddress", "Order", null, new { @class = "btn btn-success d-lg-block btn-continue" })
@@ -103,8 +103,6 @@
                                     @Html.ActionLink("Üye ol", "Register", "Account", null, new { @class = "btn btn-success btn-block" })
                                 </p>
                             }
-
-
                         </div>
                     </div>
                 </div>

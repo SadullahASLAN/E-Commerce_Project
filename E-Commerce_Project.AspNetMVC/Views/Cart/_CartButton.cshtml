@@ -25,7 +25,7 @@
                             <tr>
                                 <td class="text-left">@(cartItem.ProductName.Length > 20 ? cartItem.ProductName.Substring(0, 20) + "..." : cartItem.ProductName)</td>
                                 <td>@cartItem.Amount</td>
-                                <td>@cartItem.SubDiscountedPrice.ToString("c2")</td>
+                                <td>@cartItem.SubDiscountedPrice.ToString("c", new CultureInfo("tr-TR", false).NumberFormat)</td>
                             </tr>
                         }
                     </tbody>
@@ -33,7 +33,7 @@
                         <tr>
                             <td class="text-left">Toplam</td>
                             <td class="text-center">@Model.UserCart.Sum(i => i.Amount)</td>
-                            <td>@Model.SubDiscountedPrice().ToString("c2")</td>
+                            <td>@Model.SubDiscountedPrice().ToString("c", new CultureInfo("tr-TR", false).NumberFormat)</td>
                         </tr>
                     </tfoot>
                 </table>

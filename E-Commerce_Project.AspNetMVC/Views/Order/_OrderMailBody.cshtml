@@ -32,7 +32,7 @@
                         @orderDetail.Product.Name
                     </td>
                     <td>@orderDetail.Quantity</td>
-                    <td>@orderDetail.UnitPrice.ToString("c2")</td>
+                    <td>@orderDetail.UnitPrice.ToString("c", new CultureInfo("tr-TR", false).NumberFormat)</td>
                 </tr>
             }
             <tr style="background-color: #f8f9fa;">
@@ -43,7 +43,7 @@
                     <b><u>@((Session["Order"] as Order).OrderDetails.Sum(i => i.Quantity))</u></b>
                 </td>
                 <td>
-                    <b><u>@((Session["Order"] as Order).OrderDetails.Sum(i => i.UnitPrice).ToString("c2"))</u></b>
+                    <b><u>@((Session["Order"] as Order).OrderDetails.Sum(i => i.UnitPrice).ToString("c", new CultureInfo("tr-TR", false).NumberFormat))</u></b>
                 </td>
             </tr>
             <tr>

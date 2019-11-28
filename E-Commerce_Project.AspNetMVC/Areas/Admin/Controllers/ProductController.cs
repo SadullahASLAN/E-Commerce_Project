@@ -27,7 +27,7 @@ namespace E_Commerce_Project.AspNetMVC.Areas.Admin.Controllers
             if(filter == "stocklow")
             {
                 ViewBag.Header = "Stokta Az Olan Ürünler";
-                products = pr.SelectAllAdmin().Where(i => i.Stock < 5).ToList();
+                products = pr.SelectAllAdmin().Where(i => i.Stock < 6).ToList();
             }
             else if(filter == "onsale")
             {
@@ -38,6 +38,11 @@ namespace E_Commerce_Project.AspNetMVC.Areas.Admin.Controllers
             {
                 ViewBag.Header = "Satışta Olmayan Ürünler";
                 products = pr.SelectAllAdmin().Where(i => i.InSales == false).ToList();
+            }
+            else if(filter == "campaign")
+            {
+                ViewBag.Header = "Kampanyalı Ürünler";
+                products = pr.SelectAllAdmin().Where(i => i.DiscountDescription != null).ToList();
             }
             products = products.OrderByDescending(i => i.CreatedDate).ToList();
 

@@ -33,7 +33,7 @@
                                 <tbody>
                                     <tr>
                                         <td class="align-middle">
-                                            @if(product.Stock < 5)
+                                            @if(product.Stock >= 2 && product.Stock < 6)
                                             {
                                                 <span class="badge badge-warning">
                                                     @product.Stock
@@ -41,9 +41,17 @@
                                                     <small>Stok</small>
                                                 </span>
                                             }
+                                            else if(product.Stock < 2)
+                                            {
+                                                <span class="badge badge-danger">
+                                                    @product.Stock
+                                                    <br>
+                                                    <small>Stok</small>
+                                                </span>
+                                            }
                                             else
                                             {
-                                                <span class="badge badge-light">
+                                                <span class="badge badge-success">
                                                     @product.Stock
                                                     <br>
                                                     <small>Stok</small>

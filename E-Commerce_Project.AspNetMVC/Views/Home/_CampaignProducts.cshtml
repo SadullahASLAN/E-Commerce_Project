@@ -72,17 +72,17 @@
                                                     <p class="m-0 text-muted font-weight-lighter" style="text-decoration:line-through;height:24px">
                                                         @if(Model[k].DiscountPercentage != 0)
                                                         {
-                                                            <span>@Model[k].Price.ToString("c2")</span>
+                                                            <span>@Model[k].Price.ToString("c", new CultureInfo("tr-TR", false).NumberFormat)</span>
                                                         }
                                                     </p>
                                                     <p class="m-0 font-weight-bold" style="font-size: 30px;">
                                                         @if(Model[k].DiscountPercentage != 0)
                                                         {
-                                                            <span>@((Model[k].Price * (100 - Convert.ToDecimal(Model[k].DiscountPercentage)) / 100m).ToString("c2"))</span>
+                                                            <span>@((Model[k].Price * (100 - Convert.ToDecimal(Model[k].DiscountPercentage)) / 100m).ToString("c", new CultureInfo("tr-TR", false).NumberFormat))</span>
                                                         }
                                                         else
                                                         {
-                                                            <span>@Model[k].Price.ToString("c2")</span>
+                                                            <span>@Model[k].Price.ToString("c", new CultureInfo("tr-TR", false).NumberFormat)</span>
                                                         }
                                                     </p>
                                                 </div>
@@ -146,17 +146,17 @@
                                                     <p class="m-0 text-muted font-weight-lighter" style="text-decoration:line-through;height:24px">
                                                         @if(Model[k].DiscountPercentage != 0)
                                                         {
-                                                            <span>@Model[k].Price.ToString("c2")</span>
+                                                            <span>@Model[k].Price.ToString("c", new CultureInfo("tr-TR", false).NumberFormat)</span>
                                                         }
                                                     </p>
                                                     <p class="m-0 font-weight-bold" style="font-size: 30px;">
                                                         @if(Model[k].DiscountPercentage != 0)
                                                         {
-                                                            <span>@((Model[k].Price * (100 - Convert.ToDecimal(Model[k].DiscountPercentage)) / 100m).ToString("c2"))</span>
+                                                            <span>@((Model[k].Price * (100 - Convert.ToDecimal(Model[k].DiscountPercentage)) / 100m).ToString("c", new CultureInfo("tr-TR", false).NumberFormat))</span>
                                                         }
                                                         else
                                                         {
-                                                            <span>@Model[k].Price.ToString("c2")</span>
+                                                            <span>@Model[k].Price.ToString("c", new CultureInfo("tr-TR", false).NumberFormat)</span>
                                                         }
                                                     </p>
                                                 </div>

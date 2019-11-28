@@ -10,7 +10,6 @@ namespace E_Commerce_Project.AspNetMVC.Areas.Admin.Models
     public class AddOrUpdateProductModel
     {
         public Product Product { get; set; }
-
         public IEnumerable<HttpPostedFileBase> Images { get; set; }
     }
 }

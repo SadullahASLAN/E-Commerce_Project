@@ -52,7 +52,7 @@
                                             @orderDetail.Quantity
                                         </td>
                                         <td>
-                                            @orderDetail.UnitPrice.ToString("c2")
+                                            @orderDetail.UnitPrice.ToString("c", new CultureInfo("tr-TR", false).NumberFormat)
                                         </td>
                                     </tr>
                                 }
@@ -86,7 +86,7 @@
                 <div class="card rounded-0">
                     <div class="card-body text-center">
                         <p class="lead font-weight-bolder mb-1">GENEL TOPLAM</p>
-                        <p class="lead font-weight-normal mb-2">@Model.OrderDetails.Sum(i => i.UnitPrice).ToString("c2")</p>
+                        <p class="lead font-weight-normal mb-2">@Model.OrderDetails.Sum(i => i.UnitPrice).ToString("c", new CultureInfo("tr-TR", false).NumberFormat)</p>
                         <a href="/Order/OrderIsOk" class="btn btn-success d-lg-block btn-continue">Devam Et</a>
                     </div>
                 </div>

@@ -22,6 +22,8 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="/Admin/Product/ProductList?filter=productlist">Tümünü Listele</a>
                         <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/Admin/Product/ProductList?filter=campaign">Kampanyalı Ürünler</a>
+                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/Admin/Product/ProductList?filter=stocklow">Stokta Azalan Ürünler</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/Admin/Product/ProductList?filter=onsale">Satışta Olan</a>
@@ -32,9 +34,6 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Kategoriler</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Kampanyalı Ürünler</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">İstatistik</a>
@@ -52,6 +51,7 @@
     </div>
 
     @Scripts.Render("~/ScriptsAdmin")
+    @RenderSection("AddProductScripst", false)
     @RenderSection("SubCatScripst", false)
 </body>
 </html>

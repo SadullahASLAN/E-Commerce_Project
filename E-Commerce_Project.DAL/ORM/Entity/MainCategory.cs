@@ -18,9 +18,6 @@ namespace E_Commerce_Project.DAL.ORM.Entity
         [Required(ErrorMessage ="Kategori ismi boş olamaz.")]
         public string Name { get; set; }
 
-        [MaxLength(500, ErrorMessage ="Açıklama 500 karakteri geçemez.")]
-        public string Description { get; set; }
-
         //Mapping       
         public virtual ICollection<SubCategory> SubCategories { get; set; }
     }

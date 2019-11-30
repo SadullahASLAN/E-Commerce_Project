@@ -158,7 +158,7 @@
                 <div class="row">
                     @{
                         var subCat = Model.Product.SubCategory;
-                        var products = subCat.Products.Where(i => i.IsDeleted == false && i.InSales == true).ToList();
+                        var products = subCat.Products.Where(i => i.IsDeleted == false && i.InSales == true && i.Stock > 0).ToList();
                         var number = 0;
                         foreach(var product in products)
                         {

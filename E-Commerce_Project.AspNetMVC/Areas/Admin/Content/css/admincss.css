@@ -27,3 +27,28 @@
     ::-webkit-scrollbar-thumb:hover {
         background: #555;
     }
+
+
+
+@media (min-width: 767.98px) {
+    .costum-form-control {
+        display: inline-block;
+        width: calc(100% - 86px)
+    }
+
+    .btn-costum {
+        margin-top: -4px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .costum-form-control {
+        display: inline-block;
+        width: calc(100% - 13px)
+    }
+
+    .btn-costum {
+        margin-top:5px;
+        float: right;
+    }
+}

@@ -37,7 +37,7 @@ namespace E_Commerce_Project.AspNetMVC.Areas.Admin.Controllers
             else if(filter == "notonsale")
             {
                 ViewBag.Header = "Satışta Olmayan Ürünler";
-                products = pr.SelectAllAdmin().Where(i => i.InSales == false).ToList();
+                products = pr.SelectAllAdmin().Where(i => i.InSales == false || i.Stock == 0).ToList();
             }
             else if(filter == "campaign")
             {

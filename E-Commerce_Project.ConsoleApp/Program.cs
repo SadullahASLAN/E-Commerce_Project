@@ -16,11 +16,11 @@ namespace E_Commerce_Project.ConsoleApp
             var mainCategories = mcr.SelectAll();
             foreach(var mainCategory in mainCategories)
             {
-                Console.WriteLine($"{mainCategory.Id} | {mainCategory.Name} | {mainCategory.Description}");
+                Console.WriteLine($"{mainCategory.Id} | {mainCategory.Name}");
 
                 foreach(var subCategory in mainCategory.SubCategories)
                 {
-                    Console.WriteLine($"{subCategory.Id} | {subCategory.Name} | {subCategory.Description}");
+                    Console.WriteLine($"{subCategory.Id} | {subCategory.Name}");
                 }
             }
 

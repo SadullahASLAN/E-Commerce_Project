@@ -138,6 +138,7 @@
   <ItemGroup>
     <Content Include="Areas\Admin\Content\css\admincss.css" />
     <Content Include="Areas\Admin\Content\css\jquery-ui.theme.css" />
+    <Content Include="Areas\Admin\Scripts\admin.js" />
     <Content Include="Areas\Admin\Scripts\jquery-ui.js" />
     <Content Include="Content\css\all.min.css" />
     <Content Include="Content\css\bootstrap.min.css" />
@@ -166,6 +167,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Areas\Admin\Models\AddOrUpdateProductModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -194,6 +196,7 @@
     <Content Include="Areas\Admin\Views\Product\ProductList.cshtml" />
     <Content Include="Areas\Admin\Views\Product\AddProduct.cshtml" />
     <Content Include="Areas\Admin\Views\Product\UpdateProduct.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\Categories.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />

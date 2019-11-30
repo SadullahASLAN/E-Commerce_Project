@@ -11,7 +11,7 @@
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 @foreach(var category in Model)
                 {
-                    @Html.ActionLink(category.Name, "Category", "Home", new { category = category.Name }, new { @class = "nav-link nav-link-bottom text-dark" })
+                    @Html.ActionLink(category.Name, "Category", "Home", new { category = category.Name }, new { @class = "nav-link nav-link-bottom text-dark", @style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"})
                 }
             </div>
         </div>
@@ -25,19 +25,19 @@
         if(number >= 1 && number <= 3)
         {
             <li class="nav-item">
-                @Html.ActionLink(category.Name, "Category", "Home", new { category = category.Name }, new { @class = "nav-link nav-link-bottom text-dark d-none d-md-block px-0 mr-3" })
+                @Html.ActionLink(category.Name, "Category", "Home", new { category = category.Name }, new { @class = "nav-link nav-link-bottom text-dark d-none d-md-block px-0 mr-3",@style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" })
             </li>
         }
         else if(number >= 4 && number <= 5)
         {
             <li class="nav-item">
-                @Html.ActionLink(category.Name, "Category", "Home", new { category = category.Name }, new { @class = "nav-link nav-link-bottom text-dark d-none d-lg-block px-0 mr-3" })
+                @Html.ActionLink(category.Name, "Category", "Home", new { category = category.Name }, new { @class = "nav-link nav-link-bottom text-dark d-none d-lg-block px-0 mr-3",@style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" })
             </li>
         }
         else if(number >= 6 && number <= 7)
         {
             <li class="nav-item">
-                @Html.ActionLink(category.Name, "Category", "Home", new { category = category.Name }, new { @class = "nav-link nav-link-bottom text-dark d-none d-xl-block px-0 mr-3" })
+                @Html.ActionLink(category.Name, "Category", "Home", new { category = category.Name }, new { @class = "nav-link nav-link-bottom text-dark d-none d-xl-block px-0 mr-3",@style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" })
             </li>
         }
         else if(number > 7)
@@ -68,22 +68,22 @@
                 {
                     if(defaultnumber >= 0 && defaultnumber <= 3)
                     {
-                        @Html.ActionLink(category.Name, "Category", "Home", new { category = category.Name }, new { @class = "nav-link nav-link-bottom text-dark d-lg-none d-md-none" })
+                        @Html.ActionLink(category.Name, "Category", "Home", new { category = category.Name }, new { @class = "nav-link nav-link-bottom text-dark d-lg-none d-md-none",@style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" })
                     }
                     if(defaultnumber >= 4 && defaultnumber <= 5)
                     {
 
-                        @Html.ActionLink(category.Name, "Category", "Home", new { category = category.Name }, new { @class = "nav-link nav-link-bottom text-dark d-lg-none" })
+                        @Html.ActionLink(category.Name, "Category", "Home", new { category = category.Name }, new { @class = "nav-link nav-link-bottom text-dark d-lg-none",@style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" })
                     }
                     if(defaultnumber >= 6 && defaultnumber <= 7)
                     {
 
-                        @Html.ActionLink(category.Name, "Category", "Home", new { category = category.Name }, new { @class = "nav-link nav-link-bottom text-dark d-xl-none" })
+                        @Html.ActionLink(category.Name, "Category", "Home", new { category = category.Name }, new { @class = "nav-link nav-link-bottom text-dark d-xl-none",@style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" })
                     }
                     if(defaultnumber > 7)
                     {
 
-                        @Html.ActionLink(category.Name, "Category", "Home", new { category = category.Name }, new { @class = "nav-link nav-link-bottom text-dark" })
+                        @Html.ActionLink(category.Name, "Category", "Home", new { category = category.Name }, new { @class = "nav-link nav-link-bottom text-dark",@style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" })
                     }
                     defaultnumber++;
                 }

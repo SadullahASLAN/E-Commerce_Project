@@ -1,0 +1,150 @@
+﻿@model IEnumerable<MainCategory>
+@{
+    ViewBag.Title = "Kategoriler";
+}
+
+<div class="row mt-3">
+    <div class="col">
+        <div class="font-weight-bold text-white h4">
+            <span>Kategoriler</span>
+            <hr class="shadow mt-3 border border-light" />
+        </div>
+    </div>
+</div>
+
+<div class="row mt-2 mb-3">
+    <div class="col-md">
+        <div class="card card-body py-3 rounded-0 shadow">
+            <button onclick="AddMainCat()" type="button" class="btn btn-outline-primary mb-2" data-toggle="modal" data-target="#exampleModalCenter">
+                Ana Kategori Ekle
+            </button>
+            <div class="accordion" id="accordionExample">
+                @{ int number = 1;}
+                @foreach(var mainCat in Model)
+                {
+                    <div class="card listcard">
+                        <div class="card-header px-3" id="@("heading" + @number)">
+                            <div class="clearfix">
+                                <p class="d-block font-weight-bold d-md-inline-block mb-2 m-md-0" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; cursor:pointer" data-toggle="collapse" data-target="@("#collapse" + @number)" aria-expanded="true" aria-controls="@("collapse" + @number)">
+                                    @mainCat.Name
+                                </p>
+                                <span class="float-right">
+                                    <button class="btn btn-primary btn-sm" onfocusout="$('.subCatAdd'.css('display','none')" onclick="$('@("#collapse" + @number)').collapse('show'); $(this).closest('.listcard').find('.subCatAdd').css('display','block')"><i class="far fa-plus-square"></i></button>
+                                    <button onclick="UpdateMainCat(this)" class="btn btn-success btn-sm text-white" data-toggle="modal" data-target="#exampleModalCenter" value="@mainCat.Id" name="@mainCat.Name"><i class="far fa-edit"></i></button>
+                                    @if(mainCat.SubCategories.Where(i => i.IsDeleted == false).Count() == 0)
+                                    {
+                                        <a href="/Admin/Category/MainCategoryDelete/@mainCat.Id" class="btn btn-danger btn-sm text-white"><i class="far fa-trash-alt"></i></a>
+                                    }
+                                    else
+                                    {
+                                        <span class="d-inline-block" style="cursor:no-drop" tabindex="0" data-toggle="tooltip" title="Bu kategoriye ait alt kategoriler bulunmaktadır lütfen önce alt kategorileri kaldırınız.">
+                                            <span class="btn btn-danger btn-sm text-white disabled"><i class="far fa-trash-alt"></i></span>
+                                        </span>
+                                    }
+                                </span>
+                            </div>
+                        </div>
+                        <div id="@("collapse" + @number)" class="collapse" aria-labelledby="@("heading" + @number)" data-parent="#accordionExample">
+                            <div class="card-body p-0">
+                                <ul class="list-group list-group-flush">
+                                    @if(mainCat.SubCategories.Count > 0)
+                                    {
+                                        foreach(var subCategory in mainCat.SubCategories.Where(i => i.IsDeleted == false))
+                                        {
+                                            <li class="list-group-item pr-3 subCatListItem">
+                                                <div class="clearfix">
+                                                    <p class="d-block d-md-inline-block mb-2 m-md-0" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; cursor:pointer">
+                                                        <i class="fas fa-angle-right"></i> @subCategory.Name
+                                                    </p>
+                                                    <span class="float-right">
+                                                        <button onclick="$(this).closest('.subCatListItem').css('display', 'none'); $(this).closest('.subCatListItem').next().css('display', 'block')" class="btn btn-success btn-sm text-white">
+                                                            <i class="far fa-edit"></i>
+                                                        </button>
+                                                        @if(subCategory.Products.Where(i => i.IsDeleted == false).Count() == 0)
+                                                        {
+                                                            <a href="/Admin/Category/SubCategoryDelete/@subCategory.Id" class="btn btn-danger btn-sm text-white"><i class="far fa-trash-alt"></i></a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="d-inline-block" style="cursor:no-drop" tabindex="0" data-toggle="tooltip" title="Bu kategoriye ait ürünler bulunmaktadır lütfen önce ürünlerin kategori ile ilişkisini kaldırınız.">
+                                                                <span class="btn btn-danger btn-sm text-white disabled"><i class="far fa-trash-alt"></i></span>
+                                                            </span>
+                                                        }
+                                                    </span>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item pr-3" style="display:none">
+                                                @using(Html.BeginForm("SubCategoryAddOrUpdate", "Category", new { id = subCategory.Id }))
+                                                {
+
+                                                    <i class="fas fa-angle-right"></i>
+                                                    <input type="text" class="form-control form-control-sm costum-form-control" placeholder="Yeni alt kategori ismi." name="CategoryName" maxlength="100" required value="@subCategory.Name" />
+                                                    <button type="submit" class="btn btn-secondary btn-sm btn-costum" style="padding-left:12px;padding-right:12px;">Kaydet</button>
+
+                                                }
+                                            </li>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <li class="list-group-item">
+                                            Alt kategori bulunmamaktadır.
+                                        </li>
+                                    }
+                                    <li class="list-group-item pr-3 subCatAdd" style="display:none">
+                                        @using(Html.BeginForm("SubCategoryAddOrUpdate", "Category", new { MainCatId = mainCat.Id }))
+                                        {
+
+                                            <i class="fas fa-angle-right"></i>
+                                            <input type="text" class="form-control form-control-sm costum-form-control" placeholder="Yeni alt kategori ismi." name="CategoryName" maxlength="100" required />
+                                            <button type="submit" class="btn btn-secondary btn-sm btn-costum" style="padding-left:12px;padding-right:12px;">Kaydet</button>
+
+                                        }
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    number++;
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Ana Kategori</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @using(Html.BeginForm("MainCategoryAddOrUpdate", "Category", new { id = "kdsfdsnf" }, FormMethod.Get, new { @id = "edit" }))
+            {
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Ana kategori adı</label>
+                        <input class="form-control" type="text" required placeholder="Kategori ismi..." id="CategoryName" maxlength="100" name="CategoryName" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@section MainCatScripts{
+    <script>
+        function UpdateMainCat(e) {
+            $("#edit").attr("action", "/Admin/Category/MainCategoryAddOrUpdate/" + e.value)
+            $("#CategoryName").val(e.name)
+        }
+        function AddMainCat() {
+            $("#edit").attr("action", "/Admin/Category/MainCategoryAddOrUpdate")
+            $("#CategoryName").val("")
+        }
+    </script>
+}

@@ -32,8 +32,8 @@
                         <a class="dropdown-item" href="/Admin/Product/AddProduct">Yeni Ürün Ekle</a>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Kategoriler</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="/Admin/Category/Categories">Kategoriler</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">İstatistik</a>
@@ -53,5 +53,6 @@
     @Scripts.Render("~/ScriptsAdmin")
     @RenderSection("AddProductScripst", false)
     @RenderSection("SubCatScripst", false)
+    @RenderSection("MainCatScripts", false)
 </body>
 </html>

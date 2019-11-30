@@ -31,7 +31,8 @@ namespace E_Commerce_Project.AspNetMVC
                 "~/Scripts/js/jquery-3.4.1.js",
                 "~/Scripts/js/popper.min.js",
                 "~/Scripts/js/bootstrap.min.js",
-                "~/Areas/Admin/Scripts/jquery-ui.js"
+                "~/Areas/Admin/Scripts/jquery-ui.js",
+                "~/Areas/Admin/Scripts/admin.js"
                 ));
 
         }

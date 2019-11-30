@@ -66,48 +66,40 @@ namespace E_Commerce_Project.DAL.ORM.Tools
                 {
                     Id="00000000-3e66-4dba-99e3-d255f90080cd",
                     Name="Bilgisayar",
-                    Description="Gündelik yaşamda, iş yerinde ve okul projelerinizde kullanmak için ihtiyaç duyduğunuz her renk, marka ve modeldeki masaüstü bilgisayar, netbook ve tabletler bilgisayar kategorisinde yer almaktadır.",
                 },
                 new MainCategory()
                 {
                     Id="00000001-d8fe-412a-b288-7282cbc4106e",
                     Name="Cep Telefonu",
-                    Description="Cep telefonu, kolayca taşınabilen, geniş kapsama alanlı, kablosuz telefon sistemini kullanan bir iletişim ve multimedya aygıtı. Cep telefonu ile sağlanan hizmetler, telefon modeline ve servis sağlayıcıya göre değişmekle beraber en yaygın olarak kullanılanları, sesli görüşme ve kısa mesaj hizmetidir.",
                 },
                 new MainCategory()
                 {
                     Id="00000002-f3b0-4391-8b27-ebd917c0e448",
                     Name="Tablet",
-                    Description="Tablet bilgisayar veya sadece tablet, tek bir ünitede ekran devresi ve batarya bulunan bir mobil bilgisayardır. Tabletler parmak-kalem hareketlerini algılayabilen, fare ve klavye ile kombine edilebilen, kamera ve ivmeölçer gibi sensörlerle donatılan cihazlardır.",
                 },
                 new MainCategory()
                 {
                     Id="00000003-5718-4d39-a9d4-8611e840c6fe",
                     Name="Televizyon",
-                    Description="Televizyon Portali. Televizyon veya kısaca TV, bir vericiden elektromanyetik dalga hâlinde yayınlanan görüntü ve seslerin, ekranlı ve hoparlörlü elektronik alıcılar sayesinde yeniden görüntü ve sese çevrilmesini sağlayan haberleşme sistemidir.",
                 },
                 new MainCategory()
                 {
                     Id="00000004-b314-4469-9eba-671c792acdac",
                     Name="Beyaz Eşya",
-                    Description="Beyaz eşya, ilk zamanlarda dış görünümünde genellikle beyaz renk kullanılmış olan, fabrikalarda üretilen, ev eşyası makinelerdir. Bilimsel araştırmalara göre bir toplumun kalkınma seviyesinin bir göstergesidir.",
                 },
                 new MainCategory()
                 {
                     Id="00000005-aef7-4de7-8aca-ff2f55d6823f",
                     Name="Küçük Ev Aletleri",
-                    Description="İngilizceden çevrilmiştir-Küçük bir ev aleti, küçük ev aleti ya da küçük elektrik aletleri, ev işlerini yapmak için genellikle masa üstleri, tezgah üstü ya da diğer platformlarda kullanılan taşınabilir ya da yarı taşınabilir makinelerdir.",
                 },
                 new MainCategory()
                 {
                     Id="00000006-4f8c-4753-8e67-f95aa72da7c4",
                     Name="Mobilya",
-                    Description="Mobilya, oturulan yerlerin süslenmesine ve türlü amaçlarla donatılmasına yarayan eşya. Mobilya denilince ilk akla gelen ahşap mobilyadır.",
                 },
                 new MainCategory()
                 {
                     Name="Deneme",
-                    Description="Deneme",
                 },
 
             };
@@ -124,25 +116,21 @@ namespace E_Commerce_Project.DAL.ORM.Tools
                 new SubCategory()
                 {
                     Name="Ultrabook",
-                    Description="Ultrabook, geliştirilmesine 2011 yılında başlanan ve tescili Intel firmasına ait olan ince, hafif, yüksek performanslı, güvenli ve kolay taşınabilir dizüstü bilgisayar konseptine verilen isimdir.",
                     MainCategoryId=mainCategories.Where(i=>i.Name=="Bilgisayar").FirstOrDefault().Id
                 },
                  new SubCategory()
                 {
                     Name="Laptop",
-                    Description="Dizüstü bilgisayar ya da laptop, taşınabilir türden, genellikle ekran ve klavye olmak üzere iki parçadan oluşan kişisel bilgisayarlardır. Bir dizüstü bilgisayar bir masaüstü bilgisayarın klavye, fare ve ekran gibi bileşenlerini tek bir parçada toplar.",
                     MainCategoryId=mainCategories.Where(i=>i.Name=="Bilgisayar").FirstOrDefault().Id
                 },
                  new SubCategory()
                 {
                     Name="Masaüstü",
-                    Description="Masaüstü bilgisayar Sabit bir konsol veya masa üzerine uygun yapıda tasarlanan kişisel bilgisayar türüdür. Bu bilgisayarlar çeşitli türlerde parçaların birleştirilmesiyle çok farklı biçimde oluşturulabilirler. Boyutları büyük ve ağır olması sebebiyle çevresel faktörlerden daha az zarar görürler.",
                     MainCategoryId=mainCategories.Where(i=>i.Name=="Bilgisayar").FirstOrDefault().Id
                 },
                  new SubCategory()
                 {
                     Name="All In One",
-                    Description="All-in-One PC ler (Hepsi bir arada masaüstleri) olarak da bilinen hepsi bir arada bilgisayarlar, tüm PC'nin tek bir ünitede yer alması için bilgisayar kasası ve sistem bileşenlerini monitöre entegre eder. All-in-one (AIO) masaüstü bilgisayarları, masaüstü PC'lerden daha küçük bir form faktörü avantajı sunar, ancak daha yüksek maliyet, daha zayıf performans ve sınırlı yükseltme seçenekleri de dahil olmak üzere, çoğu zaman çeşitli dezavantajları da beraberinde getirir.",
                     MainCategory=mainCategories.Where(i=>i.Name=="Bilgisayar").FirstOrDefault()
                 }
             };

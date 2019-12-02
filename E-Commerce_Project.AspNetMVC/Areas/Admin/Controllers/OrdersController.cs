@@ -58,19 +58,19 @@ namespace E_Commerce_Project.AspNetMVC.Areas.Admin.Controllers
                 order.OrderStatus = osr.SelectAll().FirstOrDefault(i => i.Status == "Kargoya Verildi");
                 or.AddOrUpdate(order);
 
-                SmtpClient smtp = new SmtpClient();
-                smtp.Port = 587;
-                smtp.Host = "smtp.office365.com";
-                smtp.EnableSsl = true;
-                smtp.Credentials = new NetworkCredential("e-commerce-project@hotmail.com", "project321");
+                //SmtpClient smtp = new SmtpClient();
+                //smtp.Port = 587;
+                //smtp.Host = "smtp.office365.com";
+                //smtp.EnableSsl = true;
+                //smtp.Credentials = new NetworkCredential("e-commerce-project@hotmail.com", "project321");
 
-                MailMessage mail = new MailMessage();
-                mail.From = new MailAddress("e-commerce-project@hotmail.com", "E-Commerce Project");
-                mail.To.Add(order.User.Email);
-                mail.Subject = "Siparişiniz Kargoya Verilmiştir.";
-                mail.IsBodyHtml = true;
-                mail.Body = order.Id.Replace("-", "").ToUpper() + " Takip numaralı siparişiniz kargoya verilmiştir. <br /> Kargo Firması: " + order.Shipping.Name + "<br /> Takip No: " + order.TrackingNumber;
-                smtp.Send(mail);
+                //MailMessage mail = new MailMessage();
+                //mail.From = new MailAddress("e-commerce-project@hotmail.com", "E-Commerce Project");
+                //mail.To.Add(order.User.Email);
+                //mail.Subject = "Siparişiniz Kargoya Verilmiştir.";
+                //mail.IsBodyHtml = true;
+                //mail.Body = order.Id.Replace("-", "").ToUpper() + " Takip numaralı siparişiniz kargoya verilmiştir. <br /> Kargo Firması: " + order.Shipping.Name + "<br /> Takip No: " + order.TrackingNumber;
+                //smtp.Send(mail);
             }
             return RedirectToAction("OrderList");
         }

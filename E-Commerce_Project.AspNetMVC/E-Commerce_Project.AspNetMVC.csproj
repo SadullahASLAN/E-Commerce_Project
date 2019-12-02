@@ -173,6 +173,7 @@
     <Compile Include="Areas\Admin\Models\AddOrUpdateProductModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MainCategoryController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
@@ -226,6 +227,7 @@
     <Content Include="Views\Home\_CampaignProducts.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

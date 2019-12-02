@@ -244,20 +244,20 @@ namespace E_Commerce_Project.AspNetMVC.Controllers
             if(user != null)
             {
                 TempData["email"] = email;
-                SmtpClient smtp = new SmtpClient();
-                smtp.Port = 587;
-                smtp.Host = "smtp.office365.com";
-                smtp.EnableSsl = true;
-                smtp.Credentials = new NetworkCredential("e-commerce-project@hotmail.com", "project321");
+                //SmtpClient smtp = new SmtpClient();
+                //smtp.Port = 587;
+                //smtp.Host = "smtp.office365.com";
+                //smtp.EnableSsl = true;
+                //smtp.Credentials = new NetworkCredential("e-commerce-project@hotmail.com", "project321");
 
-                MailMessage mail = new MailMessage();
-                mail.From = new MailAddress("e-commerce-project@hotmail.com", "E-Commerce Project");
-                mail.To.Add(email);
-                mail.Subject = "Email Onay Hk.";
-                mail.IsBodyHtml = true;
-                mail.Body = "Mail adresinizi onaylamak için <a href='http://localhost:50420/Account/ConfirmMailOk?code=" + user.Id + "'>linke</a> tıklayınız.";
+                //MailMessage mail = new MailMessage();
+                //mail.From = new MailAddress("e-commerce-project@hotmail.com", "E-Commerce Project");
+                //mail.To.Add(email);
+                //mail.Subject = "Email Onay Hk.";
+                //mail.IsBodyHtml = true;
+                //mail.Body = "Mail adresinizi onaylamak için <a href='http://localhost:50420/Account/ConfirmMailOk?code=" + user.Id + "'>linke</a> tıklayınız.";
 
-                smtp.Send(mail);
+                //smtp.Send(mail);
             }
         }
 
@@ -266,20 +266,20 @@ namespace E_Commerce_Project.AspNetMVC.Controllers
             var user = userManager.FindByEmail(email);
             if(user != null)
             {
-                SmtpClient smtp = new SmtpClient();
-                smtp.Port = 587;
-                smtp.Host = "smtp.office365.com";
-                smtp.EnableSsl = true;
-                smtp.Credentials = new NetworkCredential("e-commerce-project@hotmail.com", "project321");
+                //SmtpClient smtp = new SmtpClient();
+                //smtp.Port = 587;
+                //smtp.Host = "smtp.office365.com";
+                //smtp.EnableSsl = true;
+                //smtp.Credentials = new NetworkCredential("e-commerce-project@hotmail.com", "project321");
 
-                MailMessage mail = new MailMessage();
-                mail.From = new MailAddress("e-commerce-project@hotmail.com", "E-Commerce Project");
-                mail.To.Add(email);
-                mail.Subject = "Parola Sıfırlama Hk.";
-                mail.IsBodyHtml = true;
-                mail.Body = "Parolanızı sıfırlamak için <a href='http://localhost:50420/Account/ResetPassword?code=" + user.Id + "'>linke</a> tıklayınız.";
+                //MailMessage mail = new MailMessage();
+                //mail.From = new MailAddress("e-commerce-project@hotmail.com", "E-Commerce Project");
+                //mail.To.Add(email);
+                //mail.Subject = "Parola Sıfırlama Hk.";
+                //mail.IsBodyHtml = true;
+                //mail.Body = "Parolanızı sıfırlamak için <a href='http://localhost:50420/Account/ResetPassword?code=" + user.Id + "'>linke</a> tıklayınız.";
 
-                smtp.Send(mail);
+                //smtp.Send(mail);
             }
         }
     }

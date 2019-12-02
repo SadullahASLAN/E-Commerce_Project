@@ -15,6 +15,7 @@ namespace E_Commerce_Project.AspNetMVC
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            GlobalFilters.Filters.Add(new HandleErrorAttribute());
         }
     }
 }

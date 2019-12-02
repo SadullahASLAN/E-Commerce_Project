@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Order>
+@{
+    ViewBag.Title = "Siparişler";
+}
+
+<div class="row mt-3">
+    <div class="col">
+        <div class="font-weight-bold text-white h4">
+            <span>Siparişler</span>
+            <hr class="shadow mt-3 border border-light" />
+        </div>
+    </div>
+</div>
+
+@Html.Partial("_OrderNav")
+
+<ul class="list-group my-3">
+    @if(Model.Count() > 0)
+    {
+        foreach(var order in Model)
+        {
+            <li class="list-group-item rounded-0 d-flex justify-content-between align-items-center">
+                <a href="/Admin/Orders/OrderDetails/@order.Id" class="card-link text-dark" style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">@order.User.Name @order.User.Surname (@order.User.UserName)</a>
+                <span class="badge badge-primary">@order.OrderDetails.Sum(i => i.UnitPrice).ToString("c", new CultureInfo("tr-TR", false).NumberFormat)</span>
+            </li>
+        }
+    }
+    else
+    {
+        <li class="list-group-item rounded-0 d-flex justify-content-between align-items-center">
+            Uygun sipariş bulunmamaktadır.
+        </li>
+    }
+</ul>

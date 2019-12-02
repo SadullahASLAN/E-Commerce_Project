@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace E_Commerce_Project.AspNetMVC.Areas.Admin.Controllers
 {
+    [Authorize(Roles ="Admin")]
     public class CategoryController : Controller
     {
         MainCategoryRepository mcr = new MainCategoryRepository();

@@ -1,0 +1,94 @@
+﻿@model Order
+@{
+    ViewBag.Title = "Sipariş Detayı";
+}
+
+<div class="row mt-3">
+    <div class="col">
+        <div class="font-weight-bold text-white h4">
+            <span>@Model.User.Name @Model.User.Surname (@Model.User.UserName)</span>
+            <hr class="shadow mt-3 border border-light" />
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col">
+        <div class="clearfix">
+            @if(Model.OrderStatus.Status == "Onay Bekleniyor")
+            {
+                using(Html.BeginForm("OrderShipped", "Orders", new { id = Model.Id }))
+                {
+                    <input type="text" class="form-control form-control-sm float-left rounded-0" placeholder="Kargo takip no" style="width: 121px;" name="trackingNumber" />
+                    <button type="submit" class="btn btn-success btn-sm rounded-0 float-left">Kaydet</button>
+                }
+                <a href="/Admin/Orders/CancelOrder/@Model.Id" class="btn btn-danger btn-sm rounded-0 float-right">Siparişi iptal et</a>
+            }
+        </div>
+        <div class="card bg-light rounded-0 mb-3 shadow">
+            <div class="card-header p-1 bg-primary text-white rounded-0 p-2">
+                <small><strong>Sipariş No: </strong>@Model.Id.Replace("-", "").ToUpper()</small>
+            </div>
+            <div class="card-body p-0">
+                <table class="table table-bordered table-sm text-center m-0"
+                       style="font-size: 11px;">
+                    <thead>
+                        <tr class="thead-light">
+                            <th class="text-left p-2">Ürün</th>
+                            <th class="align-middle" style="width: 40px;">Adet</th>
+                            <th class="align-middle" style="width: 80px;">Fiyat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var orderDetail in Model.OrderDetails)
+                        {
+                            <tr>
+                                <td class="text-left p-2">@orderDetail.Product.Name</td>
+                                <td class="align-middle">@orderDetail.Quantity</td>
+                                <td class="align-middle">@orderDetail.UnitPrice.ToString("c", new CultureInfo("tr-TR", false).NumberFormat)</td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td class="text-left p-2">Toplam</td>
+                            <td><b><u>@Model.OrderDetails.Sum(i => i.Quantity)</u></b></td>
+                            <td><b><u>@Model.OrderDetails.Sum(i => i.UnitPrice).ToString("c", new CultureInfo("tr-TR", false).NumberFormat)</u></b></td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="p-2">
+                    <p class="mb-2">
+                        <span class="badge badge-secondary">
+                            @Model.UserAddress.Title
+                        </span>
+                    </p>
+                    <p class="h5">
+                        <span class="d-block d-sm-inline">@Model.UserAddress.ReceivingName</span>
+                        <span class="d-block d-sm-inline">@Model.UserAddress.ReceivingPhone</span>
+                    </p>
+                    <p>
+                        @Model.UserAddress.Address
+                    </p>
+                </div>
+            </div>
+            <div class="card-footer px-2 d-sm-flex justify-content-between">
+                <span class="d-block">
+                    <small>
+                        <strong>Sipariş Durumu: </strong>@Model.OrderStatus.Status
+                    </small>
+                </span>
+                <span>
+                    <small><strong>Kargo Firması: </strong>@Model.Shipping.Name</small>
+                    @if(Model.TrackingNumber != null)
+                    {
+                        <small class="d-inline-block"><strong>Takip No: </strong>@Model.TrackingNumber</small>
+                    }
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+

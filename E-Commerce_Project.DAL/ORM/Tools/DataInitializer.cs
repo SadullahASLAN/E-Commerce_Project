@@ -1,6 +1,7 @@
 ﻿using E_Commerce_Project.DAL.ORM.Context;
 using E_Commerce_Project.DAL.ORM.Entity;
-
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -11,7 +12,33 @@ namespace E_Commerce_Project.DAL.ORM.Tools
     {
         protected override void Seed(DataContext context)
         {
-            DataContext db = new DataContext();
+            var rolManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+
+            var roles = new List<IdentityRole>()
+            {
+                new IdentityRole(){Name="User"},
+                new IdentityRole(){Name="Admin"},
+            };
+
+            foreach(var role in roles)
+            {
+                rolManager.Create(role);
+            }
+
+
+            var userManager = new UserManager<User>(new UserStore<User>(context));
+            var users = new List<User>()
+            {
+                new User(){UserName = "User", Name = "User", Surname = "Surname", Email = "user@mail.com", EmailConfirmed = true,},
+                new User(){UserName = "Admin", Name = "Admin", Surname = "Surname", Email = "admin@mail.com", EmailConfirmed = true}
+            };
+
+            for(int i = 0; i < users.Count; i++)
+            {
+                userManager.Create(users[i], "111111");
+                if(i == 0) userManager.AddToRole(users[i].Id, "User");
+                if(i == 1) userManager.AddToRole(users[i].Id, "Admin");
+            }
 
             List<Shipping> shippings = new List<Shipping>()
             {
@@ -23,10 +50,10 @@ namespace E_Commerce_Project.DAL.ORM.Tools
 
             foreach(var shipping in shippings)
             {
-                db.Shippings.Add(shipping);
+                context.Shippings.Add(shipping);
             }
 
-            db.SaveChanges();
+            context.SaveChanges();
 
 
             List<OrderStatus> orderStatuses = new List<OrderStatus>()
@@ -46,19 +73,14 @@ namespace E_Commerce_Project.DAL.ORM.Tools
                     Status="İptal Edildi",
                     Description="Siparişi iptal ettiğiniz için üzgünüz. Olumsuz görüşleriniz için lütfen bizimle iletişime geçiniz."
                 },
-                new OrderStatus()
-                {
-                    Status="Ürün Temin Edilemiyor",
-                    Description="Siparişleriniz arasında bulunan üründen veya ürünlerden stoklarımızda yeterince bulunmadığından siparişiniz onaylayamıyoruz. Lütfen siparişinizdeki ürün adetlerinizi stok durumuna göre tekrar gözden geçiriniz."
-                },
             };
 
             foreach(var orderStatus in orderStatuses)
             {
-                db.OrderStatuses.Add(orderStatus);
+                context.OrderStatuses.Add(orderStatus);
             }
 
-            db.SaveChanges();
+            context.SaveChanges();
 
             List<MainCategory> mainCategories = new List<MainCategory>()
             {
@@ -106,10 +128,10 @@ namespace E_Commerce_Project.DAL.ORM.Tools
 
             foreach(var mainCategory in mainCategories)
             {
-                db.MainCategories.Add(mainCategory);
+                context.MainCategories.Add(mainCategory);
             }
 
-            db.SaveChanges();
+            context.SaveChanges();
 
             List<SubCategory> subCategories = new List<SubCategory>()
             {
@@ -137,24 +159,23 @@ namespace E_Commerce_Project.DAL.ORM.Tools
 
             foreach(var subCategory in subCategories)
             {
-                db.SubCategories.Add(subCategory);
+                context.SubCategories.Add(subCategory);
             }
 
-            db.SaveChanges();
+            context.SaveChanges();
 
             List<Product> products = new List<Product>()
             {
                 new Product()
                 {
                     Name = "Huawei Matebook 13\" Intel® Core i5-8265U 8GB 256GB Gri Notebook",
-                    Code="73072",
                     Price=5999m,
                     Description="Görmek İnanmaktır\nHUAWEI FullView Display etkileyici bir ekrandan daha fazlasını sunar; tam anlamıyla sürükleyici bir görsel deneyimi hayata getiriyor. % 88 ekran - gövde oranı ile HUAWEI MateBook 13’ün ince 4.4 mm çerçevesi, hayal gücünüzü ateşlemek için parlak, zengin ve canlı grafiklere daha fazla alan yaratır.Büyülenmeye hazır olun.\n\n\nTüm Varlığıyla\nHafif ancak güçlü olan HUAWEI MateBook 13, optimum taşınabilirlik için tasarlandı. 14.9 mm metalik ince çerçevesi, ultra modern premium bir görünüm ve his sağlayan her bir köşesinde elmas kesim ile titizlikle hazırlanmış.Güçlü ve zarif bir makine.\n\n\nOldukça Hızlı\nGünlük yaşamınızı kolaylaştırın ve yaratıcılığınızı hızlandırın. Ultra ince gövdesiyle 2 GB GDDR5 özellikli NVIDIA® GeForce® MX150'ye sahiptir. Görüntü işleme ve video düzenleme* için entegre grafik kartlarına göre 4 kata kadar daha fazla performans elde edin*. Grafik kartı aynı zamanda video düzenleme ve oyun oynamayı sorunsuz, hızlı ve güvenilir hale getirmek için 25 W TDP ile desteklenir.\n\n\nÇığır Açan Güç\nHUAWEI MateBook 13'te hız ve güç bir araya gelerek devrim niteliğinde bir performans sunuyor. Yeni 8. Nesil (Whiskey Lake) Intel® core™ i7 8565U işlemcisiyle*, öncekinden %40 daha hızlı, KBL-R işlemcisinden %10 daha hızlı çalışıyor. Güç ve uzun ömürlülük açısından, dizüstü bilgisayar teknolojisi için ezber bozuyor.\n\n\nDaha Çok Keyfini Çıkar\n42 Wh(TYP) sınıfının en iyi bataryasıyla, sizi daha uzun süre güçlendiriyor. Entegre grafik kartına sahip HUAWEI MateBook 13, 10 saat boyunca, ayrık grafik kartına sahip HUAWEI MateBook 13, 9.6 saat boyunca yerel 1080P videoları oynatabilir *.\n\n\nHızlı Isı Dağılımı\nHUAWEI’nin yeni Shark Fin 2.0 fan tasarımı, çift fan kullanarak ısıyı hiç olmadığı kadar hızlı dağıtabilir. Normal fanların % 25 hız artışı*, daha iyi bir çalışma deneyimi için bilgisayarı hızlı ve sessiz bir şekilde soğutmak adına hava akışını artırır.Bu yeni teknoloji, birden fazla program çalıştırırken veya yoğun oyunlar oynarken bile iş akışınızın kesintisiz ve sorunsuz olacağı anlamına gelir.\n\n\nOneHop ile Akıllı Paylaşma\nTek bir dokunuşla telefondan PC'ye* NFC üzerinden video ve fotoğraf aktarın. 1 dakikada 500 fotoğraf ** ve 35 saniyede 1 GB video yükleyin***. Resimleriniz metin içeriyorsa, HUAWEI MateBook 13 resimdeki kelimeleri kolay düzenleme için çıkarabilir.\n\n\nHazır Ol, Bas, Başla\nHUAWEI MateBook 13’ün optimize edilmiş BIOS’a sahip tek dokunuşlu güç düğmesi hızlı bir şekilde başlatmanızı ve giriş yapmanızı sağlar. Güvenli, hızlı ve kullanıcı dostu.\n\n\nHızlı ve Anında Şarj\nHUAWEI MateBook 13, şarj cihazından çok daha fazlası olan bir cep şarj cihazına sahiptir.Çok fonksiyonlu konektörlerle ve QuickCharge özelliğiyle dizüstü bilgisayarınızı ve telefonunuzu hızlıca şarj edebilir.Nerede olursanız olun 15 dakikalık bir şarjla 2.5 saat boyunca ofis kullanımı sağlar.Hızlı, çevre dostu ve taşınabilir; cebinize de sığar hayatınıza da sığar.\n\n\nSadece Duyma, Hisset\nHUAWEI MateBook 13, Dolby Atmos®*ile etkileyici bir sese sahiptir ve nefes kesen, etrafınızda hareket eden seslerle inanılmaz bir kulaklık deneyimi yaratır.Ses zenginliği ve derinliği sayesinde sesler hayat bulurken ve üç boyutlu bir alanda hareket ediyor gibi, kendinizi aksiyonun içinde hissedeceksiniz.\n\n\nGöz Kolaylığı\nHUAWEI MateBook 13’ün son teknoloji ekranı, zaman içinde gözleri zorlayan mavi ışığı % 30'a kadar filtreleyebilir. Retinanızı korumak ve göz yorgunluğunu önlemek için beyaz dengesini ve renk tonunu otomatik olarak ayarlamak üzere Göz Konforu Modunu seçmeniz yeterlidir; istediğiniz süre boyunca en iyi konforda çalışmanıza ve oynamanıza imkan verir.",
                     Stock =25,
                     DiscountPercentage=10,
                     Brand="Huawei",
                     Model="Matebook 13",
-                    SubCategoryId =db.SubCategories.Where(i=>i.Name=="Ultrabook").FirstOrDefault().Id,
+                    SubCategoryId =context.SubCategories.Where(i=>i.Name=="Ultrabook").FirstOrDefault().Id,
                     InSales=true,
                     DiscountDescription="Şok!!!! hiç bir yerde bu fiyatı bulamazsınız. ALDIN ALDIN",
                     Images= new List<Image>()
@@ -167,14 +188,13 @@ namespace E_Commerce_Project.DAL.ORM.Tools
                 new Product()
                 {
                     Name = "HP 15-BS154NT Intel Core i3-5005U 4GB 128GB SSD Windows 10 Home 15.6\" Taşınabilir Bilgisayar 4UL32EA",
-                    Code="00000",
                     Price=2399m,
                     Description="Hızlı Isı Dağılımı\nHUAWEI’nin yeni Shark Fin 2.0 fan tasarımı, çift fan kullanarak ısıyı hiç olmadığı kadar hızlı dağıtabilir. Normal fanların % 25 hız artışı*, daha iyi bir çalışma deneyimi için bilgisayarı hızlı ve sessiz bir şekilde soğutmak adına hava akışını artırır.Bu yeni teknoloji, birden fazla program çalıştırırken veya yoğun oyunlar oynarken bile iş akışınızın kesintisiz ve sorunsuz olacağı anlamına gelir.\n\n\nOneHop ile Akıllı Paylaşma\nTek bir dokunuşla telefondan PC'ye* NFC üzerinden video ve fotoğraf aktarın. 1 dakikada 500 fotoğraf ** ve 35 saniyede 1 GB video yükleyin***. Resimleriniz metin içeriyorsa, HUAWEI MateBook 13 resimdeki kelimeleri kolay düzenleme için çıkarabilir.\n\n\nHazır Ol, Bas, Başla\nHUAWEI MateBook 13’ün optimize edilmiş BIOS’a sahip tek dokunuşlu güç düğmesi hızlı bir şekilde başlatmanızı ve giriş yapmanızı sağlar. Güvenli, hızlı ve kullanıcı dostu.\n\n\nHızlı ve Anında Şarj\nHUAWEI MateBook 13, şarj cihazından çok daha fazlası olan bir cep şarj cihazına sahiptir.Çok fonksiyonlu konektörlerle ve QuickCharge özelliğiyle dizüstü bilgisayarınızı ve telefonunuzu hızlıca şarj edebilir.Nerede olursanız olun 15 dakikalık bir şarjla 2.5 saat boyunca ofis kullanımı sağlar.Hızlı, çevre dostu ve taşınabilir; cebinize de sığar hayatınıza da sığar.\n\n\nSadece Duyma, Hisset\nHUAWEI MateBook 13, Dolby Atmos®*ile etkileyici bir sese sahiptir ve nefes kesen, etrafınızda hareket eden seslerle inanılmaz bir kulaklık deneyimi yaratır.Ses zenginliği ve derinliği sayesinde sesler hayat bulurken ve üç boyutlu bir alanda hareket ediyor gibi, kendinizi aksiyonun içinde hissedeceksiniz.\n\n\nGöz Kolaylığı\nHUAWEI MateBook 13’ün son teknoloji ekranı, zaman içinde gözleri zorlayan mavi ışığı % 30'a kadar filtreleyebilir. Retinanızı korumak ve göz yorgunluğunu önlemek için beyaz dengesini ve renk tonunu otomatik olarak ayarlamak üzere Göz Konforu Modunu seçmeniz yeterlidir; istediğiniz süre boyunca en iyi konforda çalışmanıza ve oynamanıza imkan verir.",
                     Stock =5,
                     DiscountPercentage=0,
                     Brand="Hp",
                     Model="15-BS154NT",
-                    SubCategoryId =db.SubCategories.Where(i=>i.Name=="Laptop").FirstOrDefault().Id,
+                    SubCategoryId =context.SubCategories.Where(i=>i.Name=="Laptop").FirstOrDefault().Id,
                     InSales=true,
                     Images= new List<Image>()
                     {
@@ -187,10 +207,10 @@ namespace E_Commerce_Project.DAL.ORM.Tools
 
             foreach(var product in products)
             {
-                db.Products.Add(product);
+                context.Products.Add(product);
             }
 
-            db.SaveChanges();
+            context.SaveChanges();
         }
     }
 }

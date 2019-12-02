@@ -168,6 +168,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\OrdersController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Areas\Admin\Models\AddOrUpdateProductModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -197,6 +198,9 @@
     <Content Include="Areas\Admin\Views\Product\AddProduct.cshtml" />
     <Content Include="Areas\Admin\Views\Product\UpdateProduct.cshtml" />
     <Content Include="Areas\Admin\Views\Category\Categories.cshtml" />
+    <Content Include="Areas\Admin\Views\Orders\_OrderNav.cshtml" />
+    <Content Include="Areas\Admin\Views\Orders\OrderList.cshtml" />
+    <Content Include="Areas\Admin\Views\Orders\OrderDetails.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />

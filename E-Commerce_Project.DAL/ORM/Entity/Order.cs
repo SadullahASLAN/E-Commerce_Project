@@ -13,8 +13,6 @@ namespace E_Commerce_Project.DAL.ORM.Entity
         {
             this.OrderDetails = new HashSet<OrderDetail>();
             this.OrderDate = DateTime.Now;
-            this.TrackingNumber = "Kargoya verilmedi.";
-            this.OrderStatus = new OrderStatus() { Status = "Onay Bekleniyor" };
         }
 
         public string UserId { get; set; }
@@ -37,6 +35,6 @@ namespace E_Commerce_Project.DAL.ORM.Entity
         public virtual OrderStatus OrderStatus { get; set; }
         public virtual Shipping Shipping { get; set; }
         public virtual User User { get; set; }
-        public UserAddress UserAddress { get; set; }
+        public virtual UserAddress UserAddress { get; set; }
     }
 }

@@ -47,12 +47,16 @@ namespace E_Commerce_Project.AspNetMVC.Controllers
 
             var user = userManager.FindByName(User.Identity.Name);
             ViewBag.User = user;
+            var sr = new ShippingRepository();
+            ViewBag.Shipper = new SelectList(sr.SelectAll(), "Id", "Name");
             order.UserId = user.Id;
+            var osr = new OrderStatusRepository();
+            order.OrderStatus = osr.SelectAll().FirstOrDefault(i => i.Status == "Onay Bekleniyor");
             Session["Order"] = order;
             return View(order);
         }
 
-        public ActionResult AddToOrderAddress(string id)
+        public ActionResult AddToOrderAddress(string id, string shipper)
         {
             var uar = new UserAddressRepository();
             var address = uar.SelectById(id);
@@ -60,6 +64,7 @@ namespace E_Commerce_Project.AspNetMVC.Controllers
             if((Order)Session["Order"] == null) return RedirectToAction("TimeOut");
             var order = (Order)Session["Order"];
             order.UserAddress = address;
+            order.ShippingId = shipper;
             Session["Order"] = order;
             return RedirectToAction("Payment");
         }
@@ -105,19 +110,19 @@ namespace E_Commerce_Project.AspNetMVC.Controllers
                 var user = userManager.FindByName(User.Identity.Name);
                 ViewBag.UserEmail = user.Email;
 
-                //SmtpClient smtp = new SmtpClient();
-                //smtp.Port = 587;
-                //smtp.Host = "smtp.office365.com";
-                //smtp.EnableSsl = true;
-                //smtp.Credentials = new NetworkCredential("e-commerce-project@hotmail.com", "project321");
+                SmtpClient smtp = new SmtpClient();
+                smtp.Port = 587;
+                smtp.Host = "smtp.office365.com";
+                smtp.EnableSsl = true;
+                smtp.Credentials = new NetworkCredential("e-commerce-project@hotmail.com", "project321");
 
-                //MailMessage mail = new MailMessage();
-                //mail.From = new MailAddress("e-commerce-project@hotmail.com", "E-Commerce Project");
-                //mail.To.Add(user.Email);
-                //mail.Subject = "Siparişiniz Hk.";
-                //mail.IsBodyHtml = true;
-                //mail.Body = _OrderMailBody().PartialRenderToString(); ;
-                //smtp.Send(mail);
+                MailMessage mail = new MailMessage();
+                mail.From = new MailAddress("e-commerce-project@hotmail.com", "E-Commerce Project");
+                mail.To.Add(user.Email);
+                mail.Subject = "Siparişiniz Hk.";
+                mail.IsBodyHtml = true;
+                mail.Body = _OrderMailBody().PartialRenderToString(); ;
+                smtp.Send(mail);
 
                 return View();
             }

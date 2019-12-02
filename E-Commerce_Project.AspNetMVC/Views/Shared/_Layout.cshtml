@@ -32,6 +32,10 @@
                                                     <i class="fas fa-user mr-1"></i>@User.Identity.Name
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    @if(User.IsInRole("Admin"))
+                                                    {
+                                                        <a class="dropdown-item text-center" href="/Admin/Product/ProductList">Yönetim</a>
+                                                    }
                                                     <a class="dropdown-item text-center" href="/Account">Hesabım</a>
                                                     <a class="dropdown-item text-center" href="/Account/LogOut">Çıkış</a>
                                                 </div>
@@ -83,7 +87,7 @@
         <!-- footer -->
         <footer class="bg-dark text-secondary">
             <div class="container">
-                <div class="row p-5">
+                <div class="row p-2">
                     <div class="col-sm">
                         <table class="fc">
                             <tr>
@@ -120,12 +124,12 @@
             <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
                 <div class="modal-content bg-success">
                     <div class="modal-body text-white">
-                        <strong>
-                            <p style="font-size:24px;margin:0">
+                        <p style="font-size:24px;margin:0">
+                            <strong>
                                 <i class="far fa-check-square"></i>
                                 <span id="modalText"></span>
-                            </p>
-                        </strong>
+                            </strong>
+                        </p>
                     </div>
                 </div>
             </div>

@@ -67,7 +67,7 @@ namespace E_Commerce_Project.BLL.Repositories.Repository
 
         public UserAddress SelectById(string Id)
         {
-            return db.UserAddresses.Where(i => i.IsDeleted == false && i.Id == Id).First();
+            return db.UserAddresses.Where(i => i.IsDeleted == false && i.Id == Id).FirstOrDefault();
         }
     }
 }

@@ -80,9 +80,9 @@
 
                 </td>
                 <td colspan="2" style="border-left:0">
-                    <a href="#" style="color: red; text-decoration: none; display: inline-block;">
-                        Siparişi İptal Et
-                    </a>
+                    <span style="margin-right:1px">
+                        <small><strong>Kargo Firması: </strong>@((Session["Order"] as Order).Shipping.Name)</small>
+                    </span>
                 </td>
             </tr>
         </tbody>

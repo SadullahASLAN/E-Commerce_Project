@@ -24,7 +24,7 @@ namespace E_Commerce_Project.DAL.ORM.Entity
         public string ReceivingPhone { get; set; }
 
         [MaxLength(300, ErrorMessage = "Adres 300 karakteri geçemez.")]
-        [Required(ErrorMessage ="Adres alanı boş olamaz.")]
+        [Required(ErrorMessage = "Adres alanı boş olamaz.")]
         public string Address { get; set; }
 
         //Mapping

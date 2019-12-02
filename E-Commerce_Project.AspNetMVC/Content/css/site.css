@@ -251,6 +251,9 @@ input[type=number] {
     .col-lg-5th {
         max-width: 20%;
     }
+    #contunie{
+        width:100%;
+    }
 }
 
 @media screen and (max-width: 992px) {

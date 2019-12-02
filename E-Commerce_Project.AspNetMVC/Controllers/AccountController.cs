@@ -32,7 +32,7 @@ namespace E_Commerce_Project.AspNetMVC.Controllers
             };
         }
 
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = "User,Admin")]
         public ActionResult Index()
         {
             var user = userManager.FindByName(User.Identity.Name);
@@ -45,7 +45,7 @@ namespace E_Commerce_Project.AspNetMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = "User,Admin")]
         public ActionResult UpdateInformation(UpdateInformation model)
         {
             if(ModelState.IsValid)
@@ -60,7 +60,7 @@ namespace E_Commerce_Project.AspNetMVC.Controllers
             return RedirectToAction("Index");
         }
 
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = "User,Admin")]
         public ActionResult AddressRemove(string id)
         {
             if(id != null)
@@ -72,10 +72,13 @@ namespace E_Commerce_Project.AspNetMVC.Controllers
             return View("Error");
         }
 
-
         [HttpGet]
         public ActionResult Login(string returnUrl)
         {
+            if(User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             ViewBag.returnUrl = returnUrl;
             return View();
         }
@@ -108,6 +111,10 @@ namespace E_Commerce_Project.AspNetMVC.Controllers
 
                         authManager.SignOut();
                         authManager.SignIn(authProperties, identity);
+                        if(userManager.IsInRole(user.Id, "Admin"))
+                        {
+                            return RedirectToAction("ProductList", "Product", new { area = "Admin" });
+                        }
                         return Redirect(string.IsNullOrEmpty(returnUrl) ? "/" : returnUrl);
                     }
                     else
@@ -143,6 +150,8 @@ namespace E_Commerce_Project.AspNetMVC.Controllers
                 user.Email = model.Email;
 
                 var result = userManager.Create(user, model.Password);
+                var userAddRole = userManager.FindByEmail(user.Email);
+                userManager.AddToRole(userAddRole.Id, "User");
 
                 if(result.Succeeded)
                 {
@@ -161,6 +170,7 @@ namespace E_Commerce_Project.AspNetMVC.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "User,Admin")]
         public ActionResult Logout()
         {
             var authManager = HttpContext.GetOwinContext().Authentication;

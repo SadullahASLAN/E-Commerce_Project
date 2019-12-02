@@ -1,0 +1,23 @@
+﻿<nav class="nav nav-pills bg-light flex-column flex-sm-row">
+    @if((string)ViewData["filter"] == null)
+    {
+        <a class="flex-sm-fill text-sm-center nav-link rounded-0 active" href="/Admin/Orders/OrderList">Yeni Siparişler</a>
+        <a class="flex-sm-fill text-sm-center nav-link rounded-0" href="/Admin/Orders/OrderList?filter=shipped">Kargoya Verilen Siparişler</a>
+        <a class="flex-sm-fill text-sm-center nav-link rounded-0" href="/Admin/Orders/OrderList?filter=ordercancellation">İptal Edilen Siparişler</a>
+
+    }
+    else if((string)ViewData["filter"] == "shipped")
+    {
+        <a class="flex-sm-fill text-sm-center nav-link rounded-0" href="/Admin/Orders/OrderList">Yeni Siparişler</a>
+        <a class="flex-sm-fill text-sm-center nav-link rounded-0 active" href="/Admin/Orders/OrderList?filter=shipped">Kargoya Verilen Siparişler</a>
+        <a class="flex-sm-fill text-sm-center nav-link rounded-0" href="/Admin/Orders/OrderList?filter=ordercancellation">İptal Edilen Siparişler</a>
+
+    }
+    else if((string)ViewData["filter"] == "ordercancellation")
+    {
+        <a class="flex-sm-fill text-sm-center nav-link rounded-0" href="/Admin/Orders/OrderList">Yeni Siparişler</a>
+        <a class="flex-sm-fill text-sm-center nav-link rounded-0" href="/Admin/Orders/OrderList?filter=shipped">Kargoya Verilen Siparişler</a>
+        <a class="flex-sm-fill text-sm-center nav-link rounded-0 active" href="/Admin/Orders/OrderList?filter=ordercancellation">İptal Edilen Siparişler</a>
+
+    }
+</nav>

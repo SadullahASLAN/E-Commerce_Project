@@ -30,8 +30,20 @@ namespace E_Commerce_Project.AspNetMVC.Controllers
             if(search != null)
             {
                 ViewBag.Search = search;
-                search = search.ToLower();
+                search = search.ToLower().Trim();
                 var products = pr.SelectAll().Where(i => i.Name.ToLower().Contains(search) || i.Brand.ToLower().Contains(search) || i.Model.ToLower().Contains(search) || i.Code.ToLower() == search).ToList();
+                foreach(var mainCategory in mcr.SelectAll().Where(i => i.Name.ToLower().Contains(search)).ToList())
+                {
+                    foreach(var subCategory in mainCategory.SubCategories)
+                    {
+                        products.AddRange(subCategory.Products);
+                    }
+                }
+                foreach(var subCategory1 in scr.SelectAll().Where(i => i.Name.ToLower().Contains(search)).ToList())
+                {
+                    products.AddRange(subCategory1.Products);
+                }
+                products = products.Distinct().ToList();
                 return View(products);
             }
             return View("Index");
@@ -40,15 +52,17 @@ namespace E_Commerce_Project.AspNetMVC.Controllers
         public ActionResult Category(string category, string subCategory, string brand)
         {
             ViewBag.SubCategory = subCategory;
-            if(category == null) return RedirectToAction("Index");
             var mainCategory = mcr.SelectByName(category);
+            if(mainCategory == null) return RedirectToAction("Index");
             if(subCategory != null)
             {
                 var subCat = mainCategory.SubCategories.Where(i => i.IsDeleted == false && i.Name == subCategory).FirstOrDefault();
+                if(subCat == null) return RedirectToAction("Index");
                 ViewBag.SubCat = subCat;
                 if(brand != null)
                 {
                     ViewBag.BrandProduct = subCat.Products.Where(i => i.IsDeleted == false && i.InSales == true && i.Brand == brand && i.Stock > 0).ToList();
+                    if((ViewBag.BrandProduct as List<Product>).Count() == 0) return RedirectToAction("Index");
                 }
             }
             else
@@ -65,6 +79,7 @@ namespace E_Commerce_Project.AspNetMVC.Controllers
                             listBrandProduct.Add(pro);
                         }
                     }
+                    if(listBrandProduct.Count() == 0) return RedirectToAction("Index");
                     ViewBag.BrandProduct = listBrandProduct;
                 }
             }

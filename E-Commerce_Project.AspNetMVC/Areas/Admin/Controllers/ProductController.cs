@@ -72,9 +72,10 @@ namespace E_Commerce_Project.AspNetMVC.Areas.Admin.Controllers
                     Directory.CreateDirectory(folderPath);
                     foreach(var image in addOrUpdateProductModel.Images)
                     {
-                        string imagePaht = Server.MapPath($"~/Content/image/product/{addOrUpdateProductModel.Product.Id}/{image.FileName}");
+                        var FileName = image.FileName.Length > 100 ? image.FileName.Substring(0, 100).ToString() : image.FileName.ToString();
+                        string imagePaht = Server.MapPath($"~/Content/image/product/{addOrUpdateProductModel.Product.Id}/{FileName}");
                         image.SaveAs(imagePaht);
-                        addOrUpdateProductModel.Product.Images.Add(new Image() { Paht = $"/Content/image/product/{addOrUpdateProductModel.Product.Id}/{image.FileName}" });
+                        addOrUpdateProductModel.Product.Images.Add(new Image() { Paht = $"/Content/image/product/{addOrUpdateProductModel.Product.Id}/{FileName}" });
                     }
                 }
                 pr.AddOrUpdate(addOrUpdateProductModel.Product);
@@ -150,7 +151,7 @@ namespace E_Commerce_Project.AspNetMVC.Areas.Admin.Controllers
             {
                 list.Add(product.Brand);
             }
-            return Json(list, JsonRequestBehavior.AllowGet);
+            return Json(list.Distinct().ToList(), JsonRequestBehavior.AllowGet);
         }
 
         public void DeleteProductImage(string id)

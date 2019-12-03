@@ -18,6 +18,7 @@ using System.Web.UI;
 
 namespace E_Commerce_Project.AspNetMVC.Controllers
 {
+    [Authorize(Roles = "User,Admin")]
     public class OrderController : Controller
     {
         public ActionResult TimeOut()
@@ -27,7 +28,7 @@ namespace E_Commerce_Project.AspNetMVC.Controllers
 
         UserManager<User> userManager = new UserManager<User>(new UserStore<User>(DbInstance.Instance));
 
-        public ActionResult OrderAddress()
+        public ActionResult OrderAddress(string selectedShipper)
         {
             var cart = (Cart)Session["Cart"];
 
@@ -48,7 +49,8 @@ namespace E_Commerce_Project.AspNetMVC.Controllers
             var user = userManager.FindByName(User.Identity.Name);
             ViewBag.User = user;
             var sr = new ShippingRepository();
-            ViewBag.Shipper = new SelectList(sr.SelectAll(), "Id", "Name");
+            var selectList = new SelectList(sr.SelectAll(), "Id", "Name", selectedShipper);
+            ViewBag.Shipper = selectList;
             order.UserId = user.Id;
             var osr = new OrderStatusRepository();
             order.OrderStatus = osr.SelectAll().FirstOrDefault(i => i.Status == "Onay Bekleniyor");
@@ -70,8 +72,10 @@ namespace E_Commerce_Project.AspNetMVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult NewOrderAddress(UserAddress model)
+        [ValidateAntiForgeryToken]
+        public ActionResult NewOrderAddress(UserAddress model, string selectedShipper)
         {
+            ViewData["SelectedShipper"] = selectedShipper;
             if(ModelState.IsValid)
             {
                 var user = userManager.FindByName(User.Identity.Name);
@@ -79,7 +83,7 @@ namespace E_Commerce_Project.AspNetMVC.Controllers
                 var uar = new UserAddressRepository();
                 uar.AddOrUpdate(model);
             }
-            return RedirectToAction("OrderAddress");
+            return RedirectToAction("OrderAddress", new { selectedShipper = selectedShipper });
         }
 
         public ActionResult Payment()

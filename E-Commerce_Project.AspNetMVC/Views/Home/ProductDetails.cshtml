@@ -209,22 +209,15 @@
                                             <img src="@(product.Images.FirstOrDefault()!=null?product.Images.FirstOrDefault().Paht:"/Content/image/site/noimg.png")" class="card-img-top rounded-0" alt="@product.Name">
                                             <div class="card-img-overlay p-1" style="height: 31px;">
                                                 <div class="input-group input-group-sm cartproductadditem" style="visibility: hidden;">
-                                                    <input type="number" style="border-radius: 0;" class="form-control" value="1" min="1" max="3" step="1" S>
-                                                    <div class="input-group-append">
-                                                        <button class="btn btn-success" style="border-radius: 0;" type="button"
-                                                                id="button-addon2">
-                                                            Sepete Ekle
-                                                        </button>
-                                                    </div>
+                                                    <button class="btn btn-success btn-block" onclick="AddToCart('@product.Id')" style="border-radius: 0;" type="button" id="button-addon2">
+                                                        Sepete Ekle
+                                                    </button>
                                                 </div>
                                             </div>
                                             <div class="card-body p-2" style="line-height: 1;">
-                                                <a href="#" class="card-link d-block m-0"
-                                                   style="font-size: 12px; height: 24px;">
-                                                    <span>@product.Name</span>
-                                                </a>
+                                                @Html.ActionLink(product.Name.Length > 50 ? product.Name.Substring(0, 50) + "..." : product.Name, "ProductDetails", new { id = product.Id }, new { @class = "card-link d-block m-0", @style = "font-size: 12px; height: 24px;" })
                                                 <div class="text-right mt-1">
-                                                    <p class="m-0 text-muted font-weight-lighter" style="text-decoration:line-through; font-size: 12px;">
+                                                    <p class="m-0 text-muted font-weight-lighter" style="text-decoration:line-through; font-size: 12px; height:16px;">
 
                                                         @if(product.DiscountPercentage != 0)
                                                         {
@@ -254,22 +247,15 @@
                                             <img src="@(product.Images.FirstOrDefault()!=null?product.Images.FirstOrDefault().Paht:"/Content/image/site/noimg.png")" class="card-img-top rounded-0" alt="@product.Name">
                                             <div class="card-img-overlay p-1" style="height: 31px;">
                                                 <div class="input-group input-group-sm cartproductadditem" style="visibility: hidden;">
-                                                    <input type="number" style="border-radius: 0;" class="form-control" value="1" min="1" max="3" step="1" S>
-                                                    <div class="input-group-append">
-                                                        <button class="btn btn-success" style="border-radius: 0;" type="button"
-                                                                id="button-addon2">
-                                                            Sepete Ekle
-                                                        </button>
-                                                    </div>
+                                                    <button class="btn btn-success btn-block" onclick="AddToCart('@product.Id')" style="border-radius: 0;" type="button" id="button-addon2">
+                                                        Sepete Ekle
+                                                    </button>
                                                 </div>
                                             </div>
                                             <div class="card-body p-2" style="line-height: 1;">
-                                                <a href="#" class="card-link d-block m-0"
-                                                   style="font-size: 12px; height: 24px;">
-                                                    <span>@product.Name</span>
-                                                </a>
+                                                @Html.ActionLink(product.Name.Length > 50 ? product.Name.Substring(0, 50) + "..." : product.Name, "ProductDetails", new { id = product.Id }, new { @class = "card-link d-block m-0", @style = "font-size: 12px; height: 24px;" })
                                                 <div class="text-right mt-1">
-                                                    <p class="m-0 text-muted font-weight-lighter" style="text-decoration:line-through; font-size: 12px;">
+                                                    <p class="m-0 text-muted font-weight-lighter" style="text-decoration:line-through; font-size: 12px; height:16px;">
 
                                                         @if(product.DiscountPercentage != 0)
                                                         {
@@ -299,22 +285,15 @@
                                             <img src="@(product.Images.FirstOrDefault()!=null?product.Images.FirstOrDefault().Paht:"/Content/image/site/noimg.png")" class="card-img-top rounded-0" alt="@product.Name">
                                             <div class="card-img-overlay p-1" style="height: 31px;">
                                                 <div class="input-group input-group-sm cartproductadditem" style="visibility: hidden;">
-                                                    <input type="number" style="border-radius: 0;" class="form-control" value="1" min="1" max="3" step="1" S>
-                                                    <div class="input-group-append">
-                                                        <button class="btn btn-success" style="border-radius: 0;" type="button"
-                                                                id="button-addon2">
-                                                            Sepete Ekle
-                                                        </button>
-                                                    </div>
+                                                    <button class="btn btn-success btn-block" onclick="AddToCart('@product.Id')" style="border-radius: 0;" type="button" id="button-addon2">
+                                                        Sepete Ekle
+                                                    </button>
                                                 </div>
                                             </div>
                                             <div class="card-body p-2" style="line-height: 1;">
-                                                <a href="#" class="card-link d-block m-0"
-                                                   style="font-size: 12px; height: 24px;">
-                                                    <span>@product.Name</span>
-                                                </a>
+                                                @Html.ActionLink(product.Name.Length > 50 ? product.Name.Substring(0, 50) + "..." : product.Name, "ProductDetails", new { id = product.Id }, new { @class = "card-link d-block m-0", @style = "font-size: 12px; height: 24px;" })
                                                 <div class="text-right mt-1">
-                                                    <p class="m-0 text-muted font-weight-lighter" style="text-decoration:line-through; font-size: 12px;">
+                                                    <p class="m-0 text-muted font-weight-lighter" style="text-decoration:line-through; font-size: 12px; height:16px;">
 
                                                         @if(product.DiscountPercentage != 0)
                                                         {

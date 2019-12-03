@@ -105,6 +105,7 @@ namespace E_Commerce_Project.BLL.Repositories.Repository
         public Product SelectById(string Id)
         {
             var product = db.Products.Where(i => i.IsDeleted == false && i.Id == Id).FirstOrDefault();
+            if(product == null) return null;
             foreach(var image in product.Images.ToList())
             {
                 if(image.IsDeleted)

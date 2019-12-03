@@ -158,7 +158,7 @@
                                 </div>
                             </div>
                             <div class="card-body p-2" style="line-height: 1;">
-                                @Html.ActionLink(pro.Name.Length > 60 ? pro.Name.Substring(0, 60) + "..." : pro.Name, "ProductDetails", new { id = pro.Id }, new { @class = "card-link d-block m-0", @style = "font-size: 12px; height: 24px;" })
+                                @Html.ActionLink(pro.Name.Length > 50 ? pro.Name.Substring(0, 50) + "..." : pro.Name, "ProductDetails", new { id = pro.Id }, new { @class = "card-link d-block m-0", @style = "font-size: 12px; height: 24px;" })
                                 <div class="text-right mt-1">
                                     <p class="m-0 text-muted font-weight-lighter" style="text-decoration:line-through; font-size: 12px; height:12px;">
                                         @if(pro.DiscountPercentage != 0)
@@ -203,7 +203,7 @@
                                     </div>
                                 </div>
                                 <div class="card-body p-2" style="line-height: 1;">
-                                    @Html.ActionLink(product.Name.Length > 60 ? product.Name.Substring(0, 60) + "..." : product.Name, "ProductDetails", new { id = product.Id }, new { @class = "card-link d-block m-0", @style = "font-size: 12px; height: 24px;" })
+                                    @Html.ActionLink(product.Name.Length > 50 ? product.Name.Substring(0, 50) + "..." : product.Name, "ProductDetails", new { id = product.Id }, new { @class = "card-link d-block m-0", @style = "font-size: 12px; height: 24px;" })
                                     <div class="text-right mt-1">
                                         <p class="m-0 text-muted font-weight-lighter" style="text-decoration:line-through; font-size: 12px; height:12px;">
                                             @if(product.DiscountPercentage != 0)
@@ -245,7 +245,7 @@
                                         </div>
                                     </div>
                                     <div class="card-body p-2" style="line-height: 1;">
-                                        @Html.ActionLink(product.Name.Length > 60 ? product.Name.Substring(0, 60) + "..." : product.Name, "ProductDetails", new { id = product.Id }, new { @class = "card-link d-block m-0", @style = "font-size: 12px; height: 24px;" })
+                                        @Html.ActionLink(product.Name.Length > 50 ? product.Name.Substring(0, 50) + "..." : product.Name, "ProductDetails", new { id = product.Id }, new { @class = "card-link d-block m-0", @style = "font-size: 12px; height: 24px;" })
                                         <div class="text-right mt-1">
                                             <p class="m-0 text-muted font-weight-lighter" style="text-decoration:line-through; font-size: 12px; height:12px;">
                                                 @if(product.DiscountPercentage != 0)
